@@ -1,0 +1,193 @@
+/* Триггер - аватар и имя */
+
+.trigger {
+  --dropdown-transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --dropdown-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.trigger:hover {
+  background-color: var(--button-hover-color);
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* Аватар */
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--dropdown-border);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Заглушка аватара */
+
+.avatarPlaceholder {
+  display: block;
+  width: 32px;
+  height: 32px;
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 13px;
+  font-family: var(--font-family);
+  line-height: 2.5;
+  text-align: center;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+}
+
+/* Имя пользователя */
+
+.userName {
+  color: var(--text-color);
+  font-weight: var(--font-weight-h4);
+  font-size: var(--font-size-h4);
+  font-family: var(--font-family);
+  line-height: var(--line-height-h4);
+  letter-spacing: 0.02em;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 260px;
+  padding: 20px;
+}
+
+/* Элементы меню */
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 5px 8px 8px;
+  color: var(--text-color);
+  font-weight: var(--font-weight-h4);
+  font-size: var(--font-size-h4);
+  font-family: var(--font-family);
+  line-height: var(--line-height-h4);
+  letter-spacing: 0.02em;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-radius 0.2s ease;
+}
+
+.menuItem:hover {
+  background-color: var(--button-hover-color);
+  border-radius: 12px;
+}
+
+.menuItem:active {
+  color: var(--surface-color);
+  background-color: var(--button-pressed-color);
+  border-radius: 12px;
+}
+
+.menuItem:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: -2px;
+}
+
+/* Элемент "Выйти из акк" */
+
+.logoutItem {
+  gap: 8px;
+  color: var(--text-color);
+}
+
+.logoutItem:hover {
+  background-color: var(--button-hover-color);
+}
+
+.logoutItem:active {
+  color: var(--surface-color);
+  background-color: var(--button-pressed-color);
+}
+
+/* Иконка logout */
+
+.logoutIcon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: inherit;
+}
+
+/* Адаптив */
+
+@media (width <= 768px) {
+  .userName {
+    display: none; /* Скрываем имя на телефоне */
+  }
+
+  .avatar {
+    width: 24px;
+    height: 24px;
+  }
+
+  .avatarPlaceholder {
+    width: 22px;
+    height: 22px;
+    font-size: 9px;
+  }
+}
+
+@media (601px <= width <= 900px) {
+  .userName {
+    font-size: 13px;
+  }
+
+  .menu {
+    width: 130px;
+    gap: 5px;
+    padding: 7px;
+  }
+
+  .menuItem {
+    font-size: 12px;
+  }
+
+  .logoutIcon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (width <= 600px) {
+  .userName {
+    font-size: 13px;
+  }
+
+  .menu {
+    width: 110px;
+    gap: 3px;
+    padding: 4px;
+  }
+
+  .menuItem {
+    font-size: 10px;
+    padding: 5px 4px 5px 5px;
+  }
+
+  .logoutIcon {
+    width: 13px;
+    height: 13px;
+  }
+}

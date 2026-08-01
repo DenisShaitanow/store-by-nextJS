@@ -1,0 +1,31 @@
+.spinner {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(-90deg);
+}
+
+.spinner_circle {
+  animation: pulse-border 1.5s infinite cubic-bezier(0.2, 0.61, 0.36, 1); /* Длительность анимации */
+  stroke-linecap: round; /* Закругленные углы */
+}
+
+/* Анимация плавно расширяет и сжимает линию вокруг круга */
+@keyframes pulse-border {
+  0% {
+    /* Начальное состояние */
+    stroke-dasharray: 0, 1000; /* Линия невидимая (нет начального штриха) */
+    stroke-dashoffset: 0; /* Смещение отсутствует */
+  }
+  50% {
+    /* Полностью видимый штрих */
+    stroke-dasharray: 1000, 0; /* Вся линия становится видимой */
+    stroke-dashoffset: 1000; /* Без смещения */
+  }
+  100% {
+    /* Конечное состояние */
+    stroke-dasharray: 0, 1000; /* Возвращаем исходное состояние */
+    stroke-dashoffset: 1000;
+  }
+}

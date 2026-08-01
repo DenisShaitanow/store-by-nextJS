@@ -1,0 +1,1 @@
+export { SpinnerDynamic } from "./SpinnerDinamic";

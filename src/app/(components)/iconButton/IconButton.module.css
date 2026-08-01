@@ -1,0 +1,126 @@
+.button {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  color: var(--text-color);
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    color 0.25s ease-in-out,
+    transform 0.1s ease-in-out;
+}
+
+.button svg {
+  fill: var(--text-color);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.button:active {
+  transform: scale(0.96);
+}
+
+.pressed {
+  color: var(--accent-color);
+}
+
+.accent {
+  color: var(--accent-color);
+}
+
+.icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+}
+
+.like .icon path {
+  fill-opacity: 0;
+  transition: fill-opacity 0.3s ease-in-out;
+}
+
+.like.accent .icon path {
+  fill-opacity: 1;
+}
+
+.notificationDot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: var(--alarm-color);
+  border-radius: 50%;
+}
+
+.basketIndicator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: var(--alarm-color);
+  border-radius: 50%;
+}
+
+@media (625px <= width <= 900px) {
+  .button {
+    width: 16px;
+    height: 16px;
+  }
+
+  .icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .basketIndicator {
+    width: 7px;
+    height: 7px;
+  }
+}
+
+@media (481px <= width <= 624px) {
+  .button {
+    width: 12px;
+    height: 12px;
+  }
+
+  .icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  .basketIndicator {
+    width: 5px;
+    height: 5px;
+  }
+}
+
+@media (width <= 480px) {
+  .button {
+    width: 9px;
+    height: 9px;
+  }
+
+  .icon {
+    width: 9px;
+    height: 9px;
+  }
+
+  .basketIndicator {
+    width: 3px;
+    height: 3px;
+  }
+}

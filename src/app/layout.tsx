@@ -1,0 +1,31 @@
+import type { Metadata } from "next";
+import { StoreProvider } from './StoreProvider';
+import { ThemeProvider } from './(themeContext)/ThemeContext';
+
+
+export const metadata: Metadata = {
+  title: "StoreThings",
+  description: "StoreThings - магазин.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      lang="ru"
+    
+    >
+      <body >
+
+      <StoreProvider>
+        <ThemeProvider>
+          {children}
+          </ThemeProvider>
+        </StoreProvider>
+      </body>
+    </html>
+  );
+}

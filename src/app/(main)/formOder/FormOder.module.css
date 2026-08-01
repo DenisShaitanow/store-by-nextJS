@@ -1,0 +1,106 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  max-inline-size: 660px;
+  min-block-size: 400px;
+  margin-inline: auto;
+  background-color: rgba(
+    var(--accent-color-r),
+    var(--accent-color-g),
+    var(--accent-color-b),
+    0.2
+  );
+  padding: 30px;
+  gap: 16px;
+  border-radius: 10px;
+  border: solid 1px var(--accent-color);
+}
+
+.selectPay {
+  display: block;
+  max-inline-size: 630px;
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-h2);
+  line-height: var(--line-height-h2);
+  color: var(--text-color);
+}
+
+.twoButtons {
+  display: flex;
+  gap: 6px;
+}
+
+.selectPayButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  inline-size: fit-content;
+  min-inline-size: 55px;
+  block-size: 37px;
+  background-color: var(--accent-color);
+  border-radius: 5px;
+  padding-inline: 7px;
+  padding-block: 4px;
+  cursor: pointer;
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-h4);
+  line-height: var(--line-height-h4);
+}
+
+.select {
+  border: solid 1px red;
+}
+
+.infoCard {
+  display: block;
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-h3);
+  line-height: var(--line-height-h3);
+  color: var(--text-color);
+}
+
+.cardInputs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 25px;
+  row-gap: 10px;
+}
+
+.buttonBuy {
+  width: 60%;
+  align-self: center;
+  margin-top: 15px;
+}
+
+@media (626px <= width <= 1200px) {
+  .buttonBuy {
+    height: 36px;
+    font-size: 18px;
+  }
+}
+
+@media (width <= 625px) {
+  .buttonBuy {
+    height: 36px;
+    font-size: 16px;
+  }
+}
+
+@media (width <= 500px) {
+  .selectPay {
+    font-size: var(--font-size-h3);
+  }
+
+  .selectPayButton {
+    font-size: var(--font-size-h5);
+    font-weight: var(--font-weight-h5);
+    line-height: var(--line-height-h5);
+    block-size: fit-content;
+  }
+
+  .buttonBuy {
+    height: 33px;
+    font-size: 15px;
+  }
+}

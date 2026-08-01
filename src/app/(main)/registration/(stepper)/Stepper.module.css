@@ -1,0 +1,47 @@
+.stepper {
+  width: 90%;
+  text-align: center;
+  padding-inline: 8px;
+  padding-block: 8px;
+}
+
+.stepperText {
+  margin-bottom: 12px;
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 24px;
+  font-family: var(--second-family), serif;
+  line-height: 1.2;
+}
+
+.stepperBars {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.stepperBar {
+  width: 60px;
+  height: 4px;
+  background-color: var(--accent-color);
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.active {
+  background-color: var(--accent-color);
+}
+
+.inactive {
+  background-color: var(--disabled-bg-color);
+}
+
+@media (width <= 500px) {
+  .stepperText {
+    font-size: 18px;
+  }
+
+  .stepperBar {
+    width: 43px;
+  }
+}

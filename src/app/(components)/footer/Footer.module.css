@@ -1,0 +1,46 @@
+.footer {
+  width: 100%;
+  background: var(--background-page-color);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 32px 36px;
+}
+
+.nav {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.navColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 12px;
+}
+
+.bottom {
+  color: var(--caption-color);
+  font-weight: var(--font-weight-caption);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+}
+
+/* адаптив */
+
+@media (width >= 768px) {
+  .nav {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .nav::before {
+    content: "";
+    display: block;
+  }
+}

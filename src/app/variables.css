@@ -1,0 +1,139 @@
+:root {
+  --text-color: #253017; /* цвет основного текста */
+  --caption-color: #69735d; /* цвет placeholder`a в input */
+  --toggle-color: #b2b9a9; /* цвет переключателя (выкл) */
+  --disabled-text-color: #9ca197; /* цвет неактивного текста */
+  --disabled-bg-color: #e4e8df; /* цвет неактивной кнопки */
+  --button-pressed-color: #508826; /* цвет ссылки и нажатой кнопки (в UI kit Text link, Button pressed) */
+  --accent-color: #abd27a;
+  --button-hover-color: #deebc5;
+  --enterButton-color: #f9faf7; /* цвет фона кнопки войти */
+  --background-page-color: #f9faf7; /* цвет фона страницы */
+  --alarm-color: #e0796e; /* цвет кружка нового уведомления */
+  --error-color: #bf3920;
+
+  --calendar-font: "Roboto", "Jost", "Open Sans";
+  --calendar-bg: #ffffff;
+  --calendar-border: #69735d;
+  --calendar-accent: #abd27a;
+  --calendar-text: #253017;
+  --calendar-muted: #9aa199;
+  --button-pressed-color: #508826;
+  --day-hover: #e4e8df;
+  --calendar-radius: 12px;
+  --calendar-day-size: 32px;
+
+  --accent-color-r: 171;
+  --accent-color-g: 210;
+  --accent-color-b: 122;
+
+  /*  цвета категорий */
+
+  --tag-business-bg-color: #eee7f7;
+  --tag-creation-bg-color: #f7e7f2;
+  --tag-languages-bg-color: #ebe5c5;
+  --tag-education-bg-color: #e7f2f6;
+  --tag-home-bg-color: #f7ebe5;
+  --tag-health-bg-color: #e9f7e7;
+  --tag-plus-bg-color: #e8ecf7;
+
+  /* шрифты */
+
+  --font-family: "Roboto";
+  --second-family: "Jost";
+  --third-family: "Open Sans";
+
+  /* основные параметры текста */
+
+  --font-size-h1: 32px;
+  --font-weight-h1: 500;
+  --line-height-h1: 125%;
+  --line-height-variant: 117%;
+
+  /* h2 */
+
+  --font-size-h2: 24px;
+  --font-weight-h2: 500;
+  --line-height-h2: 133%;
+
+  /* h3 */
+
+  --font-size-h3: 20px;
+  --font-weight-h3: 500;
+  --line-height-h3: 120%;
+
+  /* h4 */
+
+  --font-size-h4: 16px;
+  --font-weight-h4: 500;
+  --line-height-h4: 150%;
+
+  /* h4 */
+
+  --font-size-h5: 14px;
+  --font-weight-h5: 500;
+  --line-height-h5: 130%;
+
+  /* body */
+
+  --font-size-body: 16px;
+  --font-weight-body: 400;
+  --line-height-body: 150%;
+
+  /* logo */
+                      
+  --font-size-logo: 24px;
+  --font-weight-logo: 600;
+  --line-height-logo: 133%;
+
+  /* текст категорий и возраста в карточке, ошибок  */
+
+  --font-size-caption: 12px;
+  --font-weight-caption: 400;
+  --line-height-caption: 133%;
+
+  /* Фильтр */
+  --font-size-filter: 116%;
+
+  /* Стили карточек */
+
+  --card-small-profile-name-fw: 600;
+  --card-border-radius: 12px;
+  --card-info-block-gap: 20px;
+  --card-profile-info-gap: var(--card-border-radius);
+  --card-small-width: 324px;
+  --card-small-height: 368px;
+  --card-small-padding: 20px;
+  --card-small-gap: 20px;
+  --card-small-tag-gap: 4px;
+  --card-big-width: 324px;
+  --card-big-height: 444px;
+  --card-big-padding: 32px;
+  --card-big-gap: 24px;
+  --card-big-tag-gap: 8px;
+  --card-small-skillblock-gap: var(--card-big-tag-gap);
+  --card-big-skillblock-gap: 14px;
+
+  /* стили для списка категорий в header */
+
+  --category-skill-section-gap: 40px;
+  --category-skill-section-padding: 60px;
+  --category-skill-item-gap: var(--card-profile-info-gap);
+}
+
+.dark-theme {
+  --text-color: #ecf3e4; /* цвет основного текста */
+  --calendar-text: #ecf3e4;
+  --caption-color: #69735d; /* цвет placeholder`a в input */
+  --toggle-color: #b2b9a9; /* цвет переключателя (выкл) */
+  --disabled-text-color: #9ca197; /* цвет неактивного текста */
+  --disabled-bg-color: #e4e8df; /* цвет неактивной кнопки */
+  --button-pressed-color: #508826; /* цвет ссылки и нажатой кнопки (в UI kit Text link, Button pressed) */
+  --accent-color: #8ba46c;
+  --button-hover-color: #6e775c;
+  --surface-color: #ffffff; /* цвет фона карточек и инпута */
+  --background-page-color: #142a48; /* цвет фона страницы */
+  --alarm-color: #e0796e; /* цвет кружка нового уведомления */
+  --error-color: #bf3920;
+  --enterButton-color: #3d4b21;
+}

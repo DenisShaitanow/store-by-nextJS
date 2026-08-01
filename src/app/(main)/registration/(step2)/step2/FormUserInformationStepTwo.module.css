@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 436px;
+  height: fit-content;
+}
+
+.twoShortInputs {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  max-width: 436px;
+  height: 76px;
+}
+
+.shortInput {
+  width: 208px !important;
+}
+
+.aroundImage::after {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  width: 16px !important;
+  height: 8px !important;
+  background-image: url("../assets/around-angle.svg") !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: translateY(-50%);
+  content: "";
+}
+
+.calendar {
+}

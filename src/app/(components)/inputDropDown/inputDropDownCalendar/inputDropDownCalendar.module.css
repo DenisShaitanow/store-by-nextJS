@@ -1,0 +1,199 @@
+/* Main container */
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  color: var(--text-color);
+  font-weight: 400;
+  font-size: var(--font-size-h4);
+  font-family: var(--font-family);
+  line-height: var(--line-height-h4);
+  background-color: var(--background-page-color);
+}
+
+/* Selector */
+
+.select {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 208px;
+  min-height: 48px;
+  padding: 11px 20px;
+  background-color: var(--color-bg);
+  border: 1px solid var(--caption-color);
+  border-radius: var(--card-border-radius);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+/* Icon for closed state */
+.calendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+}
+
+.select::after {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: translateY(-50%);
+  content: "";
+}
+
+/* Styles when there is an error */
+
+.selectError {
+  color: var(--error-color);
+  border-color: var(--error-color);
+}
+
+.borderDone {
+  border: 1px solid var(--caption-color);
+  border-radius: var(--card-border-radius);
+}
+
+/* Opened selector with error */
+
+.selectOpenError {
+  border-bottom: 1px solid var(--error-color);
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Icon for open state */
+
+.selectOpen::after {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  width: 24px;
+  height: 24px;
+  background-image: url("../../assets/krestCloseInput.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: translateY(-50%);
+  content: "";
+}
+
+/* Placeholder selection */
+
+.selectHasPlaceholder {
+  color: #8e8e93;
+}
+
+/* Error message */
+
+.error {
+  margin-top: 4px;
+  color: var(--color-error);
+}
+
+.input {
+  width: 60%;
+  height: 100%;
+  color: var(--text-color);
+  font-size: var(--font-size-h4);
+  font-family: var(--font-family);
+  line-height: var(--line-height-h4);
+  border: transparent;
+  background-color: inherit;
+}
+
+/* Container for options */
+
+.optionsContainer {
+  position: absolute;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  width: fit-content;
+  overflow-y: auto;
+  background-color: inherit;
+}
+
+.optionsContainer::-webkit-scrollbar {
+  width: 10px;
+}
+
+.optionsContainer::-webkit-scrollbar-thumb {
+  width: 4px;
+  background-color: #e4e8df;
+  border-radius: 5px;
+}
+
+.optionsContainer::-webkit-scrollbar-track {
+  margin-right: 15px;
+  margin-bottom: 10px;
+  background-color: #ffffff;
+}
+
+.optionsContainerOpen {
+  position: absolute;
+  top: 82px;
+  z-index: 15;
+  border-radius: var(--card-border-radius);
+}
+
+/* Individual options */
+
+.option {
+  position: relative;
+  z-index: 10;
+  display: block;
+  width: 100%;
+  height: 32px;
+  padding: 4px 20px;
+  border-radius: 1px solid var(--background-page-color);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover effect for options */
+
+.option:hover {
+  background-color: var(--toggle-color);
+}
+
+.label {
+  width: 100%;
+}
+
+@media (400px <= width <= 500px) {
+  .input {
+    font-size: 12px;
+  }
+
+  .label {
+    font-size: 12px;
+  }
+}
+
+@media (width <= 399px) {
+  .input {
+    font-size: 10px;
+  }
+
+  .label {
+    font-size: 10px;
+  }
+
+  .select {
+    min-height: 43px !important;
+    padding: 9px 20px;
+  }
+}

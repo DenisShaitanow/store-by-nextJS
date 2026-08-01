@@ -1,0 +1,96 @@
+/* Локальные переменные для BaseDropdown */
+
+:root {
+  --dropdown-border: #e5e7eb;
+  --dropdown-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%);
+  --dropdown-radius: 8px;
+  --dropdown-offset: 4px;
+  --dropdown-z-index: 1000;
+  --dropdown-transition: all 0.2s ease-in-out;
+}
+
+/* Контейнер */
+
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+.container.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Триггер */
+
+.trigger {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.trigger:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* Выпадающий список */
+
+.dropdown {
+  position: absolute;
+  z-index: var(--dropdown-z-index);
+  background: var(--surface-color);
+  border: 1px solid var(--dropdown-border);
+  border-radius: var(--dropdown-radius);
+  box-shadow: var(--dropdown-shadow);
+  visibility: hidden;
+  transform: translateY(-8px);
+  opacity: 0;
+  transition: var(--dropdown-transition);
+  pointer-events: none;
+  background-color: var(--background-page-color);
+}
+
+.dropdown.open {
+  visibility: visible;
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Размещение */
+
+.placement-bottom-left {
+  top: calc(100% + var(--dropdown-offset));
+  left: 0;
+}
+
+.placement-bottom-right {
+  top: calc(100% + var(--dropdown-offset));
+  right: 0;
+}
+
+.placement-top-left {
+  bottom: calc(100% + var(--dropdown-offset));
+  left: 0;
+}
+
+.placement-top-right {
+  right: 0;
+  bottom: calc(100% + var(--dropdown-offset));
+}
+
+/* Контент */
+
+.content {
+  padding: 8px;
+}
+
+/* Адаптивность и доступность */
+
+@media (prefers-reduced-motion: reduce) {
+  .dropdown {
+    transition: none;
+  }
+}

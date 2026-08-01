@@ -1,0 +1,349 @@
+.calendar {
+  box-sizing: border-box;
+  width: 280px;
+  height: 360px;
+  color: var(--calendar-text);
+  font-family: var(--calendar-font);
+  border: 1px solid var(--calendar-border);
+  border-radius: var(--calendar-radius);
+}
+
+.calendar__wrapper {
+  position: relative;
+  box-sizing: border-box;
+  width: 280px;
+  height: 360px;
+  padding: 16px;
+  overflow: hidden;
+  background: var(--calendar-bg);
+  border: 1px solid var(--calendar-border);
+  border-radius: var(--calendar-radius);
+}
+
+.calendar__popup {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.calendar__wrapper .react-datepicker__header {
+  width: 100%;
+  height: 56px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.calendar__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 215px;
+  height: 40px;
+  margin: 16px 32px 0;
+  padding: 8px 0;
+}
+
+.calendar__nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  color: var(--calendar-text);
+  font: inherit;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.calendar__nav:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.calendar__current-month {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1;
+  text-transform: capitalize;
+}
+
+.calendar__year {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.calendar__chevron {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+
+.month-control,
+.year-control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.dropdown {
+  z-index: 1000;
+  min-width: 80px;
+  max-height: 210px;
+  padding: 6px 0;
+  overflow: auto;
+  background: var(--background-page-color);
+  border: 1px solid var(--calendar-border);
+  border-radius: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--calendar-border) transparent;
+}
+
+.month-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+}
+
+.year-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  color: var(--calendar-text);
+  font-size: 14px;
+  font-family: var(--calendar-font);
+  text-align: left;
+  text-transform: capitalize;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background: var(--button-hover-color);
+  border-radius: var(--calendar-radius);
+  outline: none;
+}
+
+.dropdown::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.dropdown::-webkit-scrollbar-thumb {
+  background-color: var(--calendar-border);
+  border-radius: 6px;
+}
+
+.dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.react-datepicker__day-names {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 224px;
+  height: 32px;
+  margin: 0 28px;
+}
+
+.react-datepicker__day-names .react-datepicker__day-name {
+  display: inline-block;
+  width: var(--calendar-day-size);
+  font-size: 0;
+  line-height: 1;
+  text-align: center;
+}
+
+.react-datepicker__day-names .react-datepicker__day-name::after {
+  display: block;
+  width: 24px;
+  height: 16px;
+  color: var(--button-pressed-color);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1;
+  content: "";
+}
+
+.react-datepicker__day-names .react-datepicker__day-name:nth-child(1)::after {
+  content: "Пн";
+}
+
+.react-datepicker__day-names .react-datepicker__day-name:nth-child(2)::after {
+  content: "Вт";
+}
+
+.react-datepicker__day-names .react-datepicker__day-name:nth-child(3)::after {
+  content: "Ср";
+}
+
+.react-datepicker__day-names .react-datepicker__day-name:nth-child(4)::after {
+  content: "Чт";
+}
+
+.react-datepicker__day-names .react-datepicker__day-name:nth-child(5)::after {
+  content: "Пт";
+}
+
+.react-datepicker__day-names .react-datepicker__day-name:nth-child(6)::after {
+  content: "Сб";
+}
+
+.react-datepicker__day-names .react-datepicker__day-name:nth-child(7)::after {
+  content: "Вс";
+}
+
+.calendar__month {
+  display: grid;
+  grid-template-rows: repeat(6, var(--calendar-day-size));
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  padding: 0 8px;
+  overflow: hidden;
+  place-items: start center;
+}
+
+.calendar__week {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 28px;
+}
+
+.calendar__day {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--calendar-day-size);
+  height: var(--calendar-day-size);
+  color: var(--calendar-text);
+  font-size: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    background 140ms ease,
+    color 140ms ease;
+}
+
+.calendar__day:hover {
+  font-weight: inherit;
+  background: var(--accent-color);
+}
+
+.calendar__day:active {
+  font-weight: inherit;
+  background: var(--accent-color);
+}
+
+.react-datepicker__day--selected {
+  color: var(--calendar-text);
+  font-weight: inherit;
+  background: var(--button-pressed-color);
+  box-shadow: none;
+}
+
+.calendar__day_today {
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%);
+}
+
+.calendar__day_outside {
+  color: var(--calendar-muted);
+  background: transparent;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.dp-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.dp-btn {
+  --btn-width: 125px;
+  justify-content: center;
+  align-items: center;
+  width: var(--btn-width);
+  height: 48px;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease,
+    border-color 120ms ease,
+    width 120ms ease;
+  touch-action: manipulation;
+}
+
+.dp-btn_cancel {
+  color: var(--calendar-text);
+  background: transparent;
+  border: 1px solid var(--calendar-accent);
+}
+
+.dp-btn_apply {
+  color: var(--calendar-text);
+  background: transparent;
+  border: 1px solid var(--calendar-accent);
+}
+
+.dp-btn_cancel:hover,
+.dp-btn_cancel:active,
+.dp-btn_apply:hover,
+.dp-btn_apply:active {
+  width: calc(var(--btn-width) - 10px);
+  color: var(--calendar-text);
+  background: var(--calendar-accent);
+  border-color: var(--calendar-accent);
+}
+
+.calendar__popper {
+  z-index: 50;
+}
+
+span[aria-hidden="true"] {
+  text-transform: capitalize;
+}
+
+.calendar__month,
+.calendar__weekday {
+  justify-items: center;
+  text-align: center;
+}
+
+.calendar__month [role="gridcell"]:nth-of-type(n + 43),
+.calendar__month .react-datepicker__day:nth-of-type(n + 43) {
+  display: none;
+}
+
+/* stylelint-disable selector-class-pattern */
+
+/* Глушим системные подписи/строки от react-datepicker */
+
+.calendar__wrapper .react-datepicker__aria-live,
+.calendar__wrapper .react-datepicker__current-month,
+.calendar__wrapper .react-datepicker__navigation,
+.calendar__wrapper .react-datepicker__header__dropdown {
+  display: none !important;
+  visibility: hidden !important;
+}

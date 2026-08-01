@@ -1,0 +1,189 @@
+/* Main container */
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  height: 76px;
+  color: var(--text-color);
+  font-weight: var(--font-weight-h4);
+  font-size: var(--font-size-h4);
+  font-family: var(--font-family);
+  line-height: var(--line-height-h4);
+  background-color: var(--surface-color);
+}
+
+/* Selector */
+
+.select {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 20px;
+  color: var(--caption-color);
+  background-color: var(--color-bg);
+  border: 1px solid var(--caption-color);
+  border-radius: var(--card-border-radius);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+/* Icon for closed state */
+
+.select::after {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  width: 16px;
+  height: 8px;
+  background-image: url("../../assets/angleOpenInput.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: translateY(-50%);
+  content: "";
+}
+
+/* Styles when there is an error */
+
+.selectError {
+  color: var(--error-color);
+  border-color: var(--error-color);
+}
+
+/* Open state */
+
+.selectOpen {
+  z-index: 3;
+  border-top: 1px solid #e4e8df;
+  border-right: 1px solid #e4e8df;
+  border-bottom: 1px solid #e4e8df;
+  border-left: 1px solid #e4e8df;
+}
+
+.selectDone {
+  color: var(--text-color);
+}
+
+.borderDone {
+  position: absolute;
+  top: 28px;
+  z-index: 800;
+  width: 100%;
+  border: 1px solid var(--caption-color);
+  border-radius: var(--card-border-radius);
+}
+
+/* Opened selector with error */
+
+.selectOpenError {
+  border-bottom: 1px solid var(--error-color);
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Icon for open state */
+
+.selectOpen::after {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  right: 2%;
+  width: 24px;
+  height: 24px;
+  background-image: url("../../assets/krestCloseInput.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: translateY(-50%);
+  content: "";
+}
+
+/* Placeholder selection */
+
+.selectHasPlaceholder {
+  color: #8e8e93;
+}
+
+/* Error message */
+
+.error {
+  margin-top: 4px;
+  color: var(--color-error);
+}
+
+.input {
+  width: 100%;
+  height: 100%;
+  color: var(--text-color);
+  font-weight: var(--font-weight-h4);
+  font-size: var(--font-size-h4);
+  font-family: var(--font-family);
+  line-height: var(--line-height-h4);
+  border: transparent;
+}
+
+/* Container for options */
+
+.optionsContainer {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  width: 100%;
+  max-height: 260px;
+  padding: 12px;
+  overflow-y: auto;
+  background-color: var(--surface-color);
+}
+
+.optionsContainer::-webkit-scrollbar {
+  width: 10px;
+}
+
+.optionsContainer::-webkit-scrollbar-thumb {
+  width: 4px;
+  background-color: #e4e8df;
+  border-radius: 5px;
+}
+
+.optionsContainer::-webkit-scrollbar-track {
+  margin-right: 15px;
+  margin-bottom: 10px;
+  background-color: #ffffff;
+}
+
+.optionsContainerOpen {
+  position: relative;
+  border-radius: var(--card-border-radius);
+}
+
+/* Individual options */
+
+.option {
+  position: relative;
+  z-index: 10;
+  display: block;
+  width: 100%;
+  height: 32px;
+  padding: 4px 20px;
+  border-radius: 1px solid var(--background-page-color);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover effect for options */
+
+.option:hover {
+  background-color: var(--toggle-color);
+}
+
+.label {
+  width: 100%;
+}
