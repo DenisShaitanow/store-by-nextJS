@@ -86,12 +86,8 @@
   right: 15px;
   width: 24px;
   height: 24px;
-  background-image: url("../assets/like.svg");
 }
 
-.like-done {
-  background-image: url("../assets/like-red.svg");
-}
 
 @media (1180px <= width <= 1440px) {
   .container {

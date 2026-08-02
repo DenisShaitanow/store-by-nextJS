@@ -9,6 +9,8 @@ import styles from "./ProductCard.module.css";
 import type { IProduct } from "./type";
 import { useAppDispatch } from "../../../services/hooks";
 import { toggleLike } from "../../../services/thunks/userUIData/userUIData-thunks";
+import Like from "../assets/like.svg";
+import RedLike from "../assets/like-red.svg";
 /*`../assets/${props.image}`*/
 
 export const ProductCard = forwardRef<HTMLDivElement, IProduct>(
@@ -43,11 +45,18 @@ export const ProductCard = forwardRef<HTMLDivElement, IProduct>(
         <p className={styles.price}>{`${props.price}₽`}</p>
         <p className={styles.title}>{props.title}</p>
         <p className={styles.description}>{props.shortDescription}</p>
-        <span
+        {!like ? 
+        <Like
           ref={heartlike}
           onClick={handleLike}
-          className={`${styles.like} ${like ? styles["like-done"] : ""}`}
-        ></span>
+          className={styles.like}
+        ></Like> : 
+        <RedLike
+        ref={heartlike}
+        onClick={handleLike}
+        className={styles.like}
+      ></RedLike>
+      }
       </div>
     );
   },

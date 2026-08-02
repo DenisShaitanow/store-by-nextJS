@@ -11,6 +11,7 @@
     "prettify": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,scss}'"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.10.1",
     "classnames": "^2.5.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
@@ -22,7 +23,6 @@
     "react-dom": "19.2.4",
     "react-helmet-async": "^3.0.0",
     "react-redux": "^9.2.0",
-    "@reduxjs/toolkit": "^2.10.1",
     "uuid": "^13.0.0"
   },
   "devDependencies": {
@@ -30,14 +30,14 @@
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
-    "@types/react-dom": "^19",
     "@types/react-datepicker": "^7.0.0",
-    
+    "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
     "prettier": "^3.7.4",
     "sass": "^1.77.0",
     "tailwindcss": "^4",
+    "tsx": "^4.23.12",
     "typescript": "^5"
   }
 }
