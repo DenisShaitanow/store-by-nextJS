@@ -18,11 +18,11 @@ interface IUserState {
   error: string | null;
 }
 
-const userId = localStorage.getItem('userId');
-const parsedUserId = userId ? JSON.parse(userId).userId : '';
+/*const userId = localStorage.getItem('userId');*/
+/*const parsedUserId = userId ? JSON.parse(userId).userId : '';*/
 
 export const initialState: IUserState = {
-  id: parsedUserId,
+  id: '',
   user: null,
   isAuth: false,
   isAuthChecked: false,
@@ -113,7 +113,7 @@ const userSlice = createSlice({
         state.user = null;
         state.isAuth = false;
         state.id = '';
-        localStorage.removeItem('userId'); // очистить localStorage при выходе
+        /*localStorage.removeItem('userId'); // очистить localStorage при выходе*/
       })
       .addCase(logoutUser.rejected, (state, action) => {
         state.loading = false;

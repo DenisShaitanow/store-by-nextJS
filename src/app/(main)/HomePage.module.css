@@ -1,0 +1,148 @@
+.rowContainer {
+  display: flex;
+  flex-direction: row;
+  inline-size: 95%;
+  max-inline-size: 100%;
+  block-size: fit-content;
+  gap: 25px;
+}
+
+.containerFixed {
+  height: fit-content;
+  padding-inline: 8px;
+  min-width: 70px;
+  width: 180px;
+}
+
+.filters {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.products {
+  width: 80%;
+  height: fit-content;
+  max-width: 1500px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.spinnerContainer {
+  width: fit-content;
+  height: fit-content;
+  display: block;
+  align-self: center;
+  margin-left: 100px;
+}
+
+
+
+.spinnerLoadCards {
+  position: relative !important;
+}
+
+.greyLine {
+  width: 1px;
+  min-height: 100vh;
+
+  background-color: var(--toggle-color);
+  opacity: 0.6;
+}
+
+@media (890px <= width <= 1180px) {
+  .rowContainer {
+    gap: 15px;
+  }
+
+  .containerFixed {
+    width: 145px;
+    padding: 0;
+  }
+
+  .products {
+    gap: 18px;
+  }
+
+  .filters {
+    gap: 30px;
+  }
+}
+
+@media (600px <= width <= 889px) {
+  .rowContainer {
+    gap: 15px;
+  }
+
+  .containerFixed {
+    width: 130px;
+    padding: 0;
+  }
+
+  .products {
+    gap: 16px;
+  }
+
+  .filters {
+    gap: 18px;
+  }
+}
+
+@media (513px <= width <= 599px) {
+  .rowContainer {
+    gap: 10px;
+  }
+
+  .containerFixed {
+    width: 100px;
+    padding: 0;
+  }
+
+  .products {
+    gap: 8px;
+  }
+
+  .filters {
+    gap: 15px;
+  }
+}
+
+@media (385px <= width <= 512px) {
+  .rowContainer {
+    gap: 14px;
+  }
+
+  .containerFixed {
+    width: 85px;
+    padding: 0;
+  }
+
+  .products {
+    gap: 12px;
+  }
+
+  .filters {
+    gap: 12px;
+  }
+}
+
+@media (width <= 384px) {
+  .rowContainer {
+    gap: 9px;
+  }
+
+  .containerFixed {
+    width: 85px;
+    padding: 0;
+  }
+
+  .products {
+    gap: 10px;
+  }
+
+  .filters {
+    gap: 12px;
+  }
+}

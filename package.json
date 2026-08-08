@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "startServer": "tsx my-server/server.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -30,8 +31,8 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/react-datepicker": "^8.8.0",
-    "@types/uuid": "^13.0.0",
+    "@types/react-datepicker": "^7.0.0",
+    
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
     "prettier": "^3.7.4",

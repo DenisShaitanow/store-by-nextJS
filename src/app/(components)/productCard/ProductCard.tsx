@@ -2,12 +2,13 @@
 
 import { memo, useEffect, useState, useRef, forwardRef } from "react";
 import ReactDOM from "react-dom";
-import { Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import type { FC } from "react";
 import styles from "./ProductCard.module.css";
 import type { IProduct } from "./type";
-import { useAppDispatch } from "../../services/hooks";
-import { toggleLike } from "../../services/thunks/userUIData/userUIData-thunks";
+import { useAppDispatch } from "../../../services/hooks";
+import { toggleLike } from "../../../services/thunks/userUIData/userUIData-thunks";
 /*`../assets/${props.image}`*/
 
 export const ProductCard = forwardRef<HTMLDivElement, IProduct>(
@@ -15,12 +16,12 @@ export const ProductCard = forwardRef<HTMLDivElement, IProduct>(
     const dispatch = useAppDispatch();
     const [like, setLike] = useState<boolean>(props.isLiked);
     const heartlike = useRef<HTMLSpanElement>(null);
-    const navigate = useNavigate();
+    const router = useRouter();
 
     function handleClick(evt: React.MouseEvent<HTMLDivElement>) {
       if (heartlike) {
         if (evt.target !== heartlike.current) {
-          navigate(`/card/id=${props.id}`);
+          router.push(`/card/id=${props.id}`);
         }
       }
     }

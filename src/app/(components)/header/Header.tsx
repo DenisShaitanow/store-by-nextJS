@@ -1,6 +1,7 @@
 "use client";
 
-import { Link, useNavigate } from "react-router-dom";
+import  Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import styles from "./Header.module.css";
 
@@ -8,19 +9,19 @@ import CrossSvg from "../assets/cross.svg";
 
 import type { THeaderUIProps } from "./type";
 
-import { ButtonUI } from "../button";
+import { ButtonUI } from "../button/button";
 import { Logo } from "../logo";
 import { IconButton } from "../iconButton";
 import { UserDropdownMenu } from "../userDropdownMenu";
-import type { RegistrationData } from "src/types";
+import type { RegistrationData } from "../../../types";
 import { useEffect, useContext } from "react";
-import { ThemeContext } from "../../context/themeContext/ThemeContext";
+import { ThemeContext } from "../../(themeContext)/ThemeContext";
 
 
 
-import {  useAppSelector } from "../../services/hooks";
+import {  useAppSelector } from "../../../services/hooks";
 
-import { selectUserLoading } from '../../services/selectors/user-selectors/user-selectors';
+import { selectUserLoading } from '../../../services/selectors/user-selectors/user-selectors';
 
 export const HeaderUI = ({
   isModal,
@@ -34,19 +35,17 @@ export const HeaderUI = ({
   handleCloseButtonClick,
 }: THeaderUIProps) => {
   // по макету на шагах регистрации
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const { toggleTheme } = useContext(ThemeContext);
 
   function handleClickLogo() {
-    navigate("/");
+    router.push("/");
   }
 
   let regData: RegistrationData;
 
-  const storedRegData = localStorage.getItem("regData");
-  if (!storedRegData) {
-    // Если ключ не найден, устанавливаем запасное значение
+  
     regData = {
       email: "",
       password: "",
@@ -56,25 +55,7 @@ export const HeaderUI = ({
       gender: "",
       location: "",
       birthdayDate: "",
-    }; // или любое другое значение по умолчанию
-  } else {
-    try {
-      // Пробуем разобрать JSON
-      regData = JSON.parse(storedRegData);
-    } catch (err) {
-      console.error("Ошибка парсинга регистрационных данных:", err);
-      regData = {
-        email: "",
-        password: "",
-        name: "",
-        surname: "",
-        avatar: "",
-        gender: "",
-        location: "",
-        birthdayDate: "",
-      }; // устанавливаем резервное значение
     }
-  }
 
   const avatarUrl =
     user && user.avatar
@@ -84,15 +65,15 @@ export const HeaderUI = ({
         : "";
 
   const handleFavorits = () => {
-    navigate("/favoritsProducts");
+    router.push("/favoritsProducts");
   };
 
   const handleBasket = () => {
-    navigate("/basket");
+    router.push("/basket");
   };
 
   const handleOpenNotifications = () => {
-    navigate("/notifications");
+    router.push("/notifications");
   };
 
   if (isModal)
@@ -122,7 +103,7 @@ export const HeaderUI = ({
         <Logo />
       </div>
       <div className={styles.menu}>
-        <Link to="about" className={styles.link}>
+        <Link href="about" className={styles.link}>
           О проекте
         </Link>
       </div>
@@ -166,11 +147,11 @@ export const HeaderUI = ({
         <div className={styles.profile}>
           <UserDropdownMenu
             user={{
-              nameUser: user?.name || regData.name || "",
+              nameUser: user?.name || "",
               avatarUrl: avatarUrl,
             }}
             onPersonalCabinetClick={() => {
-              navigate("/personalCabinet"); // Навигация в личный кабинет
+              router.push("/personalCabinet"); // Навигация в личный кабинет
             }}
             onLogoutClick={() => {
               handleClickLogout && handleClickLogout();

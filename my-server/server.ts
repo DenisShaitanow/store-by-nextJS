@@ -1,0 +1,1968 @@
+
+import { v4 as uuidv4 } from 'uuid';
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+
+import { Request, Response } from 'express';
+
+import { v4 as uuidv4 } from "uuid";
+import { type IProduct } from "../types";
+
+export const products: IProduct[] = [
+  {
+    id: uuidv4(),
+    price: 15000,
+    title:
+      "Рубашка из премиального хлопка, который выращен в южной америке на высоте 3000м над уровнем моря.",
+    description: "Классическая мужская рубашка.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=eb6c5690d507b07c6a3551c0241ddc588f9eb2b5-5858707-images-thumbs&n=13",
+    shortDescription: "Стильный образ.",
+    category: "t-shirts",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 20000,
+    title: "Прекрасные туфельки",
+    description: "Модные женские туфли.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=62e74fe029611336b1bd650112d4680c8a168193-6003349-images-thumbs&n=13",
+    shortDescription: "Стильные аксессуары.",
+    category: "shoes",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Классические джинсы",
+    description: "Классические мужские джинсы.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=1155f4a2afc6cfca1953791d11d741a4c3732948-5360359-images-thumbs&n=13",
+    shortDescription: "Повседневная классика.",
+    category: "trousers",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Куртка Баон",
+    description: "Теплая женская куртка.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=4ea7a08fa16c82c6a5e6a3a9c372d49614574255-5888941-images-thumbs&n=13",
+    shortDescription: "Уютная защита.",
+    category: "jackets",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Экко",
+    description: "Качественные мужские кроссовки.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=5eefabbb24ffc596649d4c649c27a336d8224097-4599029-images-thumbs&n=13",
+    shortDescription: "Тренировки станут приятнее.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Шапочка",
+    description: "Стильная женская шапка.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=d0c3c8a6efb01fa294d4be9965f94d36c86a3978-9065817-images-thumbs&n=13",
+    shortDescription: "Защита от холода.",
+    category: "hats",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Синие трусы",
+    description: "Нежное мужское нижнее белье.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=62669c1378605ab9b829bbf194826a5439af2816-12658662-images-thumbs&n=13",
+    shortDescription: "Интимный шик.",
+    category: "underwear",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Синие брюки",
+    description: "Модные женские брюки.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=92284d5e16e8e73b866324600d461d7cef80c58c-3590262-images-thumbs&n=13",
+    shortDescription: "Стильный образ.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Кожаные ботинки",
+    description: "Высококачественная мужская обувь.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=4f66de234e4f7ca4c842445460e2c1379011b619-5318461-images-thumbs&n=13",
+    shortDescription: "Стильно и качественно.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Зеленая сумочка",
+    description: "Женская сумочка элегантного дизайна.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=a30829e1b9455f5f1e9524d284d4fdd727497e60-12753080-images-thumbs&n=13",
+    shortDescription: "Идеально дополняет образ.",
+    category: "accessories",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская синяя куртка",
+    description: "Строгая мужская куртка.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=acdee99f4e3c646dc2f8f5f089c85360ceda70ab-9226056-images-thumbs&n=13",
+    shortDescription: "Создает атмосферу мужественности.",
+    category: "jackets",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Узкие джинсы",
+    description: "Модные женские джинсы.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=706757e179a81bf5d9706cff4f6a03051645d6e8-8497818-images-thumbs&n=13",
+    shortDescription: "Повседневная классика.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Черные туфли",
+    description: "Классические мужские туфли.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=536a0065561f5208c027319606b4322b472487d2-5887538-images-thumbs&n=13",
+    shortDescription: "Стильные аксессуары.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Серая блузка",
+    description: "Стильная женская рубашка.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=1d9c371d558fc66c5b4be8ebf5335521096bdd7e-10304277-images-thumbs&n=13",
+    shortDescription: "Стильный образ.",
+    category: "t-shirts",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Теплая вязанная шапка",
+    description: "Стильная мужская шапка.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=1f905cbfd41a41791ab1cf7a43e269fcd6f611f5-4227899-images-thumbs&n=13",
+    shortDescription: "Защита от холода.",
+    category: "hats",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Майкл Корс",
+    description: "Качественные женские кроссовки.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=ecfb19020170e09724430b4dd0b11a6a7d23b4b0-4355835-images-thumbs&n=13",
+    shortDescription: "Тренировки станут приятнее.",
+    category: "shoes",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Хлопковые трусы",
+    description: "Нежное мужское нижнее белье.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=8928ce65321b38fe2fa078574f38a3c2b7429370-5285345-images-thumbs&n=13",
+    shortDescription: "Интимный шик.",
+    category: "underwear",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Бежевые брюки",
+    description: "Модные женские брюки.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=359b0b402eb6d8a5c5186906b3f8818dee532e7b-4829890-images-thumbs&n=13",
+    shortDescription: "Стильный образ.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Осенние ботинки",
+    description: "Высококачественная мужская обувь.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=158d7fea14a4d82f6991df6b9e889fb3263532af-5314702-images-thumbs&n=13",
+    shortDescription: "Стильно и качественно.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Серая сумка",
+    description: "Женская сумочка элегантного дизайна.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=630a0dbb6106e48a52487120f3e8d1f0272d27eb-9068831-images-thumbs&n=13",
+    shortDescription: "Идеально дополняет образ.",
+    category: "accessories",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Зеленый бомбер",
+    description: "Модный бомбер на каждый день",
+    image:
+      "https://avatars.mds.yandex.net/i?id=fd27f503491f10743b787299607039b2920d894f-16188069-images-thumbs&n=13",
+    shortDescription: "Создает атмосферу мужественности.",
+    category: "jackets",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские джинсы",
+    description: "Модные женские джинсы, немного рваные.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=0e689dee0a5a250f6e3ddbed2fef67864e6893e7-4824426-images-thumbs&n=13",
+    shortDescription: "Повседневная классика.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Трекинговые ботинки",
+    description: "Для похода на эльбрус или по алтаю.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=ae585b6412acc55569b05137837d51329259a1c6-5478714-images-thumbs&n=13",
+    shortDescription: "Стильные аксессуары.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Мятная рубашка",
+    description: "Стильная женская рубашка.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=021f8e420c5670e81a132be98b12f5ab32d3d4db-16349630-images-thumbs&n=13",
+    shortDescription: "Стильный образ.",
+    category: "t-shirts",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Серая шапка",
+    description: "Стильная Женская шапка.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=0fcd127689fa4cd3aa876d919b6d92d26fb125aa-5434114-images-thumbs&n=13",
+    shortDescription: "Защита от холода.",
+    category: "hats",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Серо-розовые кроссовки",
+    description: "Качественные женские кроссовки.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=1a06d2954f94db7691b9c00d50b04660afc3f763-5673307-images-thumbs&n=13",
+    shortDescription: "Тренировки станут приятнее.",
+    category: "shoes",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Кружевное нижнее белье",
+    description: "Нежное женское нижнее белье.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=fb3f7bbb48cc4af85306d98c7d160d426bcba2a2-11389740-images-thumbs&n=13",
+    shortDescription: "Интимный шик.",
+    category: "underwear",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Классические брюки",
+    description: "Модные мужские брюки.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=6aaa09748022506dbbb1b45a6723e9774652a99d-16493803-images-thumbs&n=13",
+    shortDescription: "Стильный образ.",
+    category: "trousers",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Беговые мужские кроссовки",
+    description: "Высококачественная мужская обувь.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=a39c51ad7646bfd120b21ed1f7055e819df066b8-12494025-images-thumbs&n=13",
+    shortDescription: "Стильно и качественно.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Барсетка",
+    description: "Барсетка элегантного дизайна.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=74d35241d72fdd9bab17d9ba0121c8c3d2bb186d-9870356-images-thumbs&n=13",
+    shortDescription: "Идеально дополняет образ.",
+    category: "accessories",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Оранжевая куртка",
+    description: "Яркая мужская куртка.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=2a2eb67c17f0a23f6a0f8597cb480e87b02f01b8-5219700-images-thumbs&n=13",
+    shortDescription: "Создает атмосферу мужественности.",
+    category: "jackets",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Синие джинсы",
+    description: "Модные женские джинсы.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=0623ade9d50c720bbae82f93101666371f5f8761-5294721-images-thumbs&n=13",
+    shortDescription: "Повседневная классика.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Черные туфли",
+    description: "Классические мужские туфли.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=b5cbb7bf55d10cb4a416817b829ac0b6c952e219-5433793-images-thumbs&n=13",
+    shortDescription: "Стильные аксессуары.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Футболка",
+    description: "Стильная женская рубашка.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=6970d4efec0a53408ba320b30c5ba1d4b6143ebe-4092070-images-thumbs&n=13",
+    shortDescription: "Стильный образ.",
+    category: "t-shirts",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Ушанка",
+    description: "Стильная мужская шапка.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=f640bb4ec288a6289912ca427a749d0f467f92ef-4404406-images-thumbs&n=13",
+    shortDescription: "Защита от холода.",
+    category: "hats",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Розовые тапочки",
+    description: "Домашний уют, стильный дизайн",
+    image:
+      "https://avatars.mds.yandex.net/i?id=04d99086cc689c774c4d005e58549e074e83d906-12647581-images-thumbs&n=13",
+    shortDescription: "Тренировки станут приятнее.",
+    category: "shoes",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Полосатое нижнее белье",
+    description: "Нежное мужское нижнее белье.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=b276c4b6f3d08d76be9b75f54c8980d3e6a0ac3f-5331627-images-thumbs&n=13",
+    shortDescription: "Интимный шик.",
+    category: "underwear",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Широкие брюки",
+    description: "Модные женские брюки.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=92284d5e16e8e73b866324600d461d7cef80c58c-3590262-images-thumbs&n=13",
+    shortDescription: "Стильный образ.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Резиновые сапоги",
+    description: "Высококачественная мужская обувь.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=e9ad96d0e0511722497dc280e143eaf96960c167-5088988-images-thumbs&n=13",
+    shortDescription: "Стильно и качественно.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская сумка",
+    description: "Женская сумочка интересной формы",
+    image:
+      "https://avatars.mds.yandex.net/i?id=9f079316e269ada4face47fae35b7320351f742a-12937496-images-thumbs&n=13",
+    shortDescription: "Идеально дополняет образ.",
+    category: "accessories",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская куртка",
+    description: "Строгая мужская куртка.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=147add32b967ec7ef3e5d08fa5ff912d8bdf809f-5714074-images-thumbs&n=13",
+    shortDescription: "Создает атмосферу мужественности.",
+    category: "jackets",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские бриджи",
+    description: "Модные женские бриджи.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=4ba91f65df005ac303de62a67e55f6c9acddeab8-5236457-images-thumbs&n=13",
+    shortDescription: "Повседневная классика.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужские тапочки",
+    description: "Классические мужские домашние тапочки.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=9072d36538fdf7aeb7508e3a81a9b75178a5bbe2-3713366-images-thumbs&n=13",
+    shortDescription: "Стильные аксессуары.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская рубашка",
+    description: "Стильная женская рубашка.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=2ea77f9e4f3381a2a0411beeb1ce2dadae72fe5d-12363187-images-thumbs&n=13",
+    shortDescription: "Стильный образ.",
+    category: "t-shirts",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская шляпа",
+    description: "Стильная мужская шапка.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=3740cfb06d293a371e737b81429cac2249b94da6-12942752-images-thumbs&n=13",
+    shortDescription: "Защита от холода.",
+    category: "hats",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские туфельки",
+    description: "Качественные женские туфельки.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=590a494b78147f9cc133d4284a3b4e23-5287954-images-thumbs&n=13",
+    shortDescription: "Тренировки станут приятнее.",
+    category: "shoes",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужское нижнее белье для балета",
+    description: "Нежное мужское нижнее белье.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=f1c5785872fc73c6112a9c40250d2ffa59950d47-10267148-images-thumbs&n=13",
+    shortDescription: "Интимный шик.",
+    category: "underwear",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женские брюки",
+    description: "Модные женские брюки.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=0e1192bfbd4e3ce4125489652ea24a3fcf5ae08d-5499599-images-thumbs&n=13",
+    shortDescription: "Стильный образ.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мокасины",
+    description: "Для владельцев яхт и не только",
+    image:
+      "https://avatars.mds.yandex.net/i?id=67c02d3687a669346cf20f154e4812ba5029e6fa-4478522-images-thumbs&n=13",
+    shortDescription: "Стильно и качественно.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская сумка",
+    description: "Женская сумочка элегантного дизайна.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=491736957039dbf7b522f61bf1e2abeecdab4985-5238039-images-thumbs&n=13",
+    shortDescription: "Идеально дополняет образ.",
+    category: "accessories",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Джинсовка",
+    description: "Техассикий стиль",
+    image:
+      "https://avatars.mds.yandex.net/i?id=f4c730490c23a2ffd18d1ee542aa38ee2de1dfa6-4935624-images-thumbs&n=13",
+    shortDescription: "Создает атмосферу мужественности.",
+    category: "jackets",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские джинсы",
+    description: "Модные женские джинсы.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=58743d77bae1443d1f6b265c3e1e08ce558d03c2-5906127-images-thumbs&n=13",
+    shortDescription: "Повседневная классика.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужские берцы",
+    description: "Классические мужские берцы для милитари настроения.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=29dbaee8cdceb51c38552ae42deddfb51c46ac79-12752873-images-thumbs&n=13",
+    shortDescription: "Стильные аксессуары.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Футболка с микимаусом",
+    description: "Стильная женская рубашка.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=66c39697313d7973c14548d0259dda79ac007d47-5238844-images-thumbs&n=13",
+    shortDescription: "Стильный образ.",
+    category: "t-shirts",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Шапочка для бассейна",
+    description: "Стильная мужская шапка.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=2e98aaa979f10894895b62d4b17cce51e54d7675-5179078-images-thumbs&n=13",
+    shortDescription: "Защита от холода.",
+    category: "hats",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Лодочки",
+    description: "Базовая обувь для офиса и прогулок",
+    image:
+      "https://avatars.mds.yandex.net/i?id=49d235847c1d4d66922c888709dfcaa5e2d97b50-3989655-images-thumbs&n=13",
+    shortDescription: "Тренировки станут приятнее.",
+    category: "shoes",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Тельняжка",
+    description: "Для моряков и десантников.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=2ce3fc088b0a342063e2d4fe72923cb12eb850fa-3663589-images-thumbs&n=13",
+    shortDescription: "Интимный шик.",
+    category: "underwear",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женские брюки",
+    description: "Модные женские брюки.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=6829006ffb19f4b1869bf428c10830089f541b66-9243109-images-thumbs&n=13",
+    shortDescription: "Стильный образ.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Доктор Мартинс",
+    description: "Высококачественная мужская обувь.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=b8ea798f324e8c5407e67b66c5e2bfadcf67f924-5447391-images-thumbs&n=13",
+    shortDescription: "Стильно и качественно.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Мужской рюкзак",
+    description: "Повседневный аксесуар",
+    image:
+      "https://avatars.mds.yandex.net/i?id=de23fd714c9a0979794fb574d29280861ca21c8a-6607472-images-thumbs&n=13",
+    shortDescription: "Идеально дополняет образ.",
+    category: "accessories",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Парка",
+    description: "Строгая мужская куртка.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=b95b4c7adb66f49e19ad3d83e7469a789624141b-8312257-images-thumbs&n=13",
+    shortDescription: "Создает атмосферу мужественности.",
+    category: "jackets",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Брюки для фитнеса",
+    description: "В зал на стиле.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=f94942b39251d1a6aef1b5db43c84dbfd00636fe-5219859-images-thumbs&n=13",
+    shortDescription: "В зал на стиле.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужские туфли",
+    description: "Классические мужские туфли.",
+    image:
+      "https://avatars.mds.yandex.net/i?id=01c207fd65a032ab86a1c0dbfecf6cf205aeeb01-12631601-images-thumbs&n=13",
+    shortDescription: "Стильные аксессуары.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская рубашка",
+    description: "Стильная женская рубашка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильный образ.",
+    category: "t-shirts",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская шапка",
+    description: "Стильная мужская шапка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Защита от холода.",
+    category: "hats",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские кроссовки",
+    description: "Качественные женские кроссовки.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Тренировки станут приятнее.",
+    category: "shoes",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужское нижнее белье",
+    description: "Нежное мужское нижнее белье.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Интимный шик.",
+    category: "underwear",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женские брюки",
+    description: "Модные женские брюки.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильный образ.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская обувь",
+    description: "Высококачественная мужская обувь.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильно и качественно.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская сумка",
+    description: "Женская сумочка элегантного дизайна.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Идеально дополняет образ.",
+    category: "accessories",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская куртка",
+    description: "Строгая мужская куртка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Создает атмосферу мужественности.",
+    category: "jackets",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские джинсы",
+    description: "Модные женские джинсы.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Повседневная классика.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужские туфли",
+    description: "Классические мужские туфли.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильные аксессуары.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская рубашка",
+    description: "Стильная женская рубашка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильный образ.",
+    category: "t-shirts",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская шапка",
+    description: "Стильная мужская шапка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Защита от холода.",
+    category: "hats",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские кроссовки",
+    description: "Качественные женские кроссовки.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Тренировки станут приятнее.",
+    category: "shoes",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужское нижнее белье",
+    description: "Нежное мужское нижнее белье.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Интимный шик.",
+    category: "underwear",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женские брюки",
+    description: "Модные женские брюки.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильный образ.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская обувь",
+    description: "Высококачественная мужская обувь.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильно и качественно.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская сумка",
+    description: "Женская сумочка элегантного дизайна.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Идеально дополняет образ.",
+    category: "accessories",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская куртка",
+    description: "Строгая мужская куртка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Создает атмосферу мужественности.",
+    category: "jackets",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские джинсы",
+    description: "Модные женские джинсы.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Повседневная классика.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужские туфли",
+    description: "Классические мужские туфли.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильные аксессуары.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская рубашка",
+    description: "Стильная женская рубашка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильный образ.",
+    category: "t-shirts",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская шапка",
+    description: "Стильная мужская шапка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Защита от холода.",
+    category: "hats",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские кроссовки",
+    description: "Качественные женские кроссовки.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Тренировки станут приятнее.",
+    category: "shoes",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужское нижнее белье",
+    description: "Нежное мужское нижнее белье.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Интимный шик.",
+    category: "underwear",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женские брюки",
+    description: "Модные женские брюки.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильный образ.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская обувь",
+    description: "Высококачественная мужская обувь.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильно и качественно.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская сумка",
+    description: "Женская сумочка элегантного дизайна.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Идеально дополняет образ.",
+    category: "accessories",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская куртка",
+    description: "Строгая мужская куртка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Создает атмосферу мужественности.",
+    category: "jackets",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские джинсы",
+    description: "Модные женские джинсы.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Повседневная классика.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужские туфли",
+    description: "Классические мужские туфли.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильные аксессуары.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская рубашка",
+    description: "Стильная женская рубашка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильный образ.",
+    category: "t-shirts",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская шапка",
+    description: "Стильная мужская шапка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Защита от холода.",
+    category: "hats",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские кроссовки",
+    description: "Качественные женские кроссовки.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Тренировки станут приятнее.",
+    category: "shoes",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужское нижнее белье",
+    description: "Нежное мужское нижнее белье.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Интимный шик.",
+    category: "underwear",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женские брюки",
+    description: "Модные женские брюки.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильный образ.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская обувь",
+    description: "Высококачественная мужская обувь.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильно и качественно.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская сумка",
+    description: "Женская сумочка элегантного дизайна.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Идеально дополняет образ.",
+    category: "accessories",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская куртка",
+    description: "Строгая мужская куртка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Создает атмосферу мужественности.",
+    category: "jackets",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские джинсы",
+    description: "Модные женские джинсы.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Повседневная классика.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужские туфли",
+    description: "Классические мужские туфли.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильные аксессуары.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская рубашка",
+    description: "Стильная женская рубашка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильный образ.",
+    category: "t-shirts",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская шапка",
+    description: "Стильная мужская шапка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Защита от холода.",
+    category: "hats",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские кроссовки",
+    description: "Качественные женские кроссовки.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Тренировки станут приятнее.",
+    category: "shoes",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужское нижнее белье",
+    description: "Нежное мужское нижнее белье.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Интимный шик.",
+    category: "underwear",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женские брюки",
+    description: "Модные женские брюки.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильный образ.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская обувь",
+    description: "Высококачественная мужская обувь.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильно и качественно.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская сумка",
+    description: "Женская сумочка элегантного дизайна.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Идеально дополняет образ.",
+    category: "accessories",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская куртка",
+    description: "Строгая мужская куртка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Создает атмосферу мужественности.",
+    category: "jackets",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские джинсы",
+    description: "Модные женские джинсы.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Повседневная классика.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужские туфли",
+    description: "Классические мужские туфли.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильные аксессуары.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская рубашка",
+    description: "Стильная женская рубашка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильный образ.",
+    category: "t-shirts",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская шапка",
+    description: "Стильная мужская шапка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Защита от холода.",
+    category: "hats",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские кроссовки",
+    description: "Качественные женские кроссовки.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Тренировки станут приятнее.",
+    category: "shoes",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужское нижнее белье",
+    description: "Нежное мужское нижнее белье.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Интимный шик.",
+    category: "underwear",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женские брюки",
+    description: "Модные женские брюки.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильный образ.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская обувь",
+    description: "Высококачественная мужская обувь.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильно и качественно.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская сумка",
+    description: "Женская сумочка элегантного дизайна.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Идеально дополняет образ.",
+    category: "accessories",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская куртка",
+    description: "Строгая мужская куртка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Создает атмосферу мужественности.",
+    category: "jackets",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские джинсы",
+    description: "Модные женские джинсы.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Повседневная классика.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужские туфли",
+    description: "Классические мужские туфли.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильные аксессуары.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская рубашка",
+    description: "Стильная женская рубашка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильный образ.",
+    category: "t-shirts",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская шапка",
+    description: "Стильная мужская шапка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Защита от холода.",
+    category: "hats",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские кроссовки",
+    description: "Качественные женские кроссовки.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Тренировки станут приятнее.",
+    category: "shoes",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужское нижнее белье",
+    description: "Нежное мужское нижнее белье.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Интимный шик.",
+    category: "underwear",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женские брюки",
+    description: "Модные женские брюки.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильный образ.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская обувь",
+    description: "Высококачественная мужская обувь.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильно и качественно.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская сумка",
+    description: "Женская сумочка элегантного дизайна.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Идеально дополняет образ.",
+    category: "accessories",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская куртка",
+    description: "Строгая мужская куртка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Создает атмосферу мужественности.",
+    category: "jackets",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские джинсы",
+    description: "Модные женские джинсы.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Повседневная классика.",
+    category: "trousers",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужские туфли",
+    description: "Классические мужские туфли.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильные аксессуары.",
+    category: "shoes",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 15000,
+    title: "Женская рубашка",
+    description: "Стильная женская рубашка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Стильный образ.",
+    category: "t-shirts",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 10000,
+    title: "Мужская шапка",
+    description: "Стильная мужская шапка.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Защита от холода.",
+    category: "hats",
+    sex: "man",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 18000,
+    title: "Женские кроссовки",
+    description: "Качественные женские кроссовки.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Тренировки станут приятнее.",
+    category: "shoes",
+    sex: "woman",
+    isLiked: false,
+  },
+  {
+    id: uuidv4(),
+    price: 12000,
+    title: "Мужское нижнее белье",
+    description: "Нежное мужское нижнее белье.",
+    image: "https://www.linkormet.ru/sites/default/files/no_photo_1.jpg",
+    shortDescription: "Интимный шик.",
+    category: "underwear",
+    sex: "man",
+    isLiked: false,
+  },
+];
+
+
+import {
+  type IFormOrderData,
+  type IProduct,
+  type RegistrationData,
+} from "../src/types";
+import { error } from 'console';
+
+interface IServerUser {
+ 
+  id: string;
+  // Профиль
+  profile: RegistrationData;
+  refreshToken: string;
+  dateCreateRefreshToken: number;
+  successToken: string;
+  // Пользовательские данные (аналог клиентского IUserState)
+  basket: Array<{ item: IProduct; count: number }>;
+  favoriteItems: string[]; // массив id продуктов
+  orders: {order: string, formData: {}}[];
+  notifications: { id: string; text: string }[];
+
+}
+
+
+
+let BASE: IServerUser[] = [];
+
+
+
+const app = express();
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true // РАЗРЕШАЕМ cookie
+}));
+app.use(express.json()); // Для обработки JSON-запросов
+app.use(cookieParser());
+
+app.use((req, res, next) => {
+  console.log(`\n🔵 ${req.method} ${req.url}`);
+  console.log('📦 Headers:', req.headers['content-type']);
+  console.log('📦 Body:', req.body);
+  next();
+});
+
+
+const authMiddleware = (req, res, next) => {
+  // 1. Берем accessToken из cookie
+  const successToken = req.cookies.successToken;
+  
+  // 2. Проверяем, есть ли токен
+  if (!successToken) {
+    return res.status(401).json({ 
+      success: false, 
+      error: 'No access token provided. Please login.' 
+    });
+  }
+  
+  // 3. Ищем пользователя с таким токеном
+  const user = BASE.find(u => u.successToken === successToken);
+  
+  // 4. Проверяем, существует ли пользователь
+  if (!user) {
+    return res.status(401).json({ 
+      success: false, 
+      error: 'Invalid or expired access token' 
+    });
+  }
+  
+  // 5. Проверяем, не истек ли токен по времени 
+  if (user.dateCreateRefreshToken && user.dateCreateRefreshToken*30 * 24 * 60 * 60 * 1000 < Date.now()) {
+    return res.status(401).json({ 
+      success: false, 
+      error: 'Refresh token expired' 
+    });
+  }
+  
+  // 6. Всё хорошо - кладем пользователя в req для следующих обработчиков
+  req.user = user;
+  req.userId = user.id;
+  
+  // 7. Передаем управление дальше
+  next();
+};
+
+app.get('/api/auth/me', (req, res: Response<{auth: boolean, user: IServerUser}>) => {
+  const successToken = req.cookies.successToken;
+  
+  if (!successToken) {
+    return res.status(401).json({ 
+      isAuthenticated: false, 
+      user: null 
+    });
+  }
+  
+  const user = BASE.find(u => u.successToken === successToken);
+  
+  if (user) {
+    res.status(200).json({
+      isAuthenticated: true,
+      user: user, 
+    });
+  } else {
+    res.status(401).json({
+      isAuthenticated: false,
+      user: null
+    });
+  }
+});
+
+
+
+
+app.get('/api/products', (req, res) => {
+
+  const successToken = req.cookies.successToken;
+  
+  const user = BASE.find(u => u.successToken === successToken);
+  const userAccessTokenBase = user?.successToken;
+    
+    if (user && successToken === userAccessTokenBase) {
+      
+            const userFavoriteProducts = user.favoriteItems || [];
+            const userProducts = products.map(product => ({
+            ...product,
+            isLiked: userFavoriteProducts.includes(product.id) // true если id продукта есть в избранном
+          }))
+          res.status(200).json({
+            count: userProducts.length,
+            data: userProducts
+          });
+    } else {
+      console.log('userNo')
+      res.status(200).json({
+        count: products.length,
+        data: products
+      });
+    }
+  
+   
+});
+
+
+app.post('/api/registerUser', (req: Request<{}, {}, RegistrationData>, res) => {
+  
+  const fakeSuccessToken = uuidv4();
+  const fakeRefreshToken = uuidv4();
+  const dateCreateRefreshToken = Date.now();
+  const userId = uuidv4();
+
+  res.cookie('successToken', fakeSuccessToken, {
+    maxAge: 18000000, 
+    httpOnly: true
+  });
+
+  if (req.body) {
+    const user = BASE.find(item => item.profile.email === req.body.email)
+    if (user) {
+      res.status(200).json({
+        success: false,
+        refreshToken: '',
+        accessToken: '',
+        user: {},
+        id: '',
+        userAlreadyReg: true
+      })
+    }
+    const newUser: IServerUser = {
+      id: userId,
+      profile: req.body,
+      refreshToken: fakeRefreshToken,
+      dateCreateRefreshToken: dateCreateRefreshToken,
+      successToken: fakeSuccessToken,
+      basket: [],
+      favoriteItems: [],
+      orders: [],
+      notifications: []
+    };
+
+      BASE = [...BASE, newUser]
+
+    res.status(200).json({
+      success: true,
+      refreshToken: fakeRefreshToken,
+      accessToken: `Bearer ${fakeSuccessToken}`,
+      user: newUser.profile,
+      id: newUser.id,
+      userAlreadyReg: false
+    })
+  } else {
+    res.status(200).json({
+      success: false,
+      refreshToken: '',
+      accessToken: '',
+      user: {},
+      id: '',
+      userAlreadyReg: false
+    })
+  }
+
+  
+
+   
+})
+
+app.post('/api/LoginUser', (req, res  ) => {
+
+  const fakeSuccessToken = uuidv4();
+  const fakeRefreshToken = uuidv4();
+  const dateCreateRefreshToken = Date.now();
+  
+
+  
+
+    const user = BASE.find(item => item.profile.email === req.body.email && item.profile.password === req.body.password)
+
+
+  if (user) {
+    user.successToken = fakeSuccessToken;
+    user.refreshToken = fakeRefreshToken;
+    user.dateCreateRefreshToken = dateCreateRefreshToken;
+
+    res.cookie('successToken', fakeSuccessToken, {
+      maxAge: /*18000000*/60000, 
+      httpOnly: true
+    });
+
+    res.status(200).json({
+      success: true,
+      refreshToken: fakeRefreshToken,
+      user: user.profile,
+      id: user.id
+    })
+  } else {
+    res.status(200).json({
+      success: false,
+      refreshToken: '',
+      user: {},
+      id: ''
+    })
+  }
+})
+
+app.get('/api/LogoutUser', (req, res) => {
+  const successToken = req.cookies.successToken;
+  
+  const user = BASE.find(u => u.successToken === successToken);
+  
+  if (user) {
+   
+    user.successToken = '';
+    user.refreshToken = '';
+    user.dateCreateRefreshToken = 0;
+    
+  }
+  
+  
+  res.clearCookie('successToken', {
+    httpOnly: true
+  });
+  
+  res.status(200).json({
+    success: true,
+  });
+});
+
+app.post('/api/toogleLikeCard', authMiddleware, ( req: Request<{}, {}, {productId: string}>, res: Response<{success: boolean}>) => {
+
+  
+  const productId = req.body.productId;
+  const successToken = req.cookies.successToken;
+  
+  const user = BASE.find(u => u.successToken === successToken);
+  
+  
+  if (!user) {
+    return res.status(200).json({ success: false, error: "User not found" });
+  }
+  
+  
+  const isLiked = user.favoriteItems.includes(productId);
+  
+  if (isLiked) {
+    // Удаляем
+    user.favoriteItems = user.favoriteItems.filter(id => id !== productId);
+  } else {
+    // Добавляем
+    user.favoriteItems.push(productId);
+  }
+  res.status(200).json({ success: true });
+  
+
+ }
+)
+
+
+// Проверка валидности refreshToken (10 дней = 864,000,000 миллисекунд)
+const isRefreshTokenValid = (user: IServerUser): boolean => {
+  if (!user.refreshToken || !user.dateCreateRefreshToken) return false;
+  
+  const TOKEN_LIFETIME = 10 * 24 * 60 * 60 * 1000; // 10 дней в миллисекундах
+  const isExpired = Date.now() - user.dateCreateRefreshToken > TOKEN_LIFETIME;
+  
+  return !isExpired;
+};
+
+// При запросе на обновление токена
+app.post('/api/refresh-token', (req, res) => {
+  const refreshToken = req.body.refreshToken;
+  
+  // Находим пользователя по refreshToken
+  const user = BASE.find(u => u.refreshToken === refreshToken);
+  
+  if (!user) {
+    return res.status(401).json({ message: 'Invalid refresh token' });
+  }
+  
+  // Проверяем, не истек ли refreshToken
+  if (!isRefreshTokenValid(user)) {
+    
+    return res.status(401).json({ message: 'Refresh token expired, please login again' });
+  }
+  
+  // Создаем новый accessToken
+  const newAccessToken = uuidv4();
+  user.successToken = newAccessToken;
+
+  res.cookie('successToken', newAccessToken, {
+    maxAge: 18000000, 
+    httpOnly: true
+  });
+  
+  
+  res.status(200).json({ success: true });
+});
+
+
+app.post('/api/DoOrder', (req, res) => {
+
+  const successToken = req.cookies.successToken;
+  
+  const user = BASE.find(u => u.successToken === successToken);
+
+  if (!user) {
+    res.status(401).json({message: 'Пользователь не найден'})
+  }
+  
+
+  const formData = req.body.formData;
+  const random = Math.random()
+  const orderNumber = Math.floor((random*10000000)).toString();
+
+  user?.orders.push({order: orderNumber, formData: formData})
+
+  res.status(200).json({message: orderNumber})
+
+
+
+
+})
+
+app.post('/api/updateUser', (req, res) => {
+  const successToken = req.cookies.successToken;
+  
+  const user = BASE.find(u => u.successToken === successToken);
+
+  if (!user) {
+    res.status(401).json({message: 'Пользователь не найден'})
+  }
+  
+  const newInfo = req.body as RegistrationData;
+
+  user!.profile = newInfo;
+
+  res.status(200).json(user?.profile)
+})
+
+
+
+
+
+app.listen(5000);  // ← Порт сервера

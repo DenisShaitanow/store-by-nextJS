@@ -1,12 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import type { IProduct, IFormOrderData } from "src/types";
+import type { IProduct, IFormOrderData } from "../../../types";
 import { mockedGetProductsApi, mockedDoOrder, toggleLikeApi } from "../../../services/api";
 import { addAndDeleteToFavoriteItems } from '../../slices/userUIData';
 import { useAppDispatch, useAppSelector  }  from '../../hooks/hooks';
 import { selectIdUser  } from '../../selectors/user-selectors/user-selectors';
-import { type TRootState  } from '../../store/store';
 
-const API_URL = import.meta.env.VITE_API_URL;
+
+
 
 export const getProducts = createAsyncThunk<IProduct[], void>(
   "getProducts",
