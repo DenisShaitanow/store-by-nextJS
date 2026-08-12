@@ -34,7 +34,6 @@
   align-items: center;
   width: 24px;
   height: 24px;
-  background-image: url("../assets/checkbox-empty.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -42,7 +41,6 @@
 }
 
 .input:checked + .icon {
-  background-image: url("../assets/checkbox-done.svg");
 }
 
 .container {

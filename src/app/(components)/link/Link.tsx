@@ -1,20 +1,22 @@
 "use client";
 
 import styles from "./Link.module.css";
-import { Link as RouterLink } from "react-router-dom";
+import Link from "next/link";
 import type { FC } from "react";
 import type { TProps } from "./type";
 
-export const Link: FC<TProps> = (props) => {
+export const LinkMy: FC<TProps> = (props) => {
   const { children, className, variant = "primary", disabled } = props;
 
   const classes = `${styles.link} ${styles[variant]}${disabled ? ` ${styles.disabled}` : ""}${className ? ` ${className}` : ""}`;
 
   if ("to" in props && !props.external) {
     return (
-      <RouterLink to={props.to} className={classes}>
+      
+      <Link href={props.to} className={classes}>
         {children}
-      </RouterLink>
+      </Link>
+      
     );
   }
 

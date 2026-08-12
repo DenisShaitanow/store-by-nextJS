@@ -21,14 +21,20 @@ export const ProductCard = forwardRef<HTMLDivElement, IProduct>(
     const router = useRouter();
 
     function handleClick(evt: React.MouseEvent<HTMLDivElement>) {
-      if (heartlike) {
-        if (evt.target !== heartlike.current) {
-          router.push(`/card/id=${props.id}`);
-        }
-      }
+      const target = evt.target as HTMLElement;
+  
+  
+        if (target.closest(`.${styles.like}`)) {
+          return; 
+  }
+      
+          router.push(`/card/${props.id}`);
+        
+      
     }
 
-    function handleLike() {
+    function handleLike(e: React.MouseEvent<HTMLElement>) {
+      e.stopPropagation();
       dispatch(toggleLike(props.id));
       setLike(!like);
     }

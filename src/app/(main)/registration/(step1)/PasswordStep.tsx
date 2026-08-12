@@ -6,8 +6,8 @@ import { ExternalAuthButton } from "../../../(components)/externalAuthButton/Ext
 import { InputUI } from "../../../(components)/input";
 import { ButtonUI } from "../../../(components)/button/button";
 import { PasswordInputUI } from "../../../(components)/password";
-import googleIconUrl from "../../../(components)/assets/google-icon.svg";
-import appleIconUrl from "../../../(components)/assets/apple-icon.svg";
+import GoogleIconUrl from "../../../(components)/assets/google-icon.svg";
+import AppleIconUrl from "../../../(components)/assets/apple-icon.svg";
 
 export const PasswordStep: React.FC<PasswordStepProps> = ({
   email,
@@ -23,21 +23,23 @@ export const PasswordStep: React.FC<PasswordStepProps> = ({
       <div className={styles.wrapper}>
         <div className={styles.group}>
           <ExternalAuthButton
-            iconUrl={googleIconUrl}
             label="Продолжить с Google"
             type="button"
             onClick={() =>
               console.log("Авторизация через учетную запись Google")
             }
-          />
+          >
+            <GoogleIconUrl/>
+          </ExternalAuthButton>
           <ExternalAuthButton
-            iconUrl={appleIconUrl}
             label="Продолжить с Apple"
             type="button"
             onClick={() =>
               console.log("Авторизация через учетную запись Apple")
             }
-          />
+          >
+            <AppleIconUrl/>
+          </ExternalAuthButton>
         </div>
         <span className={styles.span}>или</span>
         <div className={styles.group}>

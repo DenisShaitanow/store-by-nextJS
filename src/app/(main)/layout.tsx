@@ -32,14 +32,14 @@ export default function ShopLayout({
   // Проверяем, страница ли это регистрации/логина
   const isRegistrationPage =
     pathname === "/registration" ||
-    pathname === "/loginClient";
+    pathname === "/auth";
 
   const isAuth: boolean = useAppSelector(selectIsAuth) || false;
   const isLoading: boolean = useAppSelector(selectUserLoading) || false;
   const user = useAppSelector(selectUser);
 
   const handleLogin = () => {
-    router.push("/loginClient"); 
+    router.push("/auth"); 
   };
 
   const handleRegister = () => {

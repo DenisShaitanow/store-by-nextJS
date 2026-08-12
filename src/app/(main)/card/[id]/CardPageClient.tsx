@@ -5,23 +5,22 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "./CardPage.module.css";
-import { ButtonUI } from "../../(components)/button/button";
-import { useAppDispatch, useAppSelector } from "../../../services/hooks";
-import { type IProduct } from "../../../types";
-import { selectProducts } from "../../../services/selectors/userUIData-selectors/userUIData-selectors";
+import { ButtonUI } from "../../../(components)/button/button";
+import { useAppDispatch, useAppSelector } from "../../../../services/hooks";
+import { type IProduct } from "../../../../types";
+import { selectProducts } from "../../../../services/selectors/userUIData-selectors/userUIData-selectors";
 import {
   addToBusket,
   removeFromBusket,
-} from "../../../services/slices/userUIData";
-import { selectIsAuth } from "../../../services/selectors/user-selectors/user-selectors";
+} from "../../../../services/slices/userUIData";
+import { selectIsAuth } from "../../../../services/selectors/user-selectors/user-selectors";
 
 interface Props {
-  idCardR: string;          // Полный параметр "id=123"
   id: string;               // Чистый ID "123"
   initialProduct?: IProduct | null;
 }
 
-export default function CardPageClient({ idCardR, id, initialProduct }: Props) {
+export default function CardPageClient({ id, initialProduct }: Props) {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);

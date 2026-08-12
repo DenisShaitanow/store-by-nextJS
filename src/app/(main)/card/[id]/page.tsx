@@ -1,4 +1,4 @@
-// app/(shop)/card/[idCardR]/page.tsx (серверный)
+
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CardPageClient from "./CardPageClient";
@@ -7,21 +7,19 @@ import CardPageClient from "./CardPageClient";
 export async function generateMetadata({ 
   params 
 }: { 
-  params: { idCardR: string } 
+  params: { id: string } 
 }): Promise<Metadata> {
-  const idCardR = params.idCardR;
+  const { id } = params;
   
   // Проверяем формат
-  if (!idCardR || !idCardR.includes("id=")) {
+  if (!id) {
     return {
       title: "Товар не найден",
       robots: { index: false },
     };
   }
 
-  // Извлекаем ID: "id=123" → "123"
-  const id = idCardR.replace("id=", "");
-  
+
   // Здесь можно получить данные о товаре для метаданных
   // const product = await getProduct(id);
   
@@ -41,24 +39,23 @@ async function getProduct(id: string) {
 
 interface Props {
   params: {
-    idCardR: string;
+    id: string;
   };
 }
 
 export default async function CardPage({ params }: Props) {
-  const { idCardR } = params;
+  const { id } = params;
   
   // Проверяем формат
-  if (!idCardR || !idCardR.includes("id=")) {
+  if (!id) {
     notFound();
   }
 
-  // Извлекаем ID
-  const id = idCardR.replace("id=", "");
+
   
   // Получаем данные на сервере
   const product = await getProduct(id);
   
   // Передаем ID и данные в клиентский компонент
-  return <CardPageClient idCardR={idCardR} id={id} initialProduct={product} />;
+  return <CardPageClient id={id} initialProduct={product} />;
 }

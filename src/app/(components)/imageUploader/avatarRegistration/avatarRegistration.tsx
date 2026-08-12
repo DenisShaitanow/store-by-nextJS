@@ -3,7 +3,11 @@
 import { useRef, type FC, useState } from "react";
 import styles from "./avatarRegistration.module.css"; // Подключаем стили
 import type { AvatarRegistrationProps } from "./type";
-
+import UserCircle from '../../assets/user-circle54x54.svg';
+import GreenAdd from '../../assets/add.svg';
+import Gor from '../../assets/addPlusWhiteGorisont.svg';
+import Vert from '../../assets/addPlusWhiteVertical.svg';
+ 
 // Компонент AvatarRegistration
 export const AvatarRegistration: FC<AvatarRegistrationProps> = ({
   onImageChange,
@@ -52,9 +56,14 @@ export const AvatarRegistration: FC<AvatarRegistrationProps> = ({
       {srcAvatar ? (
         <img src={srcAvatar} className={styles.avatar} />
       ) : (
-        <span className={styles.svgContainer} />
+        <UserCircle className={styles.svgContainer} />
       )}
-      <span className={styles.greenAdd} />
+      <span className={styles.greenAdd}>
+          <GreenAdd className={styles.plus} />
+
+      </span>
+      
+     
     </div>
   );
 };

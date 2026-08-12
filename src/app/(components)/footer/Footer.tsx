@@ -1,7 +1,7 @@
 "use client";
 
 import type { FC } from "react";
-import { Link } from "../link";
+import {LinkMy as Link}  from "../link";
 import styles from "./Footer.module.css";
 import { Logo } from "../logo";
 
@@ -27,7 +27,7 @@ export const Footer: FC = () => (
           </Link>
         </div>
       </nav>
-      <div className={styles.bottom}>StoreThings © 2025</div>
+      <div className={styles.bottom}>StoreThings © 2026</div>
     </div>
   </footer>
 );

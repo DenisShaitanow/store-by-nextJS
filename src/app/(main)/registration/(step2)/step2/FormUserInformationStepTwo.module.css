@@ -20,7 +20,7 @@
   width: 208px !important;
 }
 
-.aroundImage::after {
+/*.aroundImage::after {
   position: absolute;
   top: 50%;
   right: 1rem;
@@ -31,7 +31,7 @@
   background-position: center;
   transform: translateY(-50%);
   content: "";
-}
+}*/
 
 .calendar {
 }

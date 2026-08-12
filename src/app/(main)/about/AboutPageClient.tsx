@@ -9,19 +9,11 @@ import { ButtonUI } from "../../(components)/button/button";
 
 export default function AboutPageClient() {
   const router = useRouter();
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
+  
   const handleClick = () => {
     router.back();
   };
 
-  if (!isMounted) {
-    return null;
-  }
 
   return (
     <>
