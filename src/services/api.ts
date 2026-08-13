@@ -31,6 +31,37 @@ export const mockedGetProductsApi = async (): Promise<IProduct[]> => {
   return products;
 }
 
+interface IGetProduct {
+  id: string
+}
+
+
+
+export const GetProductApi = async (data: IGetProduct): Promise<IProduct> => {
+  
+    
+  
+  const response = await fetch(`${API_URL}/product`,
+    { method: "POST",
+      credentials: 'include',
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(data)
+    }
+  )
+
+  if (!response.ok) {
+    const resFail = await response.json();
+    const message = resFail.message;
+    throw new Error(`${message}`);
+  }
+  
+  const product = (await response.json()).data;
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  return product;
+}
+
 
 
 

@@ -7,8 +7,7 @@ import Link from "next/link";
 import styles from "./CardPage.module.css";
 import { ButtonUI } from "../../../(components)/button/button";
 import { useAppDispatch, useAppSelector } from "../../../../services/hooks";
-import { type IProduct } from "../../../../types";
-import { selectProducts } from "../../../../services/selectors/userUIData-selectors/userUIData-selectors";
+import { type IProduct } from "../../../../types";  
 import {
   addToBusket,
   removeFromBusket,
@@ -16,32 +15,26 @@ import {
 import { selectIsAuth } from "../../../../services/selectors/user-selectors/user-selectors";
 
 interface Props {
-  id: string;               // Чистый ID "123"
-  initialProduct?: IProduct | null;
+  initialProduct: IProduct;
 }
 
-export default function CardPageClient({ id, initialProduct }: Props) {
+export default function CardPageClient({ initialProduct }: Props) {
   const dispatch = useAppDispatch();
-  const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
   const [PutToBasketButton, setPut] = useState<boolean>(false);
   
-  const products: IProduct[] = useAppSelector(selectProducts);
   const isAuth = useAppSelector(selectIsAuth);
-
-  // Находим карточку товара (сначала из пропсов, потом из Redux)
-  const card = initialProduct || products.find((item) => item.id === id);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
   const handlePutToBasket = () => {
-    if (card) {
+    if (initialProduct) {
       if (PutToBasketButton) {
-        dispatch(removeFromBusket(card));
+        dispatch(removeFromBusket(initialProduct));
       } else {
-        dispatch(addToBusket(card));
+        dispatch(addToBusket(initialProduct));
       }
       setPut(!PutToBasketButton);
     }
@@ -51,24 +44,13 @@ export default function CardPageClient({ id, initialProduct }: Props) {
     return null;
   }
 
-  // Если товар не найден
-  if (!card) {
-    return (
-      <div className={`${styles.container} ${styles.column}`}>
-        {/* SVG иконка печали */}
-        <p className={styles.notFoundParagraph}>Товар не найден</p>
-        <Link href="/">
-          <ButtonUI label="Вернуться на главную" />
-        </Link>
-      </div>
-    );
-  }
+
 
   return (
     <div className={styles.container}>
       <div className={styles.leftHalf}>
-        <img className={styles.image} src={card.image} alt={card.title} />
-        <p className={styles.price}>{`${card.price}₽`}</p>
+        <img className={styles.image} src={initialProduct.image} alt={initialProduct.title} />
+        <p className={styles.price}>{`${initialProduct.price}₽`}</p>
         <ButtonUI
           dataCy="putToBasketButton"
           disabled={!isAuth}
@@ -90,8 +72,8 @@ export default function CardPageClient({ id, initialProduct }: Props) {
       </div>
 
       <div className={styles.information}>
-        <h2 className={styles.title}>{card.title}</h2>
-        <p className={styles.description}>{card.description}</p>
+        <h2 className={styles.title}>{initialProduct.title}</h2>
+        <p className={styles.description}>{initialProduct.description}</p>
       </div>
       
       <Link href="/" className={styles.back}>

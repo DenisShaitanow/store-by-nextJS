@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Вход в личный кабинет | Store Things",
   description: "Войдите в свой личный кабинет в интернет-магазине Store Things",
   robots: {
-    index: false, // Страница входа не должна индексироваться
+    index: false, 
     follow: false,
   },
 };

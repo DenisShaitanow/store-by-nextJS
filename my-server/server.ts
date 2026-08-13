@@ -1726,6 +1726,19 @@ app.get('/api/products', (req, res) => {
    
 });
 
+app.post('/api/product', (req, res) => {
+  console.log(req.body.id)
+    const product = products.find(item => item.id === req.body.id)
+    
+    if (product) {
+      res.status(200).json({
+        data: product
+      });
+    } else {
+      res.status(404).json({message: "ТОвар не найден"})
+    }
+});
+
 
 app.post('/api/registerUser', (req: Request<{}, {}, RegistrationData>, res) => {
   

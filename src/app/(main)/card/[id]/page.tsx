@@ -1,41 +1,45 @@
 
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import CardPageClient from "./CardPageClient";
+import { GetProductApi } from '../../../../services/api';
 
 // Динамические метаданные
 export async function generateMetadata({ 
   params 
 }: { 
-  params: { id: string } 
+  params: Promise<{ id: string }> 
 }): Promise<Metadata> {
-  const { id } = params;
+  const { id } = await params;
   
   // Проверяем формат
   if (!id) {
     return {
-      title: "Товар не найден",
-      robots: { index: false },
+        title: "Загрузка товара...",
+        robots: { index: false },
     };
-  }
-
-
-  // Здесь можно получить данные о товаре для метаданных
-  // const product = await getProduct(id);
+} else {
+  try {
+  const product = await GetProductApi({id: id});
   
   return {
-    title: `Товар | Store Things`,
-    description: `Информация о товаре`,
-  };
+    title: `${product.title}`,
+    description: `${product.description}`,
+  }; }
+
+  catch {
+    return {
+      title: `Товар не найден`,
+      description: ``,
+      robots: { index: false },
+    };
+    
+  }
 }
 
-// Получение данных на сервере
-async function getProduct(id: string) {
-  // Запрос к API или БД
-  // const response = await fetch(`https://api.example.com/products/${id}`);
-  // return response.json();
-  return null;
+ 
 }
+
 
 interface Props {
   params: {
@@ -44,18 +48,21 @@ interface Props {
 }
 
 export default async function CardPage({ params }: Props) {
-  const { id } = params;
+  const { id } = await params;
   
-  // Проверяем формат
-  if (!id) {
-    notFound();
-  }
+  try {
+    const product = await GetProductApi({ id });
+    
+    // Если продукта нет — редирект
+    if (!product) {
+      console.log('555')
+        redirect('/404');
+    }
+    
+    return <CardPageClient initialProduct={product} />;
+    
+} catch (error) {
+    redirect('/404');
+}
 
-
-  
-  // Получаем данные на сервере
-  const product = await getProduct(id);
-  
-  // Передаем ID и данные в клиентский компонент
-  return <CardPageClient id={id} initialProduct={product} />;
 }
