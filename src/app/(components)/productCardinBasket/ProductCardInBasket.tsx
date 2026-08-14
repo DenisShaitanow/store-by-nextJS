@@ -1,17 +1,15 @@
 "use client";
 
-import { memo, useEffect, useState, useRef, forwardRef } from "react";
-import ReactDOM from "react-dom";
-import { Link, useNavigate } from "react-router-dom";
+
 import type { FC } from "react";
 import styles from "./ProductCardInBasket.module.css";
 import type { Props } from "./type";
-import { useAppDispatch } from "../../services/hooks";
-import Delete from "../assets/delete.svg?react";
+import { useAppDispatch } from "../../../services/hooks";
+import Delete from "../assets/delete.svg";
 import {
   addToBusket,
   removeFromBusket,
-} from "../../services/slices/userUIData";
+} from "../../../services/slices/userUIData";
 /*`../assets/${props.image}`*/
 
 const ProductCardInBasket: FC<Props> = ({ card, count }) => {
