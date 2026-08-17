@@ -1727,7 +1727,7 @@ app.get('/api/products', (req, res) => {
 });
 
 app.post('/api/product', (req, res) => {
-  console.log(req.body.id)
+
     const product = products.find(item => item.id === req.body.id)
     
     if (product) {
@@ -1738,6 +1738,28 @@ app.post('/api/product', (req, res) => {
       res.status(404).json({message: "ТОвар не найден"})
     }
 });
+
+app.post('/api/changeBasket', authMiddleware, (req, res) => {
+  const user = req.user;
+  const product = req.body;
+
+  const findItem = user.basket.find(item => item.id === req.body.product.id)
+
+  if ( !findItem ) {
+    user.basket = user.basket.filter(item => item.id !== req.body.product.id) 
+    res.status(200).json({success: true, operation: 'remove'})
+  } else {
+    user.basket.push({item: product, count: 1})
+    res.status(200).json({success: true, operation: 'add'})
+  }
+})
+
+app.get('/api/resetBasket',  authMiddleware, (req, res) => {
+  const user = req.user;
+
+  user.basket = [];
+  res.status(200).json({success: true});
+})
 
 
 app.post('/api/registerUser', (req: Request<{}, {}, RegistrationData>, res) => {

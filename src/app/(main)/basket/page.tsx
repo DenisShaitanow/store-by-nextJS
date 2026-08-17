@@ -12,5 +12,6 @@ export const metadata: Metadata = {
 };
 
 export default function BasketPage() {
+
   return <BasketPageClient />;
 }

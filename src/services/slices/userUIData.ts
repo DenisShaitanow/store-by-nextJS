@@ -1,7 +1,7 @@
 import { createSlice, type Action, type PayloadAction } from "@reduxjs/toolkit";
 import { type TAppDispatch, type TRootState } from "../store/index";
 import { type IProduct } from "../../types";
-import { getProducts, doOrder } from "../thunks/userUIData/userUIData-thunks";
+import { getProducts, doOrder, changeBasket } from "../thunks/userUIData/userUIData-thunks";
 import { act } from "react";
 
 interface IUserState {
@@ -60,31 +60,7 @@ const userUIDataSlice = createSlice({
         }
       }
     },
-    addToBusket: (state: TRootState, action: PayloadAction<IProduct>) => {
-      const existingItem = state.basket.find(
-        (unit) => unit.item.id === action.payload.id,
-      );
-      existingItem
-        ? existingItem.count++
-        : state.basket.push({ item: action.payload, count: 1 });
-      localStorage.setItem("basket", JSON.stringify(state.basket));
-    },
-    removeFromBusket: (state: TRootState, action: PayloadAction<IProduct>) => {
-      const existingItem = state.basket.find(
-        (unit) => unit.item.id === action.payload.id,
-      );
-      if (existingItem) {
-        if (existingItem.count > 1) {
-          existingItem.count--;
-        } else {
-          console.log("aaaa");
-          state.basket = state.basket.filter(
-            (item) => item.item.id !== action.payload.id,
-          );
-        }
-        localStorage.setItem("basket", JSON.stringify(state.basket));
-      }
-    },
+    
 
     removeFromFavoriteItems: (state: TRootState, action: PayloadAction<string>) => {
       state.favoriteItems = state.favoriteItems.filter(
@@ -100,6 +76,16 @@ const userUIDataSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(changeBasket.fulfilled, (state, action: PayloadAction<{success: boolean, operation: string, product: IProduct}>) => {
+        if (action.payload.operation === 'add') {
+          state.basket = [...state.basket, {item: action.payload.product, count: 1} ]
+        } else if (action.payload.operation === 'remove') {
+          state.basket = state.basket.filter(item => item.item.id !== action.payload.product.id)
+        }
+      })
+      .addCase(changeBasket.rejected, (state: TRootState, action) => {
+        state.error = action.payload as string;
+      })
       .addCase(getProducts.pending, (state) => {
         state.loadingProducts = true;
       })

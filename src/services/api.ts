@@ -9,6 +9,41 @@ import {
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+export const changeBasketApi = async ( product: IProduct): Promise<{success: boolean, operation: string}> => {
+
+  const response = await fetch (`${API_URL}/changeBasket`,
+    {
+      credentials: 'include',
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(product)
+    }
+    
+  )
+
+  if (!response.ok) {
+    throw new Error('Корзина не изменилась. Ошибка.')
+  }
+
+  const res = (await response.json());
+  return res;
+}
+
+export const resetBasketApi = async (): Promise<{success: boolean}> => {
+  const response = await fetch(`${API_URL}/resetBasket`, 
+    {
+      credentials: 'include' 
+    }
+  )
+
+  if (!response.ok) {
+    throw new Error('Корзина не обнулилась. Ошибка.')
+  }
+
+  return await response.json();
+}
 
 export const mockedGetProductsApi = async (): Promise<IProduct[]> => {
   const response = await fetch(`${API_URL}/products`,

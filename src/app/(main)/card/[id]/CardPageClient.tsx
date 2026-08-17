@@ -8,10 +8,7 @@ import styles from "./CardPage.module.css";
 import { ButtonUI } from "../../../(components)/button/button";
 import { useAppDispatch, useAppSelector } from "../../../../services/hooks";
 import { type IProduct } from "../../../../types";  
-import {
-  addToBusket,
-  removeFromBusket,
-} from "../../../../services/slices/userUIData";
+import { changeBasket } from "@/src/services/thunks/userUIData/userUIData-thunks";
 import { selectIsAuth } from "../../../../services/selectors/user-selectors/user-selectors";
 
 interface Props {
@@ -31,11 +28,7 @@ export default function CardPageClient({ initialProduct }: Props) {
 
   const handlePutToBasket = () => {
     if (initialProduct) {
-      if (PutToBasketButton) {
-        dispatch(removeFromBusket(initialProduct));
-      } else {
-        dispatch(addToBusket(initialProduct));
-      }
+      dispatch(changeBasket(initialProduct))
       setPut(!PutToBasketButton);
     }
   };

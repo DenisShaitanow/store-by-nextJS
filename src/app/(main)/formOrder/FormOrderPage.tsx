@@ -10,7 +10,7 @@ import { InputUI } from "../../(components)/input";
 import { InputDropDown } from "../../(components)/inputDropDown/imputDropDownSimple";
 import { ButtonUI } from "../../(components)/button/button";
 import { type IFormOrderData } from "../../../types";
-import styles from "./FormOrder.module.css";
+import styles from "./FormOder.module.css";
 
 // Валидаторы и форматтеры (можно вынести в отдельный файл utils)
 const formatCardNumber = (inputValue: string) => {
@@ -33,6 +33,10 @@ const validateNumberCard = (value: string) =>
 const validatePersonCard = (value: string) => /^[A-Za-z\s]+$/.test(value);
 const validateCVV = (value: string) => /^\d{3}$/.test(value);
 
+
+
+
+
 const FormOrderClient: FC = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -54,14 +58,7 @@ const FormOrderClient: FC = () => {
       };
     }
 
-    const storedFormDataString = localStorage.getItem("orderForm");
-    if (storedFormDataString) {
-      try {
-        return JSON.parse(storedFormDataString);
-      } catch {
-        // если ошибка парсинга - игнорируем
-      }
-    }
+    
 
     return {
       selectСourier: true,

@@ -49,7 +49,7 @@ interface Props {
 
 export default async function CardPage({ params }: Props) {
   const { id } = await params;
-  
+
   try {
     const product = await GetProductApi({ id });
     
