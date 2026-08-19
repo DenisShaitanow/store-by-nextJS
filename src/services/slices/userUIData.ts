@@ -1,7 +1,7 @@
 import { createSlice, type Action, type PayloadAction } from "@reduxjs/toolkit";
 import { type TAppDispatch, type TRootState } from "../store/index";
 import { type IProduct } from "../../types";
-import { getProducts, doOrder, changeBasket } from "../thunks/userUIData/userUIData-thunks";
+import { getProducts, doOrder, changeBasket, getBasket, resetBasket } from "../thunks/userUIData/userUIData-thunks";
 import { act } from "react";
 
 interface IUserState {
@@ -76,12 +76,24 @@ const userUIDataSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(changeBasket.fulfilled, (state, action: PayloadAction<{success: boolean, operation: string, product: IProduct}>) => {
-        if (action.payload.operation === 'add') {
-          state.basket = [...state.basket, {item: action.payload.product, count: 1} ]
-        } else if (action.payload.operation === 'remove') {
-          state.basket = state.basket.filter(item => item.item.id !== action.payload.product.id)
-        }
+    .addCase(getBasket.fulfilled, 
+      (state, action: PayloadAction<{ item: IProduct; count: number }[]>) => {
+        state.basket = action.payload;
+      }
+    )
+    .addCase(getBasket.rejected, 
+      (state, action) => {
+        state.error = action.payload as string;
+      }
+    )
+    .addCase(resetBasket.fulfilled, 
+      (state, action: PayloadAction<Array<{ item: IProduct; count: number }>>) => {
+        state.basket = action.payload;
+        console.log(state.basket)
+      }
+    )
+      .addCase(changeBasket.fulfilled, (state, action: PayloadAction<Array<{ item: IProduct; count: number }>>) => {
+        state.basket = action.payload;
       })
       .addCase(changeBasket.rejected, (state: TRootState, action) => {
         state.error = action.payload as string;

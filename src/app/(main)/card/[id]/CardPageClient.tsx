@@ -28,8 +28,12 @@ export default function CardPageClient({ initialProduct }: Props) {
 
   const handlePutToBasket = () => {
     if (initialProduct) {
-      dispatch(changeBasket(initialProduct))
-      setPut(!PutToBasketButton);
+          if (PutToBasketButton) {
+          dispatch(changeBasket({product: initialProduct, operation: "ADD"}))
+        } else {
+          dispatch(changeBasket({product: initialProduct, operation: "DELETE"}))
+        }
+        setPut(!PutToBasketButton);
     }
   };
 

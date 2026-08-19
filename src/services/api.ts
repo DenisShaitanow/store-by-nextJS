@@ -9,7 +9,11 @@ import {
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const changeBasketApi = async ( product: IProduct): Promise<{success: boolean, operation: string}> => {
+export interface OperationBasket {
+  operation: "ADD" | "SUBTRACT" | "DELETE" | string
+}
+
+export const changeBasketApi = async (data: {product: IProduct, operation: OperationBasket}): Promise<Array<{ item: IProduct; count: number }>> => {
 
   const response = await fetch (`${API_URL}/changeBasket`,
     {
@@ -18,7 +22,7 @@ export const changeBasketApi = async ( product: IProduct): Promise<{success: boo
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
-      body: JSON.stringify(product)
+      body: JSON.stringify(data)
     }
     
   )
@@ -28,10 +32,10 @@ export const changeBasketApi = async ( product: IProduct): Promise<{success: boo
   }
 
   const res = (await response.json());
-  return res;
+  return res.data;
 }
 
-export const resetBasketApi = async (): Promise<{success: boolean}> => {
+export const resetBasketApi = async (): Promise<Array<{ item: IProduct; count: number }>> => {
   const response = await fetch(`${API_URL}/resetBasket`, 
     {
       credentials: 'include' 
@@ -42,7 +46,7 @@ export const resetBasketApi = async (): Promise<{success: boolean}> => {
     throw new Error('Корзина не обнулилась. Ошибка.')
   }
 
-  return await response.json();
+  return (await response.json()).data;
 }
 
 export const mockedGetProductsApi = async (): Promise<IProduct[]> => {
@@ -97,6 +101,24 @@ export const GetProductApi = async (data: IGetProduct): Promise<IProduct> => {
   return product;
 }
 
+
+export const getBasketApi = async (): Promise<{ item: IProduct; count: number }[]> => {
+  try {
+    const response = await fetch(`${API_URL}/getBasket`, {
+      credentials: 'include'
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const basket: { item: IProduct; count: number }[] = (await response.json()).data;
+    return basket;
+  } catch (error) {
+    console.error('Error loading basket:', error);
+    throw new Error('Ошибка загрузки корзины из сервера');
+  }
+}
 
 
 

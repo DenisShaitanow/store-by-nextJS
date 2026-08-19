@@ -7,24 +7,24 @@ import type { Props } from "./type";
 import { useAppDispatch } from "../../../services/hooks";
 import Delete from "../assets/delete.svg";
 import {
-  addToBusket,
-  removeFromBusket,
-} from "../../../services/slices/userUIData";
+  changeBasket,
+} from "../../../services/thunks/userUIData/userUIData-thunks";
+import { OperationBasket } from '../../../services/api';
 /*`../assets/${props.image}`*/
 
 const ProductCardInBasket: FC<Props> = ({ card, count }) => {
   const dispatch = useAppDispatch();
 
   const handleDelete = () => {
-    dispatch(removeFromBusket(card));
+    dispatch(changeBasket({product: card, operation: "DELETE"}));
   };
 
   const handlePlus = () => {
-    dispatch(addToBusket(card));
+    dispatch(changeBasket({product: card, operation: "ADD"}));
   };
 
   const handleMin = () => {
-    dispatch(removeFromBusket(card));
+    dispatch(changeBasket({product: card, operation: "SUBTRACT"}));
   };
 
   return (

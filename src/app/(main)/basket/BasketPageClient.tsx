@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../../services/hooks";
 import { selectBasket } from "../../../services/selectors/userUIData-selectors/userUIData-selectors";
 import ProductCardInBasket from "../../(components)/productCardinBasket/ProductCardInBasket";
 import SadSmile from "../../(components)/assets/smiley-sad-fill.svg";
+import { getBasketApi } from "@/src/services/api";
 
 export default function BasketPageClient() {
   const router = useRouter();

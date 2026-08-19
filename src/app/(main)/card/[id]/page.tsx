@@ -55,7 +55,6 @@ export default async function CardPage({ params }: Props) {
     
     // Если продукта нет — редирект
     if (!product) {
-      console.log('555')
         redirect('/404');
     }
     

@@ -1741,26 +1741,52 @@ app.post('/api/product', (req, res) => {
 
 app.post('/api/changeBasket', authMiddleware, (req, res) => {
   const user = req.user;
-  const product = req.body;
+  const data = req.body;
+  const operation = data.body.operation
 
-  const findItem = user.basket.find(item => item.id === req.body.product.id)
+  const findItem = user.basket.find(item => item.id === data.product.id)
 
-  if ( !findItem ) {
-    user.basket = user.basket.filter(item => item.id !== req.body.product.id) 
-    res.status(200).json({success: true, operation: 'remove'})
+  if (  findItem ) {
+    switch (operation) {
+      case "ADD":
+        findItem.count += 1;
+        break;
+    
+      case "SUBTRACT":
+        if (findItem.count > 1) {
+          findItem.count -= 1;
+        } else {
+          user.basket = user.basket.filter(item => item.id !== req.body.product.id);
+        }
+        break;
+    
+      case "DELETE":
+        user.basket = user.basket.filter(item => item.id !== req.body.product.id);
+        break;
+    
+      default:
+        res.status(400).json({ success: false, message: 'Unknown operation' });
+    }
+    
   } else {
-    user.basket.push({item: product, count: 1})
-    res.status(200).json({success: true, operation: 'add'})
+    user.basket.push({item: req.body.product, count: 1})
   }
+
+  res.status(200).json({data: user.basket})
 })
 
 app.get('/api/resetBasket',  authMiddleware, (req, res) => {
   const user = req.user;
 
   user.basket = [];
-  res.status(200).json({success: true});
+  res.status(200).json({data: user.basket});
 })
 
+app.get('/api/getBasket', authMiddleware, (req, res) => {
+  const user = req.user;
+  res.status(200).json({data: user.basket})
+}
+)
 
 app.post('/api/registerUser', (req: Request<{}, {}, RegistrationData>, res) => {
   

@@ -12,7 +12,7 @@ import {
   useCallback,
 } from "react";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
-import { getProducts } from "../../services/thunks/userUIData/userUIData-thunks";
+import { getProducts, getBasket } from "../../services/thunks/userUIData/userUIData-thunks";
 import { checkUserAuth } from "../../services/thunks/user/user-thunks";
 
 // Вместо Helmet используем next/head (или просто удалите Helmet)
@@ -20,6 +20,7 @@ import Head from "next/head";
 
 import {
   selectProducts,
+  selectBasket,
   selectLoadingProducts,
 } from "../../services/selectors/userUIData-selectors/userUIData-selectors";
 import type { FC } from "react";
@@ -71,6 +72,7 @@ export default function HomePage() {
   };
 
   const products: IProduct[] = useAppSelector(selectProducts);
+  const basket = useAppSelector(selectBasket);
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
@@ -89,6 +91,10 @@ export default function HomePage() {
       return true;
     });
   }, [selectedCategoriesData, selectedSexData, products]);
+
+  useLayoutEffect(() => {
+    if (basket.length === 0) {dispatch(getBasket())}
+  },[dispatch])
 
   useEffect(() => {
     if (productsContainer.current) {

@@ -1,13 +1,28 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import type { IProduct, IFormOrderData } from "../../../types";
-import { mockedGetProductsApi, mockedDoOrder, toggleLikeApi, changeBasketApi,  resetBasketApi} from "../../../services/api";
+import { mockedGetProductsApi, mockedDoOrder, toggleLikeApi, changeBasketApi,  resetBasketApi, getBasketApi} from "../../../services/api";
 import { addAndDeleteToFavoriteItems } from '../../slices/userUIData';
 import { useAppDispatch, useAppSelector  }  from '../../hooks/hooks';
 import { selectIdUser  } from '../../selectors/user-selectors/user-selectors';
+import { OperationBasket }  from '../../../services/api';
 
 
 
 
+export const getBasket = createAsyncThunk<{ item: IProduct; count: number }[], void>(
+  "getBasket",
+  async (_, { rejectWithValue}) => {
+
+    try {
+      const basket = await getBasketApi();
+      return basket;
+    } catch (err) {
+      
+            return rejectWithValue('Проблемы с загрузкой корзины.');
+          }  
+    
+  },
+);
 
 export const getProducts = createAsyncThunk<IProduct[], void>(
   "getProducts",
@@ -24,30 +39,29 @@ export const getProducts = createAsyncThunk<IProduct[], void>(
   },
 );
 
-export const changeBasket = createAsyncThunk<{success: boolean, operation: string, product: IProduct}, IProduct, { rejectValue: string }>('changeBasket',
+export const changeBasket = createAsyncThunk<Array<{ item: IProduct; count: number }>, {product: IProduct, operation: OperationBasket}, { rejectValue: string }>('changeBasket',
   async (data, { rejectWithValue}) => {
     try {
       const result = await changeBasketApi(data)
-      return {
-        ...result,           
-        product: data        
-      };
+      return result
     } catch (err) {
       return rejectWithValue(err instanceof Error ? err.message : 'Unknown error')
     }
   }
 )
 
-export const resetBasket = createAsyncThunk<{success: boolean}, IProduct, { rejectValue: string }>('changeBasket',
-  async (data, { rejectWithValue}) => {
+export const resetBasket = createAsyncThunk<Array<{ item: IProduct; count: number }>, void, { rejectValue: string }>('resetBasket',
+  async (_, { rejectWithValue}) => {
     try {
-      const result = await changeBasketApi(data)
+      const result = await resetBasketApi()
       return result;
     } catch (err) {
       return rejectWithValue(err instanceof Error ? err.message : 'Unknown error')
     }
   }
 )
+
+
 
 export const doOrder = createAsyncThunk<string, IFormOrderData,  { rejectValue: string }>(
   "doOrder",
