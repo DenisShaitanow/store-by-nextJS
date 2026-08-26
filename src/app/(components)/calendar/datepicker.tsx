@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import DatePicker, { registerLocale, setDefaultLocale } from "react-datepicker";
 import { type Locale } from "date-fns";
 import * as ruLocale from "date-fns/locale/ru";
-import chevronDownUrl from "../assets/chevron-down.svg";
+import ChevronDownUrl from "../assets/chevron-down.svg";
 
 import "./calendar.css";
 
@@ -192,8 +192,8 @@ export const SimpleDatePicker = ({
                   aria-expanded={openMonth}
                   aria-label="Выбрать месяц"
                 >
-                  <img
-                    src={chevronDownUrl}
+                  <ChevronDownUrl
+                    
                     alt=""
                     className="calendar__chevron"
                     aria-hidden="true"
@@ -213,7 +213,8 @@ export const SimpleDatePicker = ({
                         key={m}
                         type="button"
                         className="dropdown-item"
-                        onClick={() => {
+                        onClick={(e) => {
+                          e.stopPropagation()
                           changeMonth(idx);
                           setOpenMonth(false);
                           // Обновляем "видимый" месяц для корректной подсветки "внешних" дней.
@@ -242,8 +243,8 @@ export const SimpleDatePicker = ({
                   aria-expanded={openYear}
                   aria-label="Выбрать год"
                 >
-                  <img
-                    src={chevronDownUrl}
+                  <ChevronDownUrl
+                    
                     alt=""
                     className="calendar__chevron"
                     aria-hidden="true"
@@ -268,8 +269,9 @@ export const SimpleDatePicker = ({
                         data-current={
                           y === date.getFullYear() ? "true" : undefined
                         }
-                        onClick={() => {
+                        onClick={(e) => {
                           // Переключение года через API библиотеки.
+                          e.stopPropagation()
                           changeYear(y);
                           setOpenYear(false);
                           // Обновляем "видимую" дату (месяц сохраняем).

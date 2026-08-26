@@ -2,10 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import type { IProduct, IFormOrderData } from "../../../types";
 import { mockedGetProductsApi, mockedDoOrder, toggleLikeApi, changeBasketApi,  resetBasketApi, getBasketApi} from "../../../services/api";
 import { addAndDeleteToFavoriteItems } from '../../slices/userUIData';
-import { useAppDispatch, useAppSelector  }  from '../../hooks/hooks';
-import { selectIdUser  } from '../../selectors/user-selectors/user-selectors';
 import { OperationBasket }  from '../../../services/api';
-
 
 
 
@@ -65,9 +62,11 @@ export const resetBasket = createAsyncThunk<Array<{ item: IProduct; count: numbe
 
 export const doOrder = createAsyncThunk<string, IFormOrderData,  { rejectValue: string }>(
   "doOrder",
-  async (data, { rejectWithValue}) => {
+  async (data, {dispatch, getState,rejectWithValue}) => {
     try {
+      
       const order = await mockedDoOrder(data);
+      dispatch(resetBasket())
       return order;
     } catch (err) {
       return rejectWithValue('Error order')

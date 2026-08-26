@@ -1741,10 +1741,10 @@ app.post('/api/product', (req, res) => {
 
 app.post('/api/changeBasket', authMiddleware, (req, res) => {
   const user = req.user;
-  const data = req.body;
-  const operation = data.body.operation
+  const product = req.body.product;
+  const operation = req.body.operation
 
-  const findItem = user.basket.find(item => item.id === data.product.id)
+  const findItem = user.basket.find(prod => prod.item.id === product.id)
 
   if (  findItem ) {
     switch (operation) {
@@ -1756,12 +1756,12 @@ app.post('/api/changeBasket', authMiddleware, (req, res) => {
         if (findItem.count > 1) {
           findItem.count -= 1;
         } else {
-          user.basket = user.basket.filter(item => item.id !== req.body.product.id);
+          user.basket = user.basket.filter(prod => prod.item.id !== req.body.product.id);
         }
         break;
     
       case "DELETE":
-        user.basket = user.basket.filter(item => item.id !== req.body.product.id);
+        user.basket = user.basket.filter(prod => prod.item.id !== req.body.product.id);
         break;
     
       default:
@@ -2000,6 +2000,7 @@ app.post('/api/DoOrder', (req, res) => {
   user?.orders.push({order: orderNumber, formData: formData})
 
   res.status(200).json({message: orderNumber})
+  console.log(user?.orders)
 
 
 

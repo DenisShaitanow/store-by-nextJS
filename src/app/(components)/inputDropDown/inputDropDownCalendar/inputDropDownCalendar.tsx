@@ -31,13 +31,21 @@ export const InputDropDownCalendar: FC<InputDropDownCalendarProps> = ({
       // Получаем цель клика
       const targetNode = event.target as HTMLElement;
 
-      // Проверяем, произошло ли событие внутри самого компонента или вне
+      const isInsideCalendar = !!(
+      targetNode.closest('.react-datepicker') ||
+      targetNode.closest('.dropdown') ||
+      targetNode.closest('.month-dropdown') ||
+      targetNode.closest('.year-dropdown') ||
+      targetNode.closest('.dropdown-item'));
+            // Проверяем, произошло ли событие внутри самого компонента или вне
       if (
         containerRef.current &&
         !containerRef.current.contains(targetNode) &&
-        !(calendarRef.current && calendarRef.current.contains(targetNode))
+        calendarRef.current && !calendarRef.current.contains(targetNode) && 
+        !isInsideCalendar
       ) {
         setIsOpen(false);
+        
       }
     };
 

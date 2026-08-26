@@ -41,22 +41,11 @@ const FormOrderClient: FC = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const basket = useAppSelector(selectBasket);
-  const basketListId = basket.map((product) => product.item.id);
+ 
 
-  // Получаем данные из localStorage (только на клиенте)
+  
   const getInitialFormData = (): IFormOrderData => {
-    if (typeof window === "undefined") {
-      return {
-        selectСourier: true,
-        adress: "",
-        adressPoint: "",
-        formPaySelf: true,
-        numberCard: "",
-        PersonCard: "",
-        CVV: "",
-        productList: [],
-      };
-    }
+   
 
     
 
@@ -68,7 +57,7 @@ const FormOrderClient: FC = () => {
       numberCard: "",
       PersonCard: "",
       CVV: "",
-      productList: [],
+      basketList: basket,
     };
   };
 
@@ -86,12 +75,6 @@ const FormOrderClient: FC = () => {
     setIsMounted(true);
   }, []);
 
-  // Обновляем productList при изменении корзины
-  useEffect(() => {
-    if (isMounted) {
-      setFormData((prev) => ({ ...prev, productList: basketListId }));
-    }
-  }, [basketListId, isMounted]);
 
   // Сохраняем в localStorage
   useEffect(() => {
@@ -125,7 +108,7 @@ const FormOrderClient: FC = () => {
       (formData.selectСourier && formData.adress.trim()) ||
       (!formData.selectСourier &&
         formData.adressPoint.trim() &&
-        formData.productList);
+        formData.basketList);
 
     const isPaymentDataComplete =
       formData.formPaySelf ||

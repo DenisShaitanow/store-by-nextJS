@@ -58,8 +58,8 @@
 /* Icon for open state */
 
 .svg {
-  width: 16px;
-  height: 16px;
+  width: fit-content;
+  height: fit-content;
   stroke: var(--text-color);
   fill: var(--text-color);
 }

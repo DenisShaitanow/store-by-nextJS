@@ -38,5 +38,5 @@ export interface IFormOrderData {
   numberCard: string;
   PersonCard: string;
   CVV: string;
-  productList: string[];
+  basketList: Array<{ item: IProduct; count: number }>;
 }

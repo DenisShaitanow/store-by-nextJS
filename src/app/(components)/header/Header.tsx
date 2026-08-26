@@ -65,7 +65,7 @@ export const HeaderUI = ({
         : "";
 
   const handleFavorits = () => {
-    router.push("/favoritsProducts");
+    router.push("/favorits");
   };
 
   const handleBasket = () => {

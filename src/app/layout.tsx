@@ -18,6 +18,9 @@ export default function RootLayout({
       lang="ru"
     
     >
+      <head>
+      <link rel="icon" type="image/svg+xml" href="/iconLogo.svg" />
+      </head>
       <body >
 
       <StoreProvider>
