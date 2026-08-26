@@ -1,17 +1,15 @@
-"use client";
+'use client';
 
-import { useRef, type FC, useState } from "react";
-import styles from "./avatarRegistration.module.css"; // Подключаем стили
-import type { AvatarRegistrationProps } from "./type";
+import { useRef, type FC, useState } from 'react';
+import styles from './avatarRegistration.module.css'; // Подключаем стили
+import type { AvatarRegistrationProps } from './type';
 import UserCircle from '../../assets/user-circle54x54.svg';
 import GreenAdd from '../../assets/add.svg';
 import Gor from '../../assets/addPlusWhiteGorisont.svg';
 import Vert from '../../assets/addPlusWhiteVertical.svg';
- 
+
 // Компонент AvatarRegistration
-export const AvatarRegistration: FC<AvatarRegistrationProps> = ({
-  onImageChange,
-}) => {
+export const AvatarRegistration: FC<AvatarRegistrationProps> = ({ onImageChange }) => {
   // стейт для файла авы
   const [avatarForForm, setAvatarForForm] = useState<File | null>(null);
 
@@ -59,11 +57,8 @@ export const AvatarRegistration: FC<AvatarRegistrationProps> = ({
         <UserCircle className={styles.svgContainer} />
       )}
       <span className={styles.greenAdd}>
-          <GreenAdd className={styles.plus} />
-
+        <GreenAdd className={styles.plus} />
       </span>
-      
-     
     </div>
   );
 };

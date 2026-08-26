@@ -1,2 +1,2 @@
-export { ExpandableList } from "./ExpandableList";
-export type { ExpandableListProps } from "./types";
+export { ExpandableList } from './ExpandableList';
+export type { ExpandableListProps } from './types';

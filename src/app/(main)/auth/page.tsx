@@ -1,12 +1,12 @@
 // app/(auth)/auth/page.tsx
-import { Metadata } from "next";
-import AuthPageClient from "./AuthPageClient";
+import { Metadata } from 'next';
+import AuthPageClient from './AuthPageClient';
 
 export const metadata: Metadata = {
-  title: "Вход в личный кабинет | Store Things",
-  description: "Войдите в свой личный кабинет в интернет-магазине Store Things",
+  title: 'Вход в личный кабинет | Store Things',
+  description: 'Войдите в свой личный кабинет в интернет-магазине Store Things',
   robots: {
-    index: false, 
+    index: false,
     follow: false,
   },
 };

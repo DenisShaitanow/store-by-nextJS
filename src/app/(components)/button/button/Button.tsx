@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
-import styles from "./Button.module.css";
-import type { ButtonProps } from "./type";
+import styles from './Button.module.css';
+import type { ButtonProps } from './type';
 
 export const ButtonUI = ({
   label,
   onClick,
   className,
-  type = "button",
+  type = 'button',
   secondary = false,
   tertiary = false,
   disabled = false,

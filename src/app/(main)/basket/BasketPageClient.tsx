@@ -1,15 +1,15 @@
 // app/(shop)/basket/BasketPageClient.tsx
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import styles from "./BasketPage.module.css";
-import { ButtonUI } from "../../(components)/button/button";
-import { useAppDispatch, useAppSelector } from "../../../services/hooks";
-import { selectBasket } from "../../../services/selectors/userUIData-selectors/userUIData-selectors";
-import ProductCardInBasket from "../../(components)/productCardinBasket/ProductCardInBasket";
-import SadSmile from "../../(components)/assets/smiley-sad-fill.svg";
-import { getBasketApi } from "@/src/services/api";
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import styles from './BasketPage.module.css';
+import { ButtonUI } from '../../(components)/button/button';
+import { useAppDispatch, useAppSelector } from '../../../services/hooks';
+import { selectBasket } from '../../../services/selectors/userUIData-selectors/userUIData-selectors';
+import ProductCardInBasket from '../../(components)/productCardinBasket/ProductCardInBasket';
+import SadSmile from '../../(components)/assets/smiley-sad-fill.svg';
+import { getBasketApi } from '@/src/services/api';
 
 export default function BasketPageClient() {
   const router = useRouter();
@@ -22,11 +22,11 @@ export default function BasketPageClient() {
   }, []);
 
   const handleOrder = () => {
-    router.push("/formOrder");
+    router.push('/formOrder');
   };
 
   const handleBack = () => {
-    router.push("/");
+    router.push('/');
   };
 
   if (!isMounted) {
@@ -39,11 +39,7 @@ export default function BasketPageClient() {
         <>
           <div className={styles.cardList}>
             {productsInBasket.map((card) => (
-              <ProductCardInBasket
-                key={card.item.id}
-                card={card.item}
-                count={card.count}
-              />
+              <ProductCardInBasket key={card.item.id} card={card.item} count={card.count} />
             ))}
           </div>
           <ButtonUI
@@ -57,10 +53,7 @@ export default function BasketPageClient() {
         <div className={styles.noProducts}>
           <SadSmile />
           <span className={styles.basketEmpty}>Корзина пуста.</span>
-          <ButtonUI
-            label="Вернуться к покупкам"
-            onClick={handleBack}
-          />
+          <ButtonUI label="Вернуться к покупкам" onClick={handleBack} />
         </div>
       )}
     </div>

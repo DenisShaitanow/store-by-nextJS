@@ -1,10 +1,10 @@
 // app/not-found/PageNotFoundClient.tsx
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import styles from "./PagenotFound.module.css";
-import { ButtonUI } from "../../(components)/button/button";
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import styles from './PagenotFound.module.css';
+import { ButtonUI } from '../../(components)/button/button';
 
 export default function PageNotFoundClient() {
   const router = useRouter();
@@ -15,7 +15,7 @@ export default function PageNotFoundClient() {
   }, []);
 
   const handleClick = () => {
-    router.push("/");
+    router.push('/');
   };
 
   if (!isMounted) {

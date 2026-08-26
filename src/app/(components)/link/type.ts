@@ -1,4 +1,4 @@
-type TLinkVariant = "primary" | "secondary" | "inline";
+type TLinkVariant = 'primary' | 'secondary' | 'inline';
 
 interface BaseProps {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ interface InternalLinkProps extends BaseProps {
 interface ExternalLinkProps extends BaseProps {
   href: string;
   external: true;
-  target?: "_blank" | "_self" | "_parent" | "_top";
+  target?: '_blank' | '_self' | '_parent' | '_top';
   rel?: string;
 }
 

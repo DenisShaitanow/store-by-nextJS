@@ -1,12 +1,12 @@
 // app/notifications/page.tsx
-import { Metadata } from "next";
-import NotificationsClient from "./NotificationsPage";
+import { Metadata } from 'next';
+import NotificationsClient from './NotificationsPage';
 
 export const metadata: Metadata = {
-  title: "Уведомления | Store Things",
-  description: "Ваши уведомления в интернет-магазине Store Things",
+  title: 'Уведомления | Store Things',
+  description: 'Ваши уведомления в интернет-магазине Store Things',
   robots: {
-    index: false, 
+    index: false,
     follow: false,
   },
 };

@@ -5,12 +5,7 @@
   align-self: center;
   margin: auto;
   inline-size: 75%;
-  background-color: rgba(
-    var(--accent-color-r),
-    var(--accent-color-g),
-    var(--accent-color-b),
-    0.2
-  );
+  background-color: rgba(var(--accent-color-r), var(--accent-color-g), var(--accent-color-b), 0.2);
   block-size: fit-content;
   padding: 50px;
   border-radius: 50px;

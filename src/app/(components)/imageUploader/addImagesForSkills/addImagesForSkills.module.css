@@ -36,7 +36,7 @@
   width: 24px;
   height: 24px;
   padding: 2px;
-  background-image: url("../../assets/addImagesForSkillsIcon.svg");
+  background-image: url('../../assets/addImagesForSkillsIcon.svg');
 }
 
 .inputText,
@@ -65,10 +65,10 @@
   position: absolute;
   top: -3px;
   right: -4px;
-  content: "";
+  content: '';
   width: 8px;
   height: 8px;
-  background-image: url("../../assets/delete.svg");
+  background-image: url('../../assets/delete.svg');
   border-radius: 50%;
 }
 

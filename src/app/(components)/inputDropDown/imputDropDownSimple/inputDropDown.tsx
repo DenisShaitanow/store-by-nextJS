@@ -1,27 +1,24 @@
-"use client";
+'use client';
 
-import type { FC } from "react";
-import { useState, useRef, useCallback, useEffect } from "react";
-import styles from "./inputDropDown.module.css";
-import type { InputDropDownProps } from "./type";
+import type { FC } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
+import styles from './inputDropDown.module.css';
+import type { InputDropDownProps } from './type';
 
-import AngleOpen from "../../assets/angleOpenInput.svg?react";
-import KrestClose from "../../assets/krestCloseInput.svg?react";
+import AngleOpen from '../../assets/angleOpenInput.svg?react';
+import KrestClose from '../../assets/krestCloseInput.svg?react';
 
-const findLabelByValue = (
-  options: { value: string; label: string }[],
-  value: string,
-) => {
+const findLabelByValue = (options: { value: string; label: string }[], value: string) => {
   const foundOption = options.find((opt) => opt.value === value);
-  return foundOption?.label || "";
+  return foundOption?.label || '';
 };
 
 export const InputDropDown: FC<InputDropDownProps> = ({
   options,
   withInput,
   onChangeOption,
-  className = "",
-  classNameImageOpen = "",
+  className = '',
+  classNameImageOpen = '',
   id,
   title,
   value, // Получаем начальное значение из props
@@ -30,10 +27,10 @@ export const InputDropDown: FC<InputDropDownProps> = ({
   dataCy,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [filteredOptions, setFilteredOptions] = useState(options); // Фильтрованные опции
   const [selectedValue, setSelectedValue] = useState(value); // Новое состояние для хранения выбранного значения
-  const [selectedLabel, setSelectedLabel] = useState<string>("");
+  const [selectedLabel, setSelectedLabel] = useState<string>('');
   const inputRef = useRef<HTMLInputElement>(null);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -45,16 +42,13 @@ export const InputDropDown: FC<InputDropDownProps> = ({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
-      ) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
   });
 
@@ -69,10 +63,10 @@ export const InputDropDown: FC<InputDropDownProps> = ({
 
       onChangeOption(fakeEvent); // Передаем изменение вверх по дереву компонентов
       setSelectedValue(optionValue); // Устанавливаем выбранное значение
-      setSearchTerm(""); // Очищаем строку поиска после выбора варианта
+      setSearchTerm(''); // Очищаем строку поиска после выбора варианта
       setIsOpen(false); // Закрываем список
     },
-    [onChangeOption, id],
+    [onChangeOption, id]
   );
 
   const handleInputChange = useCallback(
@@ -82,17 +76,17 @@ export const InputDropDown: FC<InputDropDownProps> = ({
 
       // Фильтруем варианты по введённой строке
       const filteredOpts = options.filter((opt) =>
-        opt.label.toLowerCase().startsWith(newSearchTerm),
+        opt.label.toLowerCase().startsWith(newSearchTerm)
       );
       setFilteredOptions(filteredOpts);
 
-      if (newSearchTerm === "") {
+      if (newSearchTerm === '') {
         setIsOpen(false); // Закрываем список, если строка пустая
       } else {
         setIsOpen(true); // Открываем список, если введена хотя бы одна буква
       }
     },
-    [options],
+    [options]
   );
 
   const renderOptions = () =>
@@ -115,9 +109,9 @@ export const InputDropDown: FC<InputDropDownProps> = ({
         <label className={styles.label} htmlFor={id}>
           {title}
         </label>
-        <div className={`${isOpen ? styles.borderDone : ""}`}>
+        <div className={`${isOpen ? styles.borderDone : ''}`}>
           <div
-            data-cy={"inputDroppdownSelect"}
+            data-cy={'inputDroppdownSelect'}
             onClick={() => {
               setIsOpen(!isOpen);
             }}
@@ -130,10 +124,8 @@ export const InputDropDown: FC<InputDropDownProps> = ({
                 id={id}
                 name={id}
                 autoComplete="off"
-                className={`${
-                  !!error ? `${styles.inputError}` : ""
-                } ${styles.input}`}
-                placeholder={placeholder || ""}
+                className={`${error ? `${styles.inputError}` : ''} ${styles.input}`}
+                placeholder={placeholder || ''}
                 value={
                   searchTerm || selectedLabel // Если есть активный фильтр, используем его, иначе выводим выбранное значение
                 }

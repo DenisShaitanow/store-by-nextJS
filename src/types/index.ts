@@ -1,11 +1,5 @@
 type Category =
-  | "t-shirts"
-  | "shoes"
-  | "trousers"
-  | "jackets"
-  | "hats"
-  | "underwear"
-  | "accessories";
+  't-shirts' | 'shoes' | 'trousers' | 'jackets' | 'hats' | 'underwear' | 'accessories';
 
 export interface IProduct {
   id: string;
@@ -15,7 +9,7 @@ export interface IProduct {
   image: string;
   shortDescription: string;
   category: Category;
-  sex: "man" | "woman";
+  sex: 'man' | 'woman';
   isLiked: boolean;
 }
 

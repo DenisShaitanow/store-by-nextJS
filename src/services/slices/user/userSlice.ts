@@ -1,13 +1,7 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { type RegistrationData } from "../../../types";
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type RegistrationData } from '../../../types';
 
-import {
-  registerUser,
-  logoutUser,
-  checkUserAuth,
-  loginUser,
-  updateUser,
-} from "../../thunks/user";
+import { registerUser, logoutUser, checkUserAuth, loginUser, updateUser } from '../../thunks/user';
 
 interface IUserState {
   id: string;
@@ -31,7 +25,7 @@ export const initialState: IUserState = {
 };
 
 const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     resetError: (state) => {
@@ -63,14 +57,14 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        console.log('est auth')
+        console.log('est auth');
         state.loading = false;
         state.user = action.payload.user;
         state.id = action.payload.id;
         state.isAuth = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
-        console.log('net auth')
+        console.log('net auth');
         state.loading = false;
         state.isAuth = false;
         state.error = action.payload as string;
@@ -84,7 +78,7 @@ const userSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         if (action.payload.userAlreadyReg) {
           /*dodelat pozge*/
-          console.error('Пользователь с такой почтой уже существует') 
+          console.error('Пользователь с такой почтой уже существует');
           state.loading = false;
           state.isAuth = false;
         } else {
@@ -93,15 +87,12 @@ const userSlice = createSlice({
           state.id = action.payload.id;
           state.isAuth = true;
         }
-       
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
         state.isAuth = false;
         state.error = action.payload as string;
       })
-
-      
 
       // ========== logoutUser ==========
       .addCase(logoutUser.pending, (state) => {
@@ -128,7 +119,7 @@ const userSlice = createSlice({
       .addCase(updateUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
-        console.log(action.payload)
+        console.log(action.payload);
       })
       .addCase(updateUser.rejected, (state, action) => {
         state.loading = false;

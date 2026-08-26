@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import clsx from "classnames";
-import styles from "./passwordInput.module.css";
-import { type PasswordInputUIProps } from "./type";
-import { RevealElementUI } from "./passwordReveal";
+import React, { useState } from 'react';
+import clsx from 'classnames';
+import styles from './passwordInput.module.css';
+import { type PasswordInputUIProps } from './type';
+import { RevealElementUI } from './passwordReveal';
 
 export const PasswordInputUI: React.FC<PasswordInputUIProps> = ({
   page,
@@ -15,8 +15,8 @@ export const PasswordInputUI: React.FC<PasswordInputUIProps> = ({
   dataCy,
   largeSize,
 }) => {
-  const isRegisterPage = page === "register";
-  const isLoginPage = page === "login";
+  const isRegisterPage = page === 'register';
+  const isLoginPage = page === 'login';
   const passwordIsTooShort = value.length > 0 && value.length < 8;
 
   // Состояние для переключения режима видимости
@@ -34,18 +34,15 @@ export const PasswordInputUI: React.FC<PasswordInputUIProps> = ({
       <span className={clsx(styles.title, styles.text)}>Пароль</span>
       <div
         className={clsx(styles.wrapper, {
-          [styles.wrapper_error]:
-            (isRegisterPage && passwordIsTooShort) || (isLoginPage && error),
+          [styles.wrapper_error]: (isRegisterPage && passwordIsTooShort) || (isLoginPage && error),
         })}
       >
         <input
           data-cy={dataCy}
           autoComplete="off"
           className={clsx(styles.input, styles.text)}
-          type={showPassword ? "text" : "password"}
-          placeholder={
-            isRegisterPage ? "Придумайте надежный пароль" : "Введите ваш пароль"
-          }
+          type={showPassword ? 'text' : 'password'}
+          placeholder={isRegisterPage ? 'Придумайте надежный пароль' : 'Введите ваш пароль'}
           name="password"
           id={`input-password`}
           onChange={onChange}
@@ -53,10 +50,7 @@ export const PasswordInputUI: React.FC<PasswordInputUIProps> = ({
           maxLength={50}
           size={42}
         />
-        <RevealElementUI
-          onClick={toggleInputVisibility}
-          visible={showPassword}
-        />
+        <RevealElementUI onClick={toggleInputVisibility} visible={showPassword} />
       </div>
       {isRegisterPage ? (
         <p
@@ -65,14 +59,12 @@ export const PasswordInputUI: React.FC<PasswordInputUIProps> = ({
           })}
         >
           {passwordIsTooShort || value.length === 0
-            ? "Пароль должен состоять не менее, чем из 8 символов"
-            : "Надежный"}
+            ? 'Пароль должен состоять не менее, чем из 8 символов'
+            : 'Надежный'}
         </p>
       ) : (
         error && (
-          <p className={clsx(styles.text, styles.text_tip, styles.text_error)}>
-            {errorText}
-          </p>
+          <p className={clsx(styles.text, styles.text_tip, styles.text_error)}>{errorText}</p>
         )
       )}
     </div>

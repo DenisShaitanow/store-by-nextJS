@@ -1,12 +1,6 @@
-export type IconButtonType =
-  | "like"
-  | "notification"
-  | "share"
-  | "more"
-  | "theme"
-  | "basket";
+export type IconButtonType = 'like' | 'notification' | 'share' | 'more' | 'theme' | 'basket';
 
-export type ThemeMode = "light" | "dark";
+export type ThemeMode = 'light' | 'dark';
 
 export type IconButtonBaseProps = {
   type: IconButtonType;
@@ -19,36 +13,31 @@ export type IconButtonBaseProps = {
 };
 
 export type LikeProps = {
-  type: "like";
+  type: 'like';
   isLiked?: boolean;
 } & IconButtonBaseProps;
 
 export type NotificationProps = {
-  type: "notification";
+  type: 'notification';
   hasNotification?: boolean;
 } & IconButtonBaseProps;
 
 export type ShareProps = {
-  type: "share";
+  type: 'share';
 } & IconButtonBaseProps;
 
 export type MoreProps = {
-  type: "more";
+  type: 'more';
 } & IconButtonBaseProps;
 
 export type ThemeProps = {
-  type: "theme";
+  type: 'theme';
   themeMode: ThemeMode; // 'light' -> sun, 'dark' -> moon
 } & IconButtonBaseProps;
 
 export type BasketProps = {
-  type: "basket";
+  type: 'basket';
 } & IconButtonBaseProps;
 
 export type IconButtonProps =
-  | LikeProps
-  | NotificationProps
-  | ShareProps
-  | MoreProps
-  | ThemeProps
-  | BasketProps;
+  LikeProps | NotificationProps | ShareProps | MoreProps | ThemeProps | BasketProps;

@@ -9,12 +9,7 @@
   min-inline-size: 283px;
   block-size: fit-content;
   padding: 20px;
-  background-color: rgba(
-    var(--accent-color-r),
-    var(--accent-color-g),
-    var(--accent-color-b),
-    0.2
-  );
+  background-color: rgba(var(--accent-color-r), var(--accent-color-g), var(--accent-color-b), 0.2);
   border-radius: 40px;
   box-shadow: 0 0 3px var(--accent-color);
   gap: 15px;

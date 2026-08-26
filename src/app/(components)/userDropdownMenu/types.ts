@@ -1,4 +1,4 @@
-import type { PlacementType } from "../baseDropdown/types";
+import type { PlacementType } from '../baseDropdown/types';
 
 export interface UserDropdownMenuProps {
   /* Данные пользователя */
@@ -17,5 +17,5 @@ export interface UserDropdownMenuProps {
   /* CSS класс для container */
   className?: string;
   /* Aria-label для accessibility */
-  "aria-label"?: string;
+  'aria-label'?: string;
 }

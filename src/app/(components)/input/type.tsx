@@ -1,8 +1,8 @@
-import { type ChangeEvent } from "react";
+import { type ChangeEvent } from 'react';
 
 export type InputUIProps = {
   title: string;
-  type: "text" | "email" | "date" | "search" | "password";
+  type: 'text' | 'email' | 'date' | 'search' | 'password';
   placeholder: string;
   name: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;

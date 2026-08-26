@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
-import type { ButtonProps } from "../../(components)/button/button/type";
-import styles from "./ExternalAuthButton.module.css";
+'use client';
+import React from 'react';
+import type { ButtonProps } from '../../(components)/button/button/type';
+import styles from './ExternalAuthButton.module.css';
 
 interface ExternalAuthButtonProps extends ButtonProps {
   children?: React.ReactNode;
@@ -10,7 +10,7 @@ interface ExternalAuthButtonProps extends ButtonProps {
 export const ExternalAuthButton: React.FC<ExternalAuthButtonProps> = ({
   label,
   onClick,
-  type = "button",
+  type = 'button',
   children,
 }) => (
   <button type={type} className={styles.button} onClick={onClick}>

@@ -1,2 +1,2 @@
-export { AvatarEditAccount } from "./avatarEditAccount";
-export type { AvatarEditAccountProps } from "./type";
+export { AvatarEditAccount } from './avatarEditAccount';
+export type { AvatarEditAccountProps } from './type';

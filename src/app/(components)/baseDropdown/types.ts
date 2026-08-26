@@ -1,10 +1,6 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
-export type PlacementType =
-  | "bottom-left"
-  | "bottom-right"
-  | "top-left"
-  | "top-right";
+export type PlacementType = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
 
 export interface BaseDropdownProps {
   /** Элемент-триггер по клику, на который открывается dropdown */
@@ -30,5 +26,5 @@ export interface BaseDropdownProps {
   /** CSS класс для dropdown */
   dropdownClassName?: string;
   /** Aria-label для accessibility */
-  "aria-label"?: string;
+  'aria-label'?: string;
 }

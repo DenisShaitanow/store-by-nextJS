@@ -1,6 +1,6 @@
-import { setCookie, getCookie } from "../../cookie";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { deleteCookie } from "../../cookie";
+import { setCookie, getCookie } from '../../cookie';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { deleteCookie } from '../../cookie';
 import {
   mockedRegisterUserApi,
   mockedLogoutApi,
@@ -8,25 +8,25 @@ import {
   mockedLoginUserApi,
   changeDataInPersonalCabinetApi,
   refreshToken,
-  updateUserData
-} from "../../api";
-import { type RegistrationData } from "../../../types";
+  updateUserData,
+} from '../../api';
+import { type RegistrationData } from '../../../types';
 
 // Регистрация пользователя
 export const registerUser = createAsyncThunk<
   {
     user: RegistrationData | null;
     id: string;
-    userAlreadyReg: boolean
+    userAlreadyReg: boolean;
   },
   RegistrationData
->("user/register", async (data, { rejectWithValue }) => {
+>('user/register', async (data, { rejectWithValue }) => {
   try {
     const response = await mockedRegisterUserApi(data);
-    localStorage.setItem("refreshToken", response.refreshToken);
+    localStorage.setItem('refreshToken', response.refreshToken);
     return { user: response.user, id: response.id, userAlreadyReg: response.userAlreadyReg };
   } catch (err) {
-    return rejectWithValue("Ошибка при регистрации");
+    return rejectWithValue('Ошибка при регистрации');
   }
 });
 
@@ -36,17 +36,17 @@ export const changeDataInPersonalCabinet = createAsyncThunk<
     user: RegistrationData | null;
   },
   RegistrationData
->("user/changeDataInPersonalCabinet", async (data, { rejectWithValue }) => {
+>('user/changeDataInPersonalCabinet', async (data, { rejectWithValue }) => {
   try {
     const response = await changeDataInPersonalCabinetApi(data);
-    const accessToken = response.accessToken.startsWith("Bearer ")
+    const accessToken = response.accessToken.startsWith('Bearer ')
       ? response.accessToken.slice(7)
       : response.accessToken;
-    setCookie("accessToken", accessToken);
-    localStorage.setItem("refreshToken", response.refreshToken);
+    setCookie('accessToken', accessToken);
+    localStorage.setItem('refreshToken', response.refreshToken);
     return { user: response.user };
   } catch (err) {
-    return rejectWithValue("Ошибка при регистрации");
+    return rejectWithValue('Ошибка при регистрации');
   }
 });
 
@@ -54,54 +54,48 @@ export const changeDataInPersonalCabinet = createAsyncThunk<
 export const loginUser = createAsyncThunk<
   {
     user: RegistrationData | null;
-    id: string
+    id: string;
   },
-    { email: string; password: string }
-  >(
-  "user/login",
-  async (data: { email: string; password: string }, { rejectWithValue }) => {
-    try {
-      const user = await mockedLoginUserApi(data);
-      
-      if (user.success) {
-        localStorage.setItem("refreshToken", user.refreshToken);
-        return {user: user.user, id: user.id};
-      } else {
-        return rejectWithValue("Неверный email или пароль");
-      }
-      
-    } catch (err) {
-      return rejectWithValue("Ошибка при входе");
+  { email: string; password: string }
+>('user/login', async (data: { email: string; password: string }, { rejectWithValue }) => {
+  try {
+    const user = await mockedLoginUserApi(data);
+
+    if (user.success) {
+      localStorage.setItem('refreshToken', user.refreshToken);
+      return { user: user.user, id: user.id };
+    } else {
+      return rejectWithValue('Неверный email или пароль');
     }
-  },
-);
+  } catch (err) {
+    return rejectWithValue('Ошибка при входе');
+  }
+});
 
 // Проверка авторизации пользователя
 export const checkUserAuth = createAsyncThunk(
-  "user/checkUserAuth",
+  'user/checkUserAuth',
   async (_, { rejectWithValue }) => {
     try {
       const data = await mockedGetUserApi();
       return data;
     } catch (err) {
-      
-          const refresh = (await refreshToken()).success;
-          if (refresh) {
-            try {
-              const data = await mockedGetUserApi();
-              return data;
-              
-            } catch (err) { 
-              return rejectWithValue("Не авторизован");
-            }
-          }
+      const refresh = (await refreshToken()).success;
+      if (refresh) {
+        try {
+          const data = await mockedGetUserApi();
+          return data;
+        } catch (err) {
+          return rejectWithValue('Не авторизован');
+        }
+      }
     }
   }
 );
 
 // Обновление данных пользователя
 export const updateUser = createAsyncThunk<RegistrationData, RegistrationData>(
-  "user/update",
+  'user/update',
   async (data, { rejectWithValue }) => {
     try {
       const response = await updateUserData(data);
@@ -109,18 +103,15 @@ export const updateUser = createAsyncThunk<RegistrationData, RegistrationData>(
     } catch (err) {
       return rejectWithValue(err);
     }
-  },
+  }
 );
 
 // Выход пользователя
-export const logoutUser = createAsyncThunk(
-  "user/logout",
-  async (_, { rejectWithValue }) => {
-    try {
-      await mockedLogoutApi();
-      localStorage.removeItem("refreshToken");
-    } catch (err) {
-      return rejectWithValue("Ошибка при выходе");
-    }
-  },
-);
+export const logoutUser = createAsyncThunk('user/logout', async (_, { rejectWithValue }) => {
+  try {
+    await mockedLogoutApi();
+    localStorage.removeItem('refreshToken');
+  } catch (err) {
+    return rejectWithValue('Ошибка при выходе');
+  }
+});

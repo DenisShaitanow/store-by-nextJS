@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { type FC, useState, useRef } from "react";
-import clsx from "classnames";
-import styles from "./Input.module.css";
-import { type InputUIProps } from "./type";
+import { type FC, useState, useRef } from 'react';
+import clsx from 'classnames';
+import styles from './Input.module.css';
+import { type InputUIProps } from './type';
 
 export const InputUI: FC<InputUIProps> = ({
   title,

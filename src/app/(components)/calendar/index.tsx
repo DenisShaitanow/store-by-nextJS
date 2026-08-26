@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { format } from "date-fns";
-import SimpleDatePicker from "./datepicker";
+import { useState } from 'react';
+import { format } from 'date-fns';
+import SimpleDatePicker from './datepicker';
 
 export default function DatepickerWithInput() {
   const [date, setDate] = useState<Date | null>(null);
@@ -13,17 +13,13 @@ export default function DatepickerWithInput() {
         <div>
           <input
             type="text"
-            value={date ? format(date, "dd.MM.yyyy") : ""}
+            value={date ? format(date, 'dd.MM.yyyy') : ''}
             placeholder="ДД.ММ.ГГГГ"
             readOnly
             onClick={() => setOpen((v) => !v)}
           />
 
-          <button
-            type="button"
-            aria-label="Открыть календарь"
-            onClick={() => setOpen((v) => !v)}
-          />
+          <button type="button" aria-label="Открыть календарь" onClick={() => setOpen((v) => !v)} />
 
           {open && (
             <div onClick={(e) => e.stopPropagation()}>

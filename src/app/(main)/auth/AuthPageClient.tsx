@@ -1,15 +1,15 @@
 // app/(auth)/auth/page.tsx
-"use client";
+'use client';
 
-import { type ChangeEvent, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import styles from "./AuthPage.module.css";
-import { loginUser } from "../../../services/thunks/user";
-import { RegistrationHeaderUI } from "../registration/(registrationHeader)/RegistrationHeaderUI";
-import { InputUI } from "../../(components)/input";
-import { ButtonUI } from "../../(components)/button/button";
-import { PasswordInputUI } from "../../(components)/password";
-import { useAppDispatch } from "../../../services/hooks";
+import { type ChangeEvent, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import styles from './AuthPage.module.css';
+import { loginUser } from '../../../services/thunks/user';
+import { RegistrationHeaderUI } from '../registration/(registrationHeader)/RegistrationHeaderUI';
+import { InputUI } from '../../(components)/input';
+import { ButtonUI } from '../../(components)/button/button';
+import { PasswordInputUI } from '../../(components)/password';
+import { useAppDispatch } from '../../../services/hooks';
 
 export default function AuthPage() {
   const dispatch = useAppDispatch();
@@ -17,8 +17,8 @@ export default function AuthPage() {
   const [isMounted, setIsMounted] = useState(false);
   const [authError, setAuthError] = useState<boolean>(false);
 
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   useEffect(() => {
     setIsMounted(true);
@@ -40,7 +40,7 @@ export default function AuthPage() {
 
   const onClickButton = () => {
     let regDataObject;
-    const regDataString = localStorage.getItem("regData");
+    const regDataString = localStorage.getItem('regData');
     if (regDataString) {
       try {
         regDataObject = JSON.parse(regDataString);
@@ -52,7 +52,7 @@ export default function AuthPage() {
 
     if (email === regDataObject?.email && password === regDataObject?.password) {
       dispatch(loginUser({ email, password }));
-      router.push("/");
+      router.push('/');
     } else {
       setAuthError(true);
     }
@@ -74,15 +74,9 @@ export default function AuthPage() {
           value={email}
           onChange={handleChangeEmail}
         />
-        <PasswordInputUI
-          page="register"
-          value={password}
-          onChange={handleChangePassword}
-        />
+        <PasswordInputUI page="register" value={password} onChange={handleChangePassword} />
       </div>
-      {authError && (
-        <span className={styles.authError}>Неправильный логин или пароль.</span>
-      )}
+      {authError && <span className={styles.authError}>Неправильный логин или пароль.</span>}
       <ButtonUI
         label="Войти"
         onClick={onClickButton}

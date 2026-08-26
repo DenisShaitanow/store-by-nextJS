@@ -1,18 +1,11 @@
-"use client";
+'use client';
 
-import React, {
-  useCallback,
-  useEffect,
-  useId,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 
-import styles from "./SearchInput.module.css";
+import styles from './SearchInput.module.css';
 
-import SearchSvg from "../assets/search.svg?react";
-import CrossSvg from "../assets/cross.svg?react";
+import SearchSvg from '../assets/search.svg?react';
+import CrossSvg from '../assets/cross.svg?react';
 
 export interface SkillOption {
   id: string;
@@ -32,12 +25,12 @@ interface SearchProps {
 }
 
 export const SearchInput: React.FC<SearchProps> = ({
-  placeholder = "Искать навык",
+  placeholder = 'Искать навык',
   value,
   onChange,
   onSelect,
   options = [],
-  className = "",
+  className = '',
   limit = 10,
   caseSensitive = false,
   filter,
@@ -52,15 +45,11 @@ export const SearchInput: React.FC<SearchProps> = ({
   const idBase = useId();
   const listboxId = `${idBase}-listbox`;
 
-  const norm = useCallback(
-    (s: string) => (caseSensitive ? s : s.toLowerCase()),
-    [caseSensitive],
-  );
+  const norm = useCallback((s: string) => (caseSensitive ? s : s.toLowerCase()), [caseSensitive]);
 
   const defaultFilter = useCallback(
-    (opt: SkillOption, input: string) =>
-      norm(opt.label).startsWith(norm(input)),
-    [norm],
+    (opt: SkillOption, input: string) => norm(opt.label).startsWith(norm(input)),
+    [norm]
   );
   const effectiveFilter = filter ?? defaultFilter;
 
@@ -73,12 +62,9 @@ export const SearchInput: React.FC<SearchProps> = ({
   const isDropdownVisible = isOpen && (filteredOptions.length > 0 || !!value);
 
   const combineClasses = (...classes: (string | false | null | undefined)[]) =>
-    classes.filter(Boolean).join(" ");
+    classes.filter(Boolean).join(' ');
 
-  const searchClasses = combineClasses(
-    styles.search,
-    isDropdownVisible && styles.search_open,
-  );
+  const searchClasses = combineClasses(styles.search, isDropdownVisible && styles.search_open);
   const wrapperClasses = combineClasses(styles.searchWrapper, className);
 
   const focusOption = useCallback((idx: number) => {
@@ -94,7 +80,7 @@ export const SearchInput: React.FC<SearchProps> = ({
       setActiveIdx(-1);
       requestAnimationFrame(() => inputRef.current?.focus());
     },
-    [onChange, onSelect],
+    [onChange, onSelect]
   );
 
   const handleInputChange = useCallback(
@@ -103,7 +89,7 @@ export const SearchInput: React.FC<SearchProps> = ({
       setIsOpen(true);
       setActiveIdx(-1);
     },
-    [onChange],
+    [onChange]
   );
 
   const onInputKeyDown = useCallback(
@@ -111,28 +97,22 @@ export const SearchInput: React.FC<SearchProps> = ({
       // Если дропдаун закрыт — позволяем стандартное поведение
       if (!isDropdownVisible) return;
 
-      if (e.key === "ArrowDown") {
+      if (e.key === 'ArrowDown') {
         e.preventDefault();
         if (filteredOptions.length) {
           setIsOpen(true);
-          const next =
-            activeIdx >= 0
-              ? Math.min(activeIdx + 1, filteredOptions.length - 1)
-              : 0;
+          const next = activeIdx >= 0 ? Math.min(activeIdx + 1, filteredOptions.length - 1) : 0;
           setActiveIdx(next);
           requestAnimationFrame(() => focusOption(next));
         }
         return;
       }
 
-      if (e.key === "ArrowUp") {
+      if (e.key === 'ArrowUp') {
         e.preventDefault();
         if (filteredOptions.length) {
           // Если мы ещё в инпуте (activeIdx === -1), переходим на последнюю опцию
-          const prev =
-            activeIdx >= 0
-              ? Math.max(activeIdx - 1, 0)
-              : filteredOptions.length - 1;
+          const prev = activeIdx >= 0 ? Math.max(activeIdx - 1, 0) : filteredOptions.length - 1;
           setIsOpen(true);
           setActiveIdx(prev);
           requestAnimationFrame(() => focusOption(prev));
@@ -140,7 +120,7 @@ export const SearchInput: React.FC<SearchProps> = ({
         return;
       }
 
-      if (e.key === "Enter") {
+      if (e.key === 'Enter') {
         if (activeIdx >= 0 && activeIdx < filteredOptions.length) {
           e.preventDefault();
           handleSelect(filteredOptions[activeIdx]);
@@ -154,33 +134,25 @@ export const SearchInput: React.FC<SearchProps> = ({
         return;
       }
 
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         e.preventDefault();
         setIsOpen(false);
         setActiveIdx(-1);
         return;
       }
 
-      if (e.key === "Tab") {
+      if (e.key === 'Tab') {
         setIsOpen(false);
         setActiveIdx(-1);
         return;
       }
     },
-    [
-      isDropdownVisible,
-      filteredOptions,
-      activeIdx,
-      handleSelect,
-      focusOption,
-      value,
-      onSelect,
-    ],
+    [isDropdownVisible, filteredOptions, activeIdx, handleSelect, focusOption, value, onSelect]
   );
 
   const onOptionKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLButtonElement>, idx: number) => {
-      if (e.key === "ArrowDown") {
+      if (e.key === 'ArrowDown') {
         e.preventDefault();
         const next = Math.min(idx + 1, filteredOptions.length - 1);
         if (next !== idx) {
@@ -189,7 +161,7 @@ export const SearchInput: React.FC<SearchProps> = ({
         }
         return;
       }
-      if (e.key === "ArrowUp") {
+      if (e.key === 'ArrowUp') {
         e.preventDefault();
         if (idx > 0) {
           const prev = idx - 1;
@@ -201,50 +173,45 @@ export const SearchInput: React.FC<SearchProps> = ({
         }
         return;
       }
-      if (e.key === "Enter") {
+      if (e.key === 'Enter') {
         e.preventDefault();
         handleSelect(filteredOptions[idx]);
         return;
       }
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         e.preventDefault();
         setIsOpen(false);
         setActiveIdx(-1);
         inputRef.current?.focus();
         return;
       }
-      if (e.key === "Tab") {
+      if (e.key === 'Tab') {
         setIsOpen(false);
         setActiveIdx(-1);
         return;
       }
     },
-    [filteredOptions, handleSelect, focusOption],
+    [filteredOptions, handleSelect, focusOption]
   );
 
   // Закрытие по клику вне
   useEffect(() => {
     const onDocPointerDown = (e: PointerEvent) => {
       const target = e.target as Node;
-      if (
-        !inputRef.current?.contains(target) &&
-        !listRef.current?.contains(target)
-      ) {
+      if (!inputRef.current?.contains(target) && !listRef.current?.contains(target)) {
         setIsOpen(false);
         setActiveIdx(-1);
       }
     };
-    document.addEventListener("pointerdown", onDocPointerDown);
-    return () => document.removeEventListener("pointerdown", onDocPointerDown);
+    document.addEventListener('pointerdown', onDocPointerDown);
+    return () => document.removeEventListener('pointerdown', onDocPointerDown);
   }, []);
 
   // Прокрутка к активной опции
   useEffect(() => {
     if (activeIdx < 0) return;
-    const el = listRef.current?.querySelector<HTMLElement>(
-      `[data-idx='${activeIdx}']`,
-    );
-    el?.scrollIntoView({ block: "nearest" });
+    const el = listRef.current?.querySelector<HTMLElement>(`[data-idx='${activeIdx}']`);
+    el?.scrollIntoView({ block: 'nearest' });
   }, [activeIdx]);
 
   const showEmpty = !!value && filteredOptions.length === 0;
@@ -266,9 +233,7 @@ export const SearchInput: React.FC<SearchProps> = ({
           aria-haspopup="listbox"
           aria-controls={listboxId}
           aria-activedescendant={
-            activeIdx >= 0
-              ? `${idBase}-option-${filteredOptions[activeIdx].id}`
-              : undefined
+            activeIdx >= 0 ? `${idBase}-option-${filteredOptions[activeIdx].id}` : undefined
           }
           role="combobox"
         />
@@ -277,7 +242,7 @@ export const SearchInput: React.FC<SearchProps> = ({
             type="button"
             aria-label="Очистить"
             onClick={() => {
-              onChange("");
+              onChange('');
               setIsOpen(true);
               setActiveIdx(-1);
               inputRef.current?.focus();
@@ -290,12 +255,7 @@ export const SearchInput: React.FC<SearchProps> = ({
       </div>
 
       {isDropdownVisible && (
-        <ul
-          id={listboxId}
-          className={styles.dropdown}
-          role="listbox"
-          ref={listRef}
-        >
+        <ul id={listboxId} className={styles.dropdown} role="listbox" ref={listRef}>
           {!showEmpty &&
             filteredOptions.map((option, idx) => {
               const optionId = `${idBase}-option-${option.id}`;

@@ -1,8 +1,7 @@
+'use client';
 
-"use client";
-
-import { type FC, useState, useEffect } from "react";
-import styles from "./NotificationsPage.module.css";
+import { type FC, useState, useEffect } from 'react';
+import styles from './NotificationsPage.module.css';
 
 const NotificationsClient: FC = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -12,7 +11,7 @@ const NotificationsClient: FC = () => {
   }, []);
 
   if (!isMounted) {
-    return null;  
+    return null;
   }
 
   return (

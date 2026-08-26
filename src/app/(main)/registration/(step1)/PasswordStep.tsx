@@ -1,13 +1,13 @@
-"user client";
+'user client';
 
-import styles from "./PasswordStep.module.css";
-import { type PasswordStepProps } from "./type";
-import { ExternalAuthButton } from "../../../(components)/externalAuthButton/ExternalAuthButton";
-import { InputUI } from "../../../(components)/input";
-import { ButtonUI } from "../../../(components)/button/button";
-import { PasswordInputUI } from "../../../(components)/password";
-import GoogleIconUrl from "../../../(components)/assets/google-icon.svg";
-import AppleIconUrl from "../../../(components)/assets/apple-icon.svg";
+import styles from './PasswordStep.module.css';
+import { type PasswordStepProps } from './type';
+import { ExternalAuthButton } from '../../../(components)/externalAuthButton/ExternalAuthButton';
+import { InputUI } from '../../../(components)/input';
+import { ButtonUI } from '../../../(components)/button/button';
+import { PasswordInputUI } from '../../../(components)/password';
+import GoogleIconUrl from '../../../(components)/assets/google-icon.svg';
+import AppleIconUrl from '../../../(components)/assets/apple-icon.svg';
 
 export const PasswordStep: React.FC<PasswordStepProps> = ({
   email,
@@ -25,20 +25,16 @@ export const PasswordStep: React.FC<PasswordStepProps> = ({
           <ExternalAuthButton
             label="Продолжить с Google"
             type="button"
-            onClick={() =>
-              console.log("Авторизация через учетную запись Google")
-            }
+            onClick={() => console.log('Авторизация через учетную запись Google')}
           >
-            <GoogleIconUrl/>
+            <GoogleIconUrl />
           </ExternalAuthButton>
           <ExternalAuthButton
             label="Продолжить с Apple"
             type="button"
-            onClick={() =>
-              console.log("Авторизация через учетную запись Apple")
-            }
+            onClick={() => console.log('Авторизация через учетную запись Apple')}
           >
-            <AppleIconUrl/>
+            <AppleIconUrl />
           </ExternalAuthButton>
         </div>
         <span className={styles.span}>или</span>
@@ -52,13 +48,13 @@ export const PasswordStep: React.FC<PasswordStepProps> = ({
             onChange={onChangeEmail}
             error={error}
             errorText={errorText}
-            dataCy={"registrationInputEmail"}
+            dataCy={'registrationInputEmail'}
           />
           <PasswordInputUI
             page="register"
             value={password}
             onChange={onChangePassword}
-            dataCy={"registrationInputPassword"}
+            dataCy={'registrationInputPassword'}
           />
         </div>
       </div>
@@ -68,7 +64,7 @@ export const PasswordStep: React.FC<PasswordStepProps> = ({
         className={styles.button}
         type="button"
         disabled={!email || password.length < 8 || error}
-        dataCy={"buttonStep1"}
+        dataCy={'buttonStep1'}
       />
     </div>
   </div>

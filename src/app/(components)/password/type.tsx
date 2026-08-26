@@ -1,4 +1,4 @@
-import { type ChangeEvent } from "react";
+import { type ChangeEvent } from 'react';
 
 export type RevealElementUIProps = {
   visible?: boolean;
@@ -6,7 +6,7 @@ export type RevealElementUIProps = {
 };
 
 export type PasswordInputUIProps = {
-  page: "register" | "login";
+  page: 'register' | 'login';
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   value: string;
   error?: boolean;

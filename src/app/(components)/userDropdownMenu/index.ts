@@ -1,2 +1,2 @@
-export { UserDropdownMenu } from "./UserDropdownMenu";
-export type { UserDropdownMenuProps } from "./types";
+export { UserDropdownMenu } from './UserDropdownMenu';
+export type { UserDropdownMenuProps } from './types';

@@ -4,12 +4,7 @@
   inline-size: 75%;
   max-inline-size: 700px;
   margin-inline: auto;
-  background-color: rgba(
-    var(--accent-color-r),
-    var(--accent-color-g),
-    var(--accent-color-b),
-    0.2
-  );
+  background-color: rgba(var(--accent-color-r), var(--accent-color-g), var(--accent-color-b), 0.2);
   padding: 30px;
   gap: 10px;
   border-radius: 10px;

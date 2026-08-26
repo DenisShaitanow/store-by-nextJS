@@ -1,2 +1,2 @@
-export { BaseDropdown } from "./BaseDropdown";
-export type { BaseDropdownProps, PlacementType } from "./types";
+export { BaseDropdown } from './BaseDropdown';
+export type { BaseDropdownProps, PlacementType } from './types';

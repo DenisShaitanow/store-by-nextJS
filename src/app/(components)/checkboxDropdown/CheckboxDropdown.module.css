@@ -30,7 +30,7 @@
   color: var(--text-color);
   font-weight: 400;
   font-size: 16px;
-  font-family: "Roboto", var(--font-family, sans-serif);
+  font-family: 'Roboto', var(--font-family, sans-serif);
   line-height: 1.5;
   letter-spacing: 0.02em;
   background-color: var(--surface-color);
@@ -120,7 +120,7 @@
 
 /* Отступы между категориями и подкатегориями */
 
-.content > div > div[class*="list"] {
+.content > div > div[class*='list'] {
   gap: var(--card-small-tag-gap);
 }
 
@@ -209,7 +209,7 @@
   color: #333333;
   font-weight: 400;
   font-size: 16px;
-  font-family: "Roboto", var(--font-family, sans-serif);
+  font-family: 'Roboto', var(--font-family, sans-serif);
   line-height: 1.5;
   letter-spacing: 0.02em;
   white-space: nowrap;
@@ -241,7 +241,7 @@
   align-items: center;
   width: 20px;
   height: 20px;
-  background-image: url("../assets/checkbox-empty.svg");
+  background-image: url('../assets/checkbox-empty.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -249,11 +249,11 @@
 }
 
 .checkboxInput:checked + .checkboxIcon {
-  background-image: url("../assets/checkbox-done.svg");
+  background-image: url('../assets/checkbox-done.svg');
 }
 
 .checkboxIcon_indeterminate {
-  background-image: url("../assets/checkbox-remove.svg");
+  background-image: url('../assets/checkbox-remove.svg');
 }
 
 /* Стрелка - всегда видно */
@@ -264,7 +264,7 @@
   right: 12px;
   width: 16px;
   height: 16px;
-  background-image: url("../assets/chevron-down.svg");
+  background-image: url('../assets/chevron-down.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -330,7 +330,7 @@
   color: var(--caption-color);
   font-weight: 400;
   font-size: 16px;
-  font-family: "Roboto", var(--font-family, sans-serif);
+  font-family: 'Roboto', var(--font-family, sans-serif);
   line-height: 1.5;
   letter-spacing: 0.02em;
   text-align: center;
@@ -348,7 +348,7 @@
   color: var(--accent-color);
   font-weight: 400;
   font-size: 16px;
-  font-family: "Roboto", var(--font-family, sans-serif);
+  font-family: 'Roboto', var(--font-family, sans-serif);
   line-height: 1.5;
   letter-spacing: 0.02em;
   text-align: left;

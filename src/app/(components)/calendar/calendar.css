@@ -178,35 +178,35 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 1;
-  content: "";
+  content: '';
 }
 
 .react-datepicker__day-names .react-datepicker__day-name:nth-child(1)::after {
-  content: "Пн";
+  content: 'Пн';
 }
 
 .react-datepicker__day-names .react-datepicker__day-name:nth-child(2)::after {
-  content: "Вт";
+  content: 'Вт';
 }
 
 .react-datepicker__day-names .react-datepicker__day-name:nth-child(3)::after {
-  content: "Ср";
+  content: 'Ср';
 }
 
 .react-datepicker__day-names .react-datepicker__day-name:nth-child(4)::after {
-  content: "Чт";
+  content: 'Чт';
 }
 
 .react-datepicker__day-names .react-datepicker__day-name:nth-child(5)::after {
-  content: "Пт";
+  content: 'Пт';
 }
 
 .react-datepicker__day-names .react-datepicker__day-name:nth-child(6)::after {
-  content: "Сб";
+  content: 'Сб';
 }
 
 .react-datepicker__day-names .react-datepicker__day-name:nth-child(7)::after {
-  content: "Вс";
+  content: 'Вс';
 }
 
 .calendar__month {
@@ -321,7 +321,7 @@
   z-index: 50;
 }
 
-span[aria-hidden="true"] {
+span[aria-hidden='true'] {
   text-transform: capitalize;
 }
 
@@ -331,7 +331,7 @@ span[aria-hidden="true"] {
   text-align: center;
 }
 
-.calendar__month [role="gridcell"]:nth-of-type(n + 43),
+.calendar__month [role='gridcell']:nth-of-type(n + 43),
 .calendar__month .react-datepicker__day:nth-of-type(n + 43) {
   display: none;
 }

@@ -1,25 +1,23 @@
-"use client";
+'use client';
 
-import  Link from "next/link";
-import { useRouter } from "next/navigation";
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
-import styles from "./Header.module.css";
+import styles from './Header.module.css';
 
-import CrossSvg from "../assets/cross.svg";
+import CrossSvg from '../assets/cross.svg';
 
-import type { THeaderUIProps } from "./type";
+import type { THeaderUIProps } from './type';
 
-import { ButtonUI } from "../button/button";
-import { Logo } from "../logo";
-import { IconButton } from "../iconButton";
-import { UserDropdownMenu } from "../userDropdownMenu";
-import type { RegistrationData } from "../../../types";
-import { useEffect, useContext } from "react";
-import { ThemeContext } from "../../(themeContext)/ThemeContext";
+import { ButtonUI } from '../button/button';
+import { Logo } from '../logo';
+import { IconButton } from '../iconButton';
+import { UserDropdownMenu } from '../userDropdownMenu';
+import type { RegistrationData } from '../../../types';
+import { useEffect, useContext } from 'react';
+import { ThemeContext } from '../../(themeContext)/ThemeContext';
 
-
-
-import {  useAppSelector } from "../../../services/hooks";
+import { useAppSelector } from '../../../services/hooks';
 
 import { selectUserLoading } from '../../../services/selectors/user-selectors/user-selectors';
 
@@ -40,40 +38,35 @@ export const HeaderUI = ({
   const { toggleTheme } = useContext(ThemeContext);
 
   function handleClickLogo() {
-    router.push("/");
+    router.push('/');
   }
 
   let regData: RegistrationData;
 
-  
-    regData = {
-      email: "",
-      password: "",
-      name: "",
-      surname: "",
-      avatar: "",
-      gender: "",
-      location: "",
-      birthdayDate: "",
-    }
+  regData = {
+    email: '',
+    password: '',
+    name: '',
+    surname: '',
+    avatar: '',
+    gender: '',
+    location: '',
+    birthdayDate: '',
+  };
 
   const avatarUrl =
-    user && user.avatar
-      ? user.avatar
-      : regData && regData.avatar
-        ? regData.avatar
-        : "";
+    user && user.avatar ? user.avatar : regData && regData.avatar ? regData.avatar : '';
 
   const handleFavorits = () => {
-    router.push("/favorits");
+    router.push('/favorits');
   };
 
   const handleBasket = () => {
-    router.push("/basket");
+    router.push('/basket');
   };
 
   const handleOpenNotifications = () => {
-    router.push("/notifications");
+    router.push('/notifications');
   };
 
   if (isModal)
@@ -95,11 +88,7 @@ export const HeaderUI = ({
 
   return (
     <div className={`${styles.header}`}>
-      <div
-        data-cy={"headerLogo"}
-        className={styles.logoContainer}
-        onClick={handleClickLogo}
-      >
+      <div data-cy={'headerLogo'} className={styles.logoContainer} onClick={handleClickLogo}>
         <Logo />
       </div>
       <div className={styles.menu}>
@@ -111,12 +100,12 @@ export const HeaderUI = ({
       <div className={styles.toolbar}>
         <IconButton
           type="theme"
-          themeMode={theme === "dark" ? "dark" : "light"}
+          themeMode={theme === 'dark' ? 'dark' : 'light'}
           onClick={() => {
             toggleTheme();
           }}
           aria-label="Переключить тему"
-          dataCy={"sun"}
+          dataCy={'sun'}
         />
         {isAuth && (
           <>
@@ -147,11 +136,11 @@ export const HeaderUI = ({
         <div className={styles.profile}>
           <UserDropdownMenu
             user={{
-              nameUser: user?.name || "",
+              nameUser: user?.name || '',
               avatarUrl: avatarUrl,
             }}
             onPersonalCabinetClick={() => {
-              router.push("/personalCabinet"); // Навигация в личный кабинет
+              router.push('/personalCabinet'); // Навигация в личный кабинет
             }}
             onLogoutClick={() => {
               handleClickLogout && handleClickLogout();
@@ -174,7 +163,7 @@ export const HeaderUI = ({
               label="Зарегистрироваться"
               onClick={onRegisterClick}
               secondary={false}
-              dataCy={"registrationButton"}
+              dataCy={'registrationButton'}
             />
           </div>
         </div>

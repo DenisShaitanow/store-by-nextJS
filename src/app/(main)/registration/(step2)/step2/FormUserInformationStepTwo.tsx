@@ -1,17 +1,15 @@
-"user client";
+'user client';
 
-import type { FC } from "react";
-import styles from "./FormUserInformationStepTwo.module.css";
-import type { FormUserInformationStepTwoProps } from "./type";
+import type { FC } from 'react';
+import styles from './FormUserInformationStepTwo.module.css';
+import type { FormUserInformationStepTwoProps } from './type';
 
-import { AvatarRegistration } from "../../../../(components)/imageUploader/avatarRegistration";
-import { InputUI } from "../../../../(components)/input";
-import { InputDropDown } from "../../../../(components)/inputDropDown/imputDropDownSimple";
-import { InputDropDownCalendar } from "../../../../(components)/inputDropDown/inputDropDownCalendar";
+import { AvatarRegistration } from '../../../../(components)/imageUploader/avatarRegistration';
+import { InputUI } from '../../../../(components)/input';
+import { InputDropDown } from '../../../../(components)/inputDropDown/imputDropDownSimple';
+import { InputDropDownCalendar } from '../../../../(components)/inputDropDown/inputDropDownCalendar';
 
-export const FormUserInformationStepTwo: FC<
-  FormUserInformationStepTwoProps
-> = ({
+export const FormUserInformationStepTwo: FC<FormUserInformationStepTwoProps> = ({
   hiddenAvatarInput,
   changeAvatarUrl,
   nameValue,
@@ -28,15 +26,11 @@ export const FormUserInformationStepTwo: FC<
 }) => {
   // для имени
   const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    
-      nameChange(e.target.value as string);
-    
+    nameChange(e.target.value as string);
   };
 
   const handleChangeSurname = (e: React.ChangeEvent<HTMLInputElement>) => {
-    
-      surnameChange(e.target.value as string);
-    
+    surnameChange(e.target.value as string);
   };
 
   // Специализированный обработчик для файлов для Аватарки
@@ -56,21 +50,17 @@ export const FormUserInformationStepTwo: FC<
   };
 
   const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    
-      locationChange(e.target.value as string);
-    
+    locationChange(e.target.value as string);
   };
 
   const handleChangeDate = (val: Date | null) => {
-    const dateString = val ? val.toISOString().slice(0, 10) : "";
+    const dateString = val ? val.toISOString().slice(0, 10) : '';
     birthdayDateChange(dateString);
   };
 
   return (
-    <form className={styles.container} data-cy={"containerFormStep2"}>
-      {!hiddenAvatarInput && (
-        <AvatarRegistration onImageChange={handleFileChange} />
-      )}
+    <form className={styles.container} data-cy={'containerFormStep2'}>
+      {!hiddenAvatarInput && <AvatarRegistration onImageChange={handleFileChange} />}
       <InputUI
         title="Имя"
         type="text"
@@ -78,7 +68,7 @@ export const FormUserInformationStepTwo: FC<
         name="name"
         onChange={handleChangeName}
         value={nameValue}
-        dataCy={"registrationInputName"}
+        dataCy={'registrationInputName'}
       />
       <InputUI
         title="Фамилия"
@@ -87,7 +77,7 @@ export const FormUserInformationStepTwo: FC<
         name="surname"
         onChange={handleChangeSurname}
         value={surnameValue}
-        dataCy={"registrationInputSurname"}
+        dataCy={'registrationInputSurname'}
       />
       <div className={styles.twoShortInputs}>
         <InputDropDownCalendar
@@ -107,7 +97,7 @@ export const FormUserInformationStepTwo: FC<
           value={genderValue}
           onChangeOption={handleGenderChange}
           classNameImageOpen={styles.aroundImage}
-          dataCy={"registrationInputGender"}
+          dataCy={'registrationInputGender'}
         />
       </div>
       <InputUI
@@ -117,7 +107,7 @@ export const FormUserInformationStepTwo: FC<
         name="location"
         onChange={handleLocationChange}
         value={locatonValue}
-        dataCy={"registrationInputCity"}
+        dataCy={'registrationInputCity'}
       />
     </form>
   );

@@ -1,15 +1,15 @@
 // app/(shop)/card/[idCardR]/CardPageClient.tsx (клиентский)
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import styles from "./CardPage.module.css";
-import { ButtonUI } from "../../../(components)/button/button";
-import { useAppDispatch, useAppSelector } from "../../../../services/hooks";
-import { type IProduct } from "../../../../types";  
-import { changeBasket } from "@/src/services/thunks/userUIData/userUIData-thunks";
-import { selectIsAuth } from "../../../../services/selectors/user-selectors/user-selectors";
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import styles from './CardPage.module.css';
+import { ButtonUI } from '../../../(components)/button/button';
+import { useAppDispatch, useAppSelector } from '../../../../services/hooks';
+import { type IProduct } from '../../../../types';
+import { changeBasket } from '@/src/services/thunks/userUIData/userUIData-thunks';
+import { selectIsAuth } from '../../../../services/selectors/user-selectors/user-selectors';
 
 interface Props {
   initialProduct: IProduct;
@@ -19,7 +19,7 @@ export default function CardPageClient({ initialProduct }: Props) {
   const dispatch = useAppDispatch();
   const [isMounted, setIsMounted] = useState(false);
   const [PutToBasketButton, setPut] = useState<boolean>(false);
-  
+
   const isAuth = useAppSelector(selectIsAuth);
 
   useEffect(() => {
@@ -28,20 +28,18 @@ export default function CardPageClient({ initialProduct }: Props) {
 
   const handlePutToBasket = () => {
     if (initialProduct) {
-          if (PutToBasketButton) {
-          dispatch(changeBasket({product: initialProduct, operation: "ADD"}))
-        } else {
-          dispatch(changeBasket({product: initialProduct, operation: "DELETE"}))
-        }
-        setPut(!PutToBasketButton);
+      if (PutToBasketButton) {
+        dispatch(changeBasket({ product: initialProduct, operation: 'ADD' }));
+      } else {
+        dispatch(changeBasket({ product: initialProduct, operation: 'DELETE' }));
+      }
+      setPut(!PutToBasketButton);
     }
   };
 
   if (!isMounted) {
     return null;
   }
-
-
 
   return (
     <div className={styles.container}>
@@ -53,10 +51,10 @@ export default function CardPageClient({ initialProduct }: Props) {
           disabled={!isAuth}
           label={
             !isAuth
-              ? "Авторизуйтесь пожалуйста"
+              ? 'Авторизуйтесь пожалуйста'
               : PutToBasketButton
-              ? "Убрать из корзины"
-              : "Положить в корзину"
+                ? 'Убрать из корзины'
+                : 'Положить в корзину'
           }
           className={styles.button}
           onClick={handlePutToBasket}
@@ -72,7 +70,7 @@ export default function CardPageClient({ initialProduct }: Props) {
         <h2 className={styles.title}>{initialProduct.title}</h2>
         <p className={styles.description}>{initialProduct.description}</p>
       </div>
-      
+
       <Link href="/" className={styles.back}>
         <ButtonUI label="Назад" className={styles.buttonBack} />
       </Link>

@@ -1,10 +1,10 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
 export type ButtonProps = {
   label: string;
   onClick?: () => void;
   className?: string;
-  type?: "button" | "submit" | "reset";
+  type?: 'button' | 'submit' | 'reset';
   secondary?: boolean;
   tertiary?: boolean;
   disabled?: boolean;

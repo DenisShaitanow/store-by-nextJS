@@ -2,8 +2,7 @@
 
 :root {
   --dropdown-border: #e5e7eb;
-  --dropdown-shadow:
-    0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%);
+  --dropdown-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%);
   --dropdown-radius: 8px;
   --dropdown-offset: 4px;
   --dropdown-z-index: 1000;

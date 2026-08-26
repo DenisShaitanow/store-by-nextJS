@@ -45,7 +45,7 @@ export interface CheckboxDropdownProps {
   /* CSS класс для trigger */
   triggerClassName?: string;
   /* Позиционирование dropdown */
-  placement?: "bottom-left" | "bottom-right" | "top-left" | "top-right";
+  placement?: 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
   /* Отступ от триггера */
   offset?: number;
   /* Закрытие при клике вне области */
@@ -53,5 +53,5 @@ export interface CheckboxDropdownProps {
   /* Закрытие при нажатии Escape */
   closeOnEscape?: boolean;
   /* Aria-label для accessibility */
-  "aria-label"?: string;
+  'aria-label'?: string;
 }

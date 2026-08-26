@@ -1,17 +1,17 @@
 // app/orderComplited/OrderComplitedClient.tsx
-"use client";
+'use client';
 
-import { type FC, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useAppSelector } from "../../../services/hooks";
-import { selectOrders } from "../../../services/selectors/userUIData-selectors/userUIData-selectors";
-import { ButtonUI } from "../../(components)/button/button";
-import styles from "./OrderComolited.module.css";
+import { type FC, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAppSelector } from '../../../services/hooks';
+import { selectOrders } from '../../../services/selectors/userUIData-selectors/userUIData-selectors';
+import { ButtonUI } from '../../(components)/button/button';
+import styles from './OrderComolited.module.css';
 
 const OrderComplitedClient: FC = () => {
   const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
-  
+
   const orders: string[] = useAppSelector(selectOrders);
   const orderId = orders[orders.length - 1];
 
@@ -20,7 +20,7 @@ const OrderComplitedClient: FC = () => {
   }, []);
 
   const handleOk = () => {
-    router.push("/");
+    router.push('/');
   };
 
   if (!isMounted) {

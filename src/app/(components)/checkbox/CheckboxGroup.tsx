@@ -1,11 +1,10 @@
-"use client";
+'use client';
 
-import clsx from "classnames";
-import styles from "./CheckboxGroup.module.css";
-import { type CheckboxUIProps, type CheckboxGroupUIProps } from "./type";
+import clsx from 'classnames';
+import styles from './CheckboxGroup.module.css';
+import { type CheckboxUIProps, type CheckboxGroupUIProps } from './type';
 import CheckboxEmpty from '../assets/checkbox-empty.svg';
 import CheckboxDone from '../assets/checkbox-done.svg';
-
 
 const CheckboxUI: React.FC<CheckboxUIProps> = ({
   label,
@@ -26,10 +25,11 @@ const CheckboxUI: React.FC<CheckboxUIProps> = ({
       onChange={onChange}
       id={label}
     />
-    {!isChecked ? 
-    <CheckboxEmpty className={styles.icon} /> :
-    <CheckboxDone className={styles.icon} />
-    }
+    {!isChecked ? (
+      <CheckboxEmpty className={styles.icon} />
+    ) : (
+      <CheckboxDone className={styles.icon} />
+    )}
     <span className={styles.text}>{label}</span>
   </label>
 );

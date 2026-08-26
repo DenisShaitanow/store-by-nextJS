@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import DatePicker, { registerLocale, setDefaultLocale } from "react-datepicker";
-import { type Locale } from "date-fns";
-import * as ruLocale from "date-fns/locale/ru";
-import ChevronDownUrl from "../assets/chevron-down.svg";
+import { useEffect, useRef, useState } from 'react';
+import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
+import { type Locale } from 'date-fns';
+import * as ruLocale from 'date-fns/locale/ru';
+import ChevronDownUrl from '../assets/chevron-down.svg';
 
-import "./calendar.css";
+import './calendar.css';
 
 //Русская локаль для react-datepicker.
 
 const ru = ((ruLocale as any)?.default ?? ruLocale) as Locale;
-registerLocale("ru", ru);
-setDefaultLocale("ru");
+registerLocale('ru', ru);
+setDefaultLocale('ru');
 
 type Props = {
   inline?: boolean;
@@ -25,13 +25,13 @@ type Props = {
 
 const formatWeekDay = (name: string) => {
   const map: Record<string, string> = {
-    пн: "Пн",
-    вт: "Вт",
-    ср: "Ср",
-    чт: "Чт",
-    пт: "Пт",
-    сб: "Сб",
-    вс: "Вс",
+    пн: 'Пн',
+    вт: 'Вт',
+    ср: 'Ср',
+    чт: 'Чт',
+    пт: 'Пт',
+    сб: 'Сб',
+    вс: 'Вс',
   };
   const key = name.slice(0, 2).toLowerCase();
   return map[key] ?? key.charAt(0).toUpperCase() + key.slice(1);
@@ -94,7 +94,7 @@ export const SimpleDatePicker = ({
 
   // Данные для дропдаунов: список месяцев и диапазон годов (c 1900).
   const months = Array.from({ length: 12 }, (_, i) =>
-    new Date(0, i).toLocaleString("ru-RU", { month: "long" }),
+    new Date(0, i).toLocaleString('ru-RU', { month: 'long' })
   );
   const getYears = (from = 1900, to = new Date().getFullYear()) =>
     Array.from({ length: to - from + 1 }, (_, i) => from + i);
@@ -106,19 +106,17 @@ export const SimpleDatePicker = ({
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
-    const el = root.querySelector(
-      ".react-datepicker__aria-live",
-    ) as HTMLElement | null;
+    const el = root.querySelector('.react-datepicker__aria-live') as HTMLElement | null;
     if (!el) return;
 
     // отключает оповещения и скрывает элемент
-    el.setAttribute("aria-live", "off");
-    el.setAttribute("role", "presentation");
-    el.setAttribute("aria-hidden", "true");
-    el.textContent = "";
+    el.setAttribute('aria-live', 'off');
+    el.setAttribute('role', 'presentation');
+    el.setAttribute('aria-hidden', 'true');
+    el.textContent = '';
 
     const clean = () => {
-      el.textContent = "";
+      el.textContent = '';
     };
     const observer = new MutationObserver(clean);
     observer.observe(el, {
@@ -134,14 +132,12 @@ export const SimpleDatePicker = ({
   const yearListRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     if (!openYear) return;
-    const curr = yearListRef.current?.querySelector<HTMLButtonElement>(
-      '[data-current="true"]',
-    );
-    curr?.scrollIntoView({ block: "center" });
+    const curr = yearListRef.current?.querySelector<HTMLButtonElement>('[data-current="true"]');
+    curr?.scrollIntoView({ block: 'center' });
   }, [openYear]);
 
   return (
-    <div ref={rootRef} className={`calendar ${className ?? ""}`} id={id}>
+    <div ref={rootRef} className={`calendar ${className ?? ''}`} id={id}>
       <DatePicker
         inline={inline}
         selected={value || null}
@@ -154,18 +150,18 @@ export const SimpleDatePicker = ({
         }}
         onMonthChange={(d: Date) => setVisibleDate(d)}
         fixedHeight
-        monthClassName={() => "calendar__month"}
-        weekClassName={() => "calendar__week"}
+        monthClassName={() => 'calendar__month'}
+        weekClassName={() => 'calendar__week'}
         dayClassName={(d: Date) => {
-          const classes = ["calendar__day"];
+          const classes = ['calendar__day'];
           if (visibleDate && d.getMonth() !== visibleDate.getMonth()) {
-            classes.push("calendar__day_outside");
+            classes.push('calendar__day_outside');
           }
           const today = new Date();
           if (d.toDateString() === today.toDateString()) {
-            classes.push("calendar__day_today");
+            classes.push('calendar__day_today');
           }
-          return classes.join(" ");
+          return classes.join(' ');
         }}
         locale={ru}
         formatWeekDay={formatWeekDay}
@@ -176,8 +172,8 @@ export const SimpleDatePicker = ({
               {/* Контрол выбора месяца */}
               <div className="month-control">
                 <span className="calendar__current-month">
-                  {date.toLocaleString("ru-RU", {
-                    month: "long",
+                  {date.toLocaleString('ru-RU', {
+                    month: 'long',
                   })}
                 </span>
                 <button
@@ -192,12 +188,7 @@ export const SimpleDatePicker = ({
                   aria-expanded={openMonth}
                   aria-label="Выбрать месяц"
                 >
-                  <ChevronDownUrl
-                    
-                    alt=""
-                    className="calendar__chevron"
-                    aria-hidden="true"
-                  />
+                  <ChevronDownUrl alt="" className="calendar__chevron" aria-hidden="true" />
                 </button>
 
                 {/* Дропдаун месяцев */}
@@ -214,7 +205,7 @@ export const SimpleDatePicker = ({
                         type="button"
                         className="dropdown-item"
                         onClick={(e) => {
-                          e.stopPropagation()
+                          e.stopPropagation();
                           changeMonth(idx);
                           setOpenMonth(false);
                           // Обновляем "видимый" месяц для корректной подсветки "внешних" дней.
@@ -243,12 +234,7 @@ export const SimpleDatePicker = ({
                   aria-expanded={openYear}
                   aria-label="Выбрать год"
                 >
-                  <ChevronDownUrl
-                    
-                    alt=""
-                    className="calendar__chevron"
-                    aria-hidden="true"
-                  />
+                  <ChevronDownUrl alt="" className="calendar__chevron" aria-hidden="true" />
                 </button>
 
                 {/* Дропдаун годов */}
@@ -266,12 +252,10 @@ export const SimpleDatePicker = ({
                         type="button"
                         className="dropdown-item"
                         // Атрибут, чтобы отскроллить к текущему году
-                        data-current={
-                          y === date.getFullYear() ? "true" : undefined
-                        }
+                        data-current={y === date.getFullYear() ? 'true' : undefined}
                         onClick={(e) => {
                           // Переключение года через API библиотеки.
-                          e.stopPropagation()
+                          e.stopPropagation();
                           changeYear(y);
                           setOpenYear(false);
                           // Обновляем "видимую" дату (месяц сохраняем).
@@ -291,22 +275,14 @@ export const SimpleDatePicker = ({
         calendarClassName="calendar__popup"
         wrapperClassName="calendar__wrapper"
         popperClassName="calendar__popper"
-        weekDayClassName={() => "calendar__weekday"}
+        weekDayClassName={() => 'calendar__weekday'}
       >
         {/* Футер: кнопки подтверждения и отмены выбора даты. */}
         <div className="dp-footer" onClick={(e) => e.stopPropagation()}>
-          <button
-            type="button"
-            className="dp-btn dp-btn_cancel"
-            onClick={handleCancel}
-          >
+          <button type="button" className="dp-btn dp-btn_cancel" onClick={handleCancel}>
             Отменить
           </button>
-          <button
-            type="button"
-            className="dp-btn dp-btn_apply"
-            onClick={handleApply}
-          >
+          <button type="button" className="dp-btn dp-btn_apply" onClick={handleApply}>
             Выбрать
           </button>
         </div>

@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React from "react";
-import styles from "./SpinnerDinamic.module.css";
+import React from 'react';
+import styles from './SpinnerDinamic.module.css';
 
 // Интерфейс для пропсов
 interface SpinnerProps {
@@ -10,10 +10,7 @@ interface SpinnerProps {
 }
 
 // Компонент Spinner
-export const SpinnerDynamic: React.FC<SpinnerProps> = ({
-  size = 50,
-  color = "#ff6600",
-}) => {
+export const SpinnerDynamic: React.FC<SpinnerProps> = ({ size = 50, color = '#ff6600' }) => {
   const radius = Math.floor(size * 0.4); // Радиус ~ 40%
   const circumference = 2 * Math.PI * radius; // Общая длина окружности
 
@@ -26,8 +23,8 @@ export const SpinnerDynamic: React.FC<SpinnerProps> = ({
       height={`${size}px`}
       style={
         {
-          "--size": `${size}px`,
-          "--border-color": color,
+          '--size': `${size}px`,
+          '--border-color': color,
         } as React.CSSProperties
       }
     >

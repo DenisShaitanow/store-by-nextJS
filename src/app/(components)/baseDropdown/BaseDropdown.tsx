@@ -1,28 +1,27 @@
-'use client' 
+'use client';
 
-import { useState, useRef, useEffect, useCallback, useMemo } from "react";
-import type { KeyboardEvent, MouseEvent } from "react";
-import classNames from "classnames";
-import type { BaseDropdownProps } from "./types";
-import styles from "./BaseDropdown.module.css";
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import type { KeyboardEvent, MouseEvent } from 'react';
+import classNames from 'classnames';
+import type { BaseDropdownProps } from './types';
+import styles from './BaseDropdown.module.css';
 
 export const BaseDropdown = ({
   trigger,
   children,
   isOpen: controlledIsOpen,
   onToggle,
-  placement = "bottom-left",
+  placement = 'bottom-left',
   offset = 4,
   closeOnClickOutside = true,
   closeOnEscape = true,
   disabled = false,
   className,
   dropdownClassName,
-  "aria-label": ariaLabel,
+  'aria-label': ariaLabel,
 }: BaseDropdownProps) => {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
-  const isOpen =
-    controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
+  const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
 
   const containerRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -37,7 +36,7 @@ export const BaseDropdown = ({
         setInternalIsOpen(newIsOpen);
       }
     },
-    [disabled, onToggle],
+    [disabled, onToggle]
   );
 
   const handleTriggerClick = useCallback(
@@ -46,40 +45,37 @@ export const BaseDropdown = ({
       event.stopPropagation();
       handleToggle(!isOpen);
     },
-    [isOpen, handleToggle],
+    [isOpen, handleToggle]
   );
 
   const handleTriggerKeyDown = useCallback(
     (event: KeyboardEvent) => {
-      if (event.key === "Enter" || event.key === " ") {
+      if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
         handleToggle(!isOpen);
-      } else if (event.key === "Escape" && isOpen) {
+      } else if (event.key === 'Escape' && isOpen) {
         event.preventDefault();
         handleToggle(false);
       }
     },
-    [isOpen, handleToggle],
-  );   
+    [isOpen, handleToggle]
+  );
 
   useEffect(() => {
     if (!closeOnClickOutside || !isOpen) return;
 
     const handleClickOutside = (event: Event) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
-      ) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         handleToggle(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, closeOnClickOutside]);
@@ -89,15 +85,15 @@ export const BaseDropdown = ({
 
     const handleEscape = (event: Event) => {
       const keyboardEvent = event as globalThis.KeyboardEvent;
-      if (keyboardEvent.key === "Escape") {
+      if (keyboardEvent.key === 'Escape') {
         handleToggle(false);
       }
     };
 
-    document.addEventListener("keydown", handleEscape);
+    document.addEventListener('keydown', handleEscape);
 
     return () => {
-      document.removeEventListener("keydown", handleEscape);
+      document.removeEventListener('keydown', handleEscape);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, closeOnEscape]);
@@ -105,7 +101,7 @@ export const BaseDropdown = ({
   useEffect(() => {
     if (isOpen && dropdownRef.current) {
       const focusable = dropdownRef.current.querySelector(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
       ) as HTMLElement;
       focusable?.focus();
     }
@@ -118,9 +114,9 @@ export const BaseDropdown = ({
         {
           [styles.disabled]: disabled,
         },
-        className,
+        className
       ),
-    [disabled, className],
+    [disabled, className]
   );
 
   const dropdownClasses = useMemo(
@@ -131,25 +127,21 @@ export const BaseDropdown = ({
         {
           [styles.open]: isOpen,
         },
-        dropdownClassName,
+        dropdownClassName
       ),
-    [placement, isOpen, dropdownClassName],
+    [placement, isOpen, dropdownClassName]
   );
 
   const dropdownStyle = useMemo(
     () =>
       ({
-        "--dropdown-offset": `${offset}px`,
+        '--dropdown-offset': `${offset}px`,
       }) as React.CSSProperties,
-    [offset],
+    [offset]
   );
 
   return (
-    <div
-      ref={containerRef}
-      className={containerClasses}
-      data-testid="base-dropdown-container"
-    >
+    <div ref={containerRef} className={containerClasses} data-testid="base-dropdown-container">
       <div
         className={styles.trigger}
         onClick={handleTriggerClick}

@@ -1,17 +1,17 @@
 // app/personal-cabinet/page.tsx
-"use client";
+'use client';
 
-import { type FC, useState, type ChangeEvent, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "../../../services/hooks";
-import { selectUser } from "../../../services/selectors/user-selectors/user-selectors";
-import { FormUserInformationStepTwo } from "../registration/(step2)/step2/FormUserInformationStepTwo";
-import { AvatarEditAccount } from "../../(components)/imageUploader/avatarEditAccount";
-import { type RegistrationData } from "../../../types";
-import { ButtonUI } from "../../(components)/button/button";
-import { PasswordInputUI } from "../../(components)/password";
-import { updateUser } from "../../../services/thunks/user";
-import styles from "./PersonalCabinet.module.css";
+import { type FC, useState, type ChangeEvent, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAppDispatch, useAppSelector } from '../../../services/hooks';
+import { selectUser } from '../../../services/selectors/user-selectors/user-selectors';
+import { FormUserInformationStepTwo } from '../registration/(step2)/step2/FormUserInformationStepTwo';
+import { AvatarEditAccount } from '../../(components)/imageUploader/avatarEditAccount';
+import { type RegistrationData } from '../../../types';
+import { ButtonUI } from '../../(components)/button/button';
+import { PasswordInputUI } from '../../(components)/password';
+import { updateUser } from '../../../services/thunks/user';
+import styles from './PersonalCabinet.module.css';
 
 const PersonalCabinetPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -25,9 +25,9 @@ const PersonalCabinetPage: FC = () => {
 
   // Безопасное получение данных из localStorage
   const getLocalStorageUser = (): RegistrationData | undefined => {
-    if (typeof window === "undefined") return undefined;
-    
-    const localStorageUser = localStorage.getItem("regData");
+    if (typeof window === 'undefined') return undefined;
+
+    const localStorageUser = localStorage.getItem('regData');
     if (localStorageUser) {
       try {
         return JSON.parse(localStorageUser);
@@ -40,18 +40,16 @@ const PersonalCabinetPage: FC = () => {
 
   const parsedLocalStorageUser = getLocalStorageUser();
 
-  const [personalCabinetData, setPersonalCabinetData] =
-    useState<RegistrationData>({
-      email: user?.email ?? "",
-      password: user?.password || parsedLocalStorageUser?.password || "",
-      name: user?.name || parsedLocalStorageUser?.name || "",
-      surname: user?.surname || parsedLocalStorageUser?.surname || "",
-      avatar: user?.avatar || parsedLocalStorageUser?.avatar || "",
-      gender: user?.gender || parsedLocalStorageUser?.gender || "",
-      location: user?.location || parsedLocalStorageUser?.location || "",
-      birthdayDate:
-        user?.birthdayDate || parsedLocalStorageUser?.birthdayDate || "",
-    });
+  const [personalCabinetData, setPersonalCabinetData] = useState<RegistrationData>({
+    email: user?.email ?? '',
+    password: user?.password || parsedLocalStorageUser?.password || '',
+    name: user?.name || parsedLocalStorageUser?.name || '',
+    surname: user?.surname || parsedLocalStorageUser?.surname || '',
+    avatar: user?.avatar || parsedLocalStorageUser?.avatar || '',
+    gender: user?.gender || parsedLocalStorageUser?.gender || '',
+    location: user?.location || parsedLocalStorageUser?.location || '',
+    birthdayDate: user?.birthdayDate || parsedLocalStorageUser?.birthdayDate || '',
+  });
 
   const handleChangeName = (val: string) => {
     setPersonalCabinetData((prev) => ({ ...prev, name: val }));
@@ -92,8 +90,8 @@ const PersonalCabinetPage: FC = () => {
   };
 
   const handleUpdatePersonalInformation = () => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("regData", JSON.stringify(personalCabinetData));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('regData', JSON.stringify(personalCabinetData));
     }
     dispatch(updateUser(personalCabinetData));
     router.back();
@@ -105,15 +103,12 @@ const PersonalCabinetPage: FC = () => {
 
   return (
     <div className={styles.container}>
-      <AvatarEditAccount
-        onImageChange={handleAvatar}
-        initialAvatarUrl={user?.avatar}
-      />
+      <AvatarEditAccount onImageChange={handleAvatar} initialAvatarUrl={user?.avatar} />
       <FormUserInformationStepTwo
         hiddenAvatarInput
         genderOptions={[
-          { value: "man", label: "Мужской" },
-          { value: "woman", label: "Женский" },
+          { value: 'man', label: 'Мужской' },
+          { value: 'woman', label: 'Женский' },
         ]}
         nameValue={personalCabinetData.name}
         nameChange={handleChangeName}

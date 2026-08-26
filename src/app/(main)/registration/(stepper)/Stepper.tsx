@@ -1,8 +1,8 @@
-"user client";
+'user client';
 
-import React from "react";
+import React from 'react';
 
-import styles from "./Stepper.module.css";
+import styles from './Stepper.module.css';
 
 export interface StepperProps {
   currentStep: number;

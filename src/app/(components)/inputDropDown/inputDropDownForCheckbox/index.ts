@@ -1,2 +1,2 @@
-export { InputDropDownForCheckbox } from "./inputDropDownCheckbox";
-export type { InputDropDownForCheckboxProps } from "./type";
+export { InputDropDownForCheckbox } from './inputDropDownCheckbox';
+export type { InputDropDownForCheckboxProps } from './type';

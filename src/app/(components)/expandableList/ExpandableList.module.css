@@ -48,7 +48,7 @@
   color: var(--accent-color, #007bff);
   font-weight: 400;
   font-size: 16px;
-  font-family: "Roboto", var(--font-family, sans-serif);
+  font-family: 'Roboto', var(--font-family, sans-serif);
   line-height: 1.5;
   letter-spacing: 0.02em;
   text-align: left;

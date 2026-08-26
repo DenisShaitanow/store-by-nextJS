@@ -1,29 +1,24 @@
 // app/(shop)/about/AboutPageClient.tsx
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import styles from "./AboutPage.module.css";
-import { Footer } from "../../(components)/footer/Footer";
-import { ButtonUI } from "../../(components)/button/button";
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import styles from './AboutPage.module.css';
+import { Footer } from '../../(components)/footer/Footer';
+import { ButtonUI } from '../../(components)/button/button';
 
 export default function AboutPageClient() {
   const router = useRouter();
-  
+
   const handleClick = () => {
     router.back();
   };
-
 
   return (
     <>
       <div className={styles.container}>
         <div className={styles.icon}>
-          <svg
-            className={styles.svg}
-            viewBox="0 0 40 40"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg className={styles.svg} viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
             <rect className={styles.bg} width="40" height="40" rx="20" />
             <path
               className={styles.symbol}
@@ -32,16 +27,12 @@ export default function AboutPageClient() {
           </svg>
         </div>
         <p className={styles.text}>
-          Добро пожаловать в интернет магазин StoreThings. Здесь вы можете
-          выбрать для себя подходящий наряд или подыскать подарок близкому
-          человеку. В магазине представлено множество стильных и классных вещей,
-          который не оставят равнодушным даже самых притязательных покупателей.
+          Добро пожаловать в интернет магазин StoreThings. Здесь вы можете выбрать для себя
+          подходящий наряд или подыскать подарок близкому человеку. В магазине представлено
+          множество стильных и классных вещей, который не оставят равнодушным даже самых
+          притязательных покупателей.
         </p>
-        <ButtonUI
-          onClick={handleClick}
-          label="Вернуться к покупкам"
-          className={styles.button}
-        />
+        <ButtonUI onClick={handleClick} label="Вернуться к покупкам" className={styles.button} />
       </div>
       <Footer />
     </>

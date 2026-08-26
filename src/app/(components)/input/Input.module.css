@@ -84,7 +84,7 @@
   width: 24px;
   height: 24px;
   background-color: var(--surface-color);
-  background-image: url("../assets/edit.svg");
+  background-image: url('../assets/edit.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;

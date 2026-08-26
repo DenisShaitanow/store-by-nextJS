@@ -1,1 +1,1 @@
-export { ExternalAuthButton } from "./ExternalAuthButton";
+export { ExternalAuthButton } from './ExternalAuthButton';

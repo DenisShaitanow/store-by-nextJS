@@ -1,14 +1,11 @@
-"use client";
+'use client';
 
-import React from "react";
-import clsx from "classnames";
-import styles from "./passwordReveal.module.css";
-import { type RevealElementUIProps } from "./type";
+import React from 'react';
+import clsx from 'classnames';
+import styles from './passwordReveal.module.css';
+import { type RevealElementUIProps } from './type';
 
-export const RevealElementUI: React.FC<RevealElementUIProps> = ({
-  onClick,
-  visible,
-}) => (
+export const RevealElementUI: React.FC<RevealElementUIProps> = ({ onClick, visible }) => (
   <div className={styles.button_container}>
     <button
       className={clsx(styles.button, {
@@ -17,7 +14,7 @@ export const RevealElementUI: React.FC<RevealElementUIProps> = ({
       type="button"
       onClick={onClick}
     >
-      {" "}
+      {' '}
       {visible && (
         <svg
           className={styles.button_container}

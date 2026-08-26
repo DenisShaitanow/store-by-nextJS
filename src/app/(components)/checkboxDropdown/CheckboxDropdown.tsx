@@ -1,47 +1,44 @@
-"use client";
+'use client';
 
-import { useState, useCallback, useMemo } from "react";
-import type { ChangeEvent } from "react";
-import classNames from "classnames";
-import { BaseDropdown } from "../baseDropdown";
-import { SearchInput } from "../searchInput";
-import { CheckboxGroupUI } from "../checkbox";
-import { ExpandableList } from "../expandableList";
-import type { CheckboxDropdownProps, CheckboxOption } from "./types";
-import styles from "./CheckboxDropdown.module.css";
+import { useState, useCallback, useMemo } from 'react';
+import type { ChangeEvent } from 'react';
+import classNames from 'classnames';
+import { BaseDropdown } from '../baseDropdown';
+import { SearchInput } from '../searchInput';
+import { CheckboxGroupUI } from '../checkbox';
+import { ExpandableList } from '../expandableList';
+import type { CheckboxDropdownProps, CheckboxOption } from './types';
+import styles from './CheckboxDropdown.module.css';
 
 export const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
   options,
   selectedValues: controlledSelectedValues,
   defaultSelectedValues = [],
   onChange,
-  placeholder = "Выберите опции",
+  placeholder = 'Выберите опции',
   title,
   enableSearch = false,
-  searchPlaceholder = "Поиск...",
+  searchPlaceholder = 'Поиск...',
   treeMode = false,
   maxVisibleOptions = 3,
-  showAllText = "Показать все",
-  collapseText = "Свернуть",
+  showAllText = 'Показать все',
+  collapseText = 'Свернуть',
   staticMode = false,
   disabled = false,
   className,
   dropdownClassName,
   triggerClassName,
-  placement = "bottom-left",
+  placement = 'bottom-left',
   offset = 4,
   closeOnClickOutside = true,
   closeOnEscape = true,
-  "aria-label": ariaLabel,
+  'aria-label': ariaLabel,
 }) => {
-  const [internalSelectedValues, setInternalSelectedValues] = useState<
-    (string | number)[]
-  >(defaultSelectedValues);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [internalSelectedValues, setInternalSelectedValues] =
+    useState<(string | number)[]>(defaultSelectedValues);
+  const [searchQuery, setSearchQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const [expandedCategories, setExpandedCategories] = useState<
-    Set<string | number>
-  >(new Set());
+  const [expandedCategories, setExpandedCategories] = useState<Set<string | number>>(new Set());
 
   const selectedValues = controlledSelectedValues ?? internalSelectedValues;
 
@@ -49,39 +46,33 @@ export const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
   const normalizedOptions = useMemo(
     (): CheckboxOption[] =>
       options.map((option, index) => {
-        if (typeof option === "string") {
+        if (typeof option === 'string') {
           return { value: index, label: option };
         }
         return option;
       }),
-    [options],
+    [options]
   );
 
   // Получение всех потомков для древовидной структуры
   const getAllChildren = useCallback(
     (option: CheckboxOption): (string | number)[] =>
-      option.children
-        ? option.children.flatMap(getAllChildren)
-        : [option.value],
-    [],
+      option.children ? option.children.flatMap(getAllChildren) : [option.value],
+    []
   );
 
   // Фильтрация опций по поиску
   const filteredOptions = useMemo(() => {
     if (!enableSearch || !searchQuery.trim()) return normalizedOptions;
     const query = searchQuery.toLowerCase().trim();
-    return normalizedOptions.filter((option) =>
-      option.label.toLowerCase().includes(query),
-    );
+    return normalizedOptions.filter((option) => option.label.toLowerCase().includes(query));
   }, [normalizedOptions, searchQuery, enableSearch]);
 
   // Переключение раскрытия категории
   const toggleCategory = useCallback((categoryValue: string | number) => {
     setExpandedCategories((prev) => {
       const next = new Set(prev);
-      next.has(categoryValue)
-        ? next.delete(categoryValue)
-        : next.add(categoryValue);
+      next.has(categoryValue) ? next.delete(categoryValue) : next.add(categoryValue);
       return next;
     });
   }, []);
@@ -90,21 +81,19 @@ export const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
   const getCheckboxState = useCallback(
     (option: CheckboxOption) => {
       if (!treeMode || !option.children) {
-        return selectedValues.includes(option.value) ? "checked" : "unchecked";
+        return selectedValues.includes(option.value) ? 'checked' : 'unchecked';
       }
 
       const childValues = getAllChildren(option);
-      const selectedCount = childValues.filter((v) =>
-        selectedValues.includes(v),
-      ).length;
+      const selectedCount = childValues.filter((v) => selectedValues.includes(v)).length;
 
       return selectedCount === 0
-        ? "unchecked"
+        ? 'unchecked'
         : selectedCount === childValues.length
-          ? "checked"
-          : "indeterminate";
+          ? 'checked'
+          : 'indeterminate';
     },
-    [selectedValues, treeMode, getAllChildren],
+    [selectedValues, treeMode, getAllChildren]
   );
 
   // Обработчик изменения чекбоксов
@@ -126,7 +115,7 @@ export const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
       }
       onChange?.(newSelectedValues);
     },
-    [selectedValues, controlledSelectedValues, onChange, filteredOptions],
+    [selectedValues, controlledSelectedValues, onChange, filteredOptions]
   );
 
   // Обработчик для древовидной структуры
@@ -136,9 +125,7 @@ export const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
         treeMode && option.children
           ? (() => {
               const childValues = getAllChildren(option);
-              const allSelected = childValues.every((v) =>
-                selectedValues.includes(v),
-              );
+              const allSelected = childValues.every((v) => selectedValues.includes(v));
               return allSelected
                 ? selectedValues.filter((v) => !childValues.includes(v))
                 : [...new Set([...selectedValues, ...childValues])];
@@ -152,13 +139,7 @@ export const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
       }
       onChange?.(newSelectedValues);
     },
-    [
-      selectedValues,
-      controlledSelectedValues,
-      onChange,
-      treeMode,
-      getAllChildren,
-    ],
+    [selectedValues, controlledSelectedValues, onChange, treeMode, getAllChildren]
   );
 
   // Обработчик поиска
@@ -188,9 +169,9 @@ export const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
                 id={`checkbox-${option.value}-${level}`}
                 type="checkbox"
                 className={styles.checkboxInput}
-                checked={state === "checked"}
+                checked={state === 'checked'}
                 ref={(el) => {
-                  if (el) el.indeterminate = state === "indeterminate";
+                  if (el) el.indeterminate = state === 'indeterminate';
                 }}
                 disabled={isDisabled}
                 onChange={() => !isDisabled && handleTreeOptionToggle(option)}
@@ -199,8 +180,7 @@ export const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
               <label
                 htmlFor={`checkbox-${option.value}-${level}`}
                 className={classNames(styles.checkboxIcon, {
-                  [styles.checkboxIcon_indeterminate]:
-                    state === "indeterminate",
+                  [styles.checkboxIcon_indeterminate]: state === 'indeterminate',
                 })}
               />
             </div>
@@ -241,9 +221,7 @@ export const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
                 [styles.childrenContainer_expanded]: isExpanded,
               })}
             >
-              {option.children!.map((child) =>
-                renderTreeOption(child, level + 1),
-              )}
+              {option.children!.map((child) => renderTreeOption(child, level + 1))}
             </div>
           )}
         </div>
@@ -256,7 +234,7 @@ export const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
       treeMode,
       handleTreeOptionToggle,
       toggleCategory,
-    ],
+    ]
   );
 
   // Контент компонента
@@ -276,9 +254,7 @@ export const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
       <div className={styles.optionsList}>
         {filteredOptions.length === 0 ? (
           <div className={styles.noOptions}>
-            {enableSearch && searchQuery
-              ? "Ничего не найдено"
-              : "Нет доступных опций"}
+            {enableSearch && searchQuery ? 'Ничего не найдено' : 'Нет доступных опций'}
           </div>
         ) : (
           <>
@@ -290,9 +266,7 @@ export const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
                   showAllText={showAllText}
                   collapseText={collapseText}
                   additionalItemsClassName={styles.additionalOptions}
-                  additionalItemsExpandedClassName={
-                    styles.additionalOptions_show
-                  }
+                  additionalItemsExpandedClassName={styles.additionalOptions_show}
                   buttonClassName={styles.showAllButton}
                 >
                   {filteredOptions.map((option) => renderTreeOption(option, 0))}
@@ -312,11 +286,7 @@ export const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
                   <div key={option.value} className={`${styles.option}`}>
                     <CheckboxGroupUI
                       fieldNames={[option.label]}
-                      selectedItems={
-                        selectedValues.includes(option.value)
-                          ? [option.label]
-                          : []
-                      }
+                      selectedItems={selectedValues.includes(option.value) ? [option.label] : []}
                       onChange={handleCheckboxChange}
                       withInDropdown={!staticMode}
                     />
@@ -380,7 +350,7 @@ export const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
       disabled={disabled}
       className={className}
       dropdownClassName={classNames(styles.dropdown, dropdownClassName)}
-      aria-label={ariaLabel || "Выпадающий список с множественным выбором"}
+      aria-label={ariaLabel || 'Выпадающий список с множественным выбором'}
     >
       {content}
     </BaseDropdown>

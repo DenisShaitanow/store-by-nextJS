@@ -1,16 +1,12 @@
-"use client";
+'use client';
 
-import type { FC } from "react";
-import styles from "./Logo.module.css";
+import type { FC } from 'react';
+import styles from './Logo.module.css';
 
 export const Logo: FC = () => (
   <div className={styles.wrapper}>
     <div className={styles.icon}>
-      <svg
-        className={styles.svg}
-        viewBox="0 0 40 40"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg className={styles.svg} viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
         <rect className={styles.bg} width="40" height="40" rx="20" />
         <path
           className={styles.symbol}

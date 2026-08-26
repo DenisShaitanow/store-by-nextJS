@@ -1,41 +1,34 @@
 // app/(shop)/favorites/FavoritesPageClient.tsx
-"use client";
+'use client';
 
-import {
-  useState,
-  useEffect,
-  type ChangeEvent,
-  useMemo,
-  useRef,
-  useCallback,
-} from "react";
-import Link from "next/link";
-import styles from "./FavoritsPage.module.css";
-import { useAppDispatch, useAppSelector } from "../../../services/hooks";
-import { getProducts } from "../../../services/thunks/userUIData/userUIData-thunks";
+import { useState, useEffect, type ChangeEvent, useMemo, useRef, useCallback } from 'react';
+import Link from 'next/link';
+import styles from './FavoritsPage.module.css';
+import { useAppDispatch, useAppSelector } from '../../../services/hooks';
+import { getProducts } from '../../../services/thunks/userUIData/userUIData-thunks';
 import {
   selectLoadingProducts,
   selectFavorirsProducts,
-} from "../../../services/selectors/userUIData-selectors/userUIData-selectors";
-import { ProductCard } from "../../(components)/productCard";
-import type { IProduct } from "../../(components)/productCard/type";
-import { CheckboxGroupUI } from "../../(components)/checkbox";
-import { CheckboxDropdown } from "../../(components)/checkboxDropdown";
-import { SpinnerPulse } from "../../(components)/spinnerPulse";
+} from '../../../services/selectors/userUIData-selectors/userUIData-selectors';
+import { ProductCard } from '../../(components)/productCard';
+import type { IProduct } from '../../(components)/productCard/type';
+import { CheckboxGroupUI } from '../../(components)/checkbox';
+import { CheckboxDropdown } from '../../(components)/checkboxDropdown';
+import { SpinnerPulse } from '../../(components)/spinnerPulse';
 
 const categoryMapping: string[] = [
-  "t-shirts",
-  "shoes",
-  "jackets",
-  "underwear",
-  "hats",
-  "trousers",
-  "accessories",
+  't-shirts',
+  'shoes',
+  'jackets',
+  'underwear',
+  'hats',
+  'trousers',
+  'accessories',
 ];
 
 const sexMapping: Record<string, string> = {
-  "Для мужчин": "man",
-  "Для женщин": "woman",
+  'Для мужчин': 'man',
+  'Для женщин': 'woman',
 };
 
 export default function FavoritesPageClient() {
@@ -50,17 +43,11 @@ export default function FavoritesPageClient() {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [selectedSex, setSelectedSex] = useState<string[]>([]);
   const [selectedSexData, setSelectedSexData] = useState<string[]>([]);
-  const [selectedCategories, setSelectedCategories] = useState<
-    (string | number)[]
-  >([]);
-  const [selectedCategoriesData, setSelectedCategoriesData] = useState<
-    string[]
-  >([]);
+  const [selectedCategories, setSelectedCategories] = useState<(string | number)[]>([]);
+  const [selectedCategoriesData, setSelectedCategoriesData] = useState<string[]>([]);
 
   const calculateVisibleProductsCount = (width: number) => {
-    const cardsPerRow = Math.floor(
-      width / (productCard.current?.clientWidth || 240)
-    );
+    const cardsPerRow = Math.floor(width / (productCard.current?.clientWidth || 240));
     return cardsPerRow * 4;
   };
 
@@ -74,16 +61,10 @@ export default function FavoritesPageClient() {
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
-      if (
-        selectedCategoriesData.length > 0 &&
-        !selectedCategoriesData.includes(product.category)
-      ) {
+      if (selectedCategoriesData.length > 0 && !selectedCategoriesData.includes(product.category)) {
         return false;
       }
-      if (
-        selectedSexData.length > 0 &&
-        !selectedSexData.includes(product.sex)
-      ) {
+      if (selectedSexData.length > 0 && !selectedSexData.includes(product.sex)) {
         return false;
       }
       return true;
@@ -109,8 +90,8 @@ export default function FavoritesPageClient() {
       }
     }
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [filteredProducts, isMounted]);
 
   useEffect(() => {
@@ -121,30 +102,21 @@ export default function FavoritesPageClient() {
         document.documentElement.scrollTop + window.innerHeight >=
         document.documentElement.offsetHeight - 20;
 
-      if (
-        bottomReached &&
-        !isLoadingMore &&
-        productsToShow.length < products.length
-      ) {
+      if (bottomReached && !isLoadingMore && productsToShow.length < products.length) {
         setIsLoadingMore(true);
 
-        const nextBatchSize = calculateVisibleProductsCount(
-          productsContainerWidth!
-        );
+        const nextBatchSize = calculateVisibleProductsCount(productsContainerWidth!);
         const startIndex = productsToShow.length;
         const endIndex = Math.min(startIndex + nextBatchSize, products.length);
         setTimeout(() => {
-          setProductsToShow((prev) => [
-            ...prev,
-            ...filteredProducts.slice(startIndex, endIndex),
-          ]);
+          setProductsToShow((prev) => [...prev, ...filteredProducts.slice(startIndex, endIndex)]);
           setIsLoadingMore(false);
         }, 1000);
       }
     }
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [products, isLoadingMore, productsToShow, filteredProducts, isMounted]);
 
   const handleSex = useCallback(
@@ -159,28 +131,17 @@ export default function FavoritesPageClient() {
           prevSelectedSexData.filter((item) => item !== selectedItemData)
         );
       } else {
-        setSelectedSex((prevSelectedItems) => [
-          ...prevSelectedItems,
-          selectedItem,
-        ]);
-        setSelectedSexData((prevSelectedSexData) => [
-          ...prevSelectedSexData,
-          selectedItemData,
-        ]);
+        setSelectedSex((prevSelectedItems) => [...prevSelectedItems, selectedItem]);
+        setSelectedSexData((prevSelectedSexData) => [...prevSelectedSexData, selectedItemData]);
       }
     },
     [selectedSex]
   );
 
-  const handleCategories = useCallback(
-    (selectedValues: (string | number)[]) => {
-      setSelectedCategories(selectedValues);
-      setSelectedCategoriesData(
-        selectedValues.map((item) => categoryMapping[item as number])
-      );
-    },
-    []
-  );
+  const handleCategories = useCallback((selectedValues: (string | number)[]) => {
+    setSelectedCategories(selectedValues);
+    setSelectedCategoriesData(selectedValues.map((item) => categoryMapping[item as number]));
+  }, []);
 
   if (!isMounted) {
     return null;
@@ -194,7 +155,7 @@ export default function FavoritesPageClient() {
             <CheckboxGroupUI
               title="Пол"
               selectedItems={selectedSex}
-              fieldNames={["Для женщин", "Для мужчин"]}
+              fieldNames={['Для женщин', 'Для мужчин']}
               onChange={handleSex}
             />
           </div>
@@ -205,13 +166,13 @@ export default function FavoritesPageClient() {
               title="Категория"
               staticMode
               options={[
-                "Рубашки",
-                "Обувь",
-                "Верхняя одежда",
-                "Нижнее белье",
-                "Головные уборы",
-                "Брюки",
-                "Аксессуары",
+                'Рубашки',
+                'Обувь',
+                'Верхняя одежда',
+                'Нижнее белье',
+                'Головные уборы',
+                'Брюки',
+                'Аксессуары',
               ]}
             />
           </div>
@@ -223,11 +184,7 @@ export default function FavoritesPageClient() {
           {isLoading && <SpinnerPulse className={styles.spinner} />}
           {!isLoading &&
             productsToShow.map((product) => (
-              <Link
-                href={`/card/id=${product.id}`}
-                key={product.id}
-                className={styles.productLink}
-              >
+              <Link href={`/card/id=${product.id}`} key={product.id} className={styles.productLink}>
                 <ProductCard
                   ref={productCard}
                   className={styles.product}
@@ -247,8 +204,7 @@ export default function FavoritesPageClient() {
       ) : (
         <div className={styles.noProductsContainer}>
           <span className={styles.noProducts}>
-            Вы пока еще не выбрали понравившиеся товары. Но вы можете сделать
-            это прямо сейчас!
+            Вы пока еще не выбрали понравившиеся товары. Но вы можете сделать это прямо сейчас!
           </span>
           <svg
             xmlns="http://www.w3.org/2000/svg"

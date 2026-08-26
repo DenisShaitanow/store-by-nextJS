@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useCallback, useState, useEffect } from "react";
-import { BaseDropdown } from "../baseDropdown";
-import type { UserDropdownMenuProps } from "./types";
-import styles from "./UserDropdownMenu.module.css";
+import { useCallback, useState, useEffect } from 'react';
+import { BaseDropdown } from '../baseDropdown';
+import type { UserDropdownMenuProps } from './types';
+import styles from './UserDropdownMenu.module.css';
 
 export const UserDropdownMenu: React.FC<UserDropdownMenuProps> = ({
   user,
   onPersonalCabinetClick,
   onLogoutClick,
-  placement = "bottom-right",
+  placement = 'bottom-right',
   disabled = false,
   className,
-  "aria-label": ariaLabel,
+  'aria-label': ariaLabel,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -44,9 +44,7 @@ export const UserDropdownMenu: React.FC<UserDropdownMenuProps> = ({
           onError={() => setAvatarError(true)}
         />
       ) : (
-        <div className={styles.avatarPlaceholder}>
-          {user.nameUser.charAt(0).toUpperCase()}
-        </div>
+        <div className={styles.avatarPlaceholder}>{user.nameUser.charAt(0).toUpperCase()}</div>
       )}
     </div>
   );
@@ -64,11 +62,7 @@ export const UserDropdownMenu: React.FC<UserDropdownMenuProps> = ({
       aria-label={ariaLabel || `Меню пользователя ${user.nameUser}`}
     >
       <div className={styles.menu}>
-        <button
-          className={styles.menuItem}
-          onClick={handlePersonalCabinetClick}
-          type="button"
-        >
+        <button className={styles.menuItem} onClick={handlePersonalCabinetClick} type="button">
           Личный кабинет
         </button>
 

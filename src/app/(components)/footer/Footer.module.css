@@ -40,7 +40,7 @@
   }
 
   .nav::before {
-    content: "";
+    content: '';
     display: block;
   }
 }

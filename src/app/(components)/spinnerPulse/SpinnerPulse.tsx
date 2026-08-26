@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React from "react";
-import styles from "./SpinnerPulse.module.css";
+import React from 'react';
+import styles from './SpinnerPulse.module.css';
 
 interface IProps {
   className?: string;
@@ -17,7 +17,7 @@ export const SpinnerPulse: React.FC<IProps> = ({ className }) => {
       viewBox="22 22 44 44"
       id="root-preloader"
     >
-      <g className={styles["g-container"]}>
+      <g className={styles['g-container']}>
         <circle
           cx="44"
           cy="44"

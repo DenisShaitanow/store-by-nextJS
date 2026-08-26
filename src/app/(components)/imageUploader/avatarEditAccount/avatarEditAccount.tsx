@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useRef, type FC, useState, useEffect } from "react";
-import styles from "./avatarEditAccount.module.css"; // Подключаем стили
-import type { AvatarEditAccountProps } from "./type";
-import UserCircle from "../../assets/user-circle75x75.svg";
+import { useRef, type FC, useState, useEffect } from 'react';
+import styles from './avatarEditAccount.module.css'; // Подключаем стили
+import type { AvatarEditAccountProps } from './type';
+import UserCircle from '../../assets/user-circle75x75.svg';
 
 // Компонент AvatarRegistration
 export const AvatarEditAccount: FC<AvatarEditAccountProps> = ({
@@ -15,9 +15,7 @@ export const AvatarEditAccount: FC<AvatarEditAccountProps> = ({
 
   // стейт для адерса картинки
   // если переменная пустая, будет свг картинка, если есть адрес, появится картинка
-  const [srcAvatar, setSrcAvatar] = useState<string | null>(
-    initialAvatarUrl ?? null,
-  );
+  const [srcAvatar, setSrcAvatar] = useState<string | null>(initialAvatarUrl ?? null);
 
   const inputHiddenAccount = useRef<HTMLInputElement>(null);
 
@@ -73,18 +71,14 @@ export const AvatarEditAccount: FC<AvatarEditAccountProps> = ({
         >
           <path
             d="M45.946 48.1741C43.8494 45.3991 41.1373 43.1486 38.0232 41.5999C34.9091 40.0511 31.478 39.2464 28 39.2491C24.522 39.2464 21.0909 40.0511 17.9767 41.5999C14.8626 43.1486 12.1505 45.3991 10.054 48.1741M45.946 48.1741C50.0365 44.5357 52.9243 39.7398 54.2265 34.4224C55.5287 29.105 55.1838 23.5174 53.2374 18.4005C51.291 13.2837 47.8351 8.87944 43.3282 5.77181C38.8212 2.66417 33.476 1 28.0015 1C22.527 1 17.1818 2.66417 12.6748 5.77181C8.16779 8.87944 4.71196 13.2837 2.76557 18.4005C0.819189 23.5174 0.474224 29.105 1.77643 34.4224C3.07863 39.7398 5.96347 44.5357 10.054 48.1741M45.946 48.1741C41.0074 52.5777 34.6166 55.0074 28 54.9991C21.3823 55.0081 14.9933 52.5784 10.054 48.1741M37 21.2491C37 23.6361 36.0518 25.9253 34.3639 27.6131C32.6761 29.3009 30.3869 30.2491 28 30.2491C25.613 30.2491 23.3238 29.3009 21.636 27.6131C19.9482 25.9253 19 23.6361 19 21.2491C19 18.8622 19.9482 16.573 21.636 14.8852C23.3238 13.1973 25.613 12.2491 28 12.2491C30.3869 12.2491 32.6761 13.1973 34.3639 14.8852C36.0518 16.573 37 18.8622 37 21.2491Z"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       )}
       <span className={styles.addCircle} onClick={handleClick}>
-        <svg
-          className={styles.editAvatar}
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg className={styles.editAvatar} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M9.2079 10.8396C7.79429 10.8396 6.65039 9.69572 6.65039 8.28212C6.65039 6.86851 7.79429 5.72461 9.2079 5.72461C10.6215 5.72461 11.7654 6.86851 11.7654 8.28212C11.7654 9.69572 10.6215 10.8396 9.2079 10.8396ZM9.2079 7.11961C8.5662 7.11961 8.0454 7.64042 8.0454 8.28212C8.0454 8.92382 8.5662 9.44462 9.2079 9.44462C9.8496 9.44462 10.3704 8.92382 10.3704 8.28212C10.3704 7.64042 9.8496 7.11961 9.2079 7.11961Z"
             fill="var(--text-color)"

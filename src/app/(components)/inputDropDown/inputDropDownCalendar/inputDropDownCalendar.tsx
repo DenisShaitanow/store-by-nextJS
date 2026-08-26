@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import type { FC } from "react";
-import { useState, useRef, useCallback, useEffect } from "react";
-import styles from "./inputDropDownCalendar.module.css";
-import type { InputDropDownCalendarProps } from "./type";
-import { SimpleDatePicker } from "../../calendar/datepicker";
+import type { FC } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
+import styles from './inputDropDownCalendar.module.css';
+import type { InputDropDownCalendarProps } from './type';
+import { SimpleDatePicker } from '../../calendar/datepicker';
 
 // Функция проверки правильности формата даты (DD/MM/YYYY).
 const isValidDateFormat = (dateStr: string) => {
@@ -15,7 +15,7 @@ const isValidDateFormat = (dateStr: string) => {
 
 export const InputDropDownCalendar: FC<InputDropDownCalendarProps> = ({
   onChangeDate,
-  className = "",
+  className = '',
   id,
   title,
   value,
@@ -32,56 +32,55 @@ export const InputDropDownCalendar: FC<InputDropDownCalendarProps> = ({
       const targetNode = event.target as HTMLElement;
 
       const isInsideCalendar = !!(
-      targetNode.closest('.react-datepicker') ||
-      targetNode.closest('.dropdown') ||
-      targetNode.closest('.month-dropdown') ||
-      targetNode.closest('.year-dropdown') ||
-      targetNode.closest('.dropdown-item'));
-            // Проверяем, произошло ли событие внутри самого компонента или вне
+        targetNode.closest('.react-datepicker') ||
+        targetNode.closest('.dropdown') ||
+        targetNode.closest('.month-dropdown') ||
+        targetNode.closest('.year-dropdown') ||
+        targetNode.closest('.dropdown-item')
+      );
+      // Проверяем, произошло ли событие внутри самого компонента или вне
       if (
         containerRef.current &&
         !containerRef.current.contains(targetNode) &&
-        calendarRef.current && !calendarRef.current.contains(targetNode) && 
+        calendarRef.current &&
+        !calendarRef.current.contains(targetNode) &&
         !isInsideCalendar
       ) {
         setIsOpen(false);
-        
       }
     };
 
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, []);
 
   const [selectDate, setSelectDate] = useState<Date | null>(value || null); // Дата, выбранная в календаре
   const [isOpen, setIsOpen] = useState(false); // Флаг открытия окна календаря
-  const [manualInput, setManualInput] = useState<string>(""); // Ручной ввод даты
+  const [manualInput, setManualInput] = useState<string>(''); // Ручной ввод даты
 
   const handleOnChange = (date: Date | null) => {
-    setManualInput("");
+    setManualInput('');
     setSelectDate(date);
     onChangeDate(date);
     setIsOpen(false);
   };
 
   // Обработчик изменения при вводе вручную
-  const handleManualInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleManualInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value.trim();
-    if (inputValue === "") {
+    if (inputValue === '') {
       setSelectDate(null);
       onChangeDate(null); // Оповещаем родительский компонент об очистке выбора
-      setManualInput("");
+      setManualInput('');
       return;
     }
     // Проверяем, является ли введённая строка валидной датой
     if (isValidDateFormat(inputValue)) {
       try {
         // Замещаем точки на запятые, чтобы корректно передать новую дату
-        let parsedDate = new Date(inputValue.replace(/\./g, ","));
+        const parsedDate = new Date(inputValue.replace(/\./g, ','));
 
         if (!isNaN(parsedDate.getTime())) {
           setSelectDate(parsedDate); // Устанавливаем выбор даты
@@ -113,14 +112,12 @@ export const InputDropDownCalendar: FC<InputDropDownCalendarProps> = ({
             id={id}
             name={id}
             autoComplete="off"
-            className={`${
-              !!error ? `${styles.inputError}` : ""
-            } ${styles.input}`}
-            placeholder={placeholder || ""}
-            value={manualInput || (selectDate?.toLocaleDateString() ?? "")}
+            className={`${error ? `${styles.inputError}` : ''} ${styles.input}`}
+            placeholder={placeholder || ''}
+            value={manualInput || (selectDate?.toLocaleDateString() ?? '')}
             onChange={handleManualInputChange}
             onFocus={() => setIsOpen(true)}
-            data-cy={"registrationInputBirthday"}
+            data-cy={'registrationInputBirthday'}
           />
           <svg
             className={styles.calendar}

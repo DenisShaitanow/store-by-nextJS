@@ -1,60 +1,50 @@
-import { setCookie, getCookie } from "./cookie";
+import { setCookie, getCookie } from './cookie';
 
-import {
-  type IFormOrderData,
-  type IProduct,
-  type RegistrationData,
-} from "../types";
-
+import { type IFormOrderData, type IProduct, type RegistrationData } from '../types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export interface OperationBasket {
-  operation: "ADD" | "SUBTRACT" | "DELETE" | string
+  operation: 'ADD' | 'SUBTRACT' | 'DELETE' | string;
 }
 
-export const changeBasketApi = async (data: {product: IProduct, operation: OperationBasket}): Promise<Array<{ item: IProduct; count: number }>> => {
-
-  const response = await fetch (`${API_URL}/changeBasket`,
-    {
-      credentials: 'include',
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(data)
-    }
-    
-  )
+export const changeBasketApi = async (data: {
+  product: IProduct;
+  operation: OperationBasket;
+}): Promise<Array<{ item: IProduct; count: number }>> => {
+  const response = await fetch(`${API_URL}/changeBasket`, {
+    credentials: 'include',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify(data),
+  });
 
   if (!response.ok) {
-    throw new Error('Корзина не изменилась. Ошибка.')
+    throw new Error('Корзина не изменилась. Ошибка.');
   }
 
-  const res = (await response.json());
+  const res = await response.json();
   return res.data;
-}
+};
 
 export const resetBasketApi = async (): Promise<Array<{ item: IProduct; count: number }>> => {
-  const response = await fetch(`${API_URL}/resetBasket`, 
-    {
-      credentials: 'include' 
-    }
-  )
+  const response = await fetch(`${API_URL}/resetBasket`, {
+    credentials: 'include',
+  });
 
   if (!response.ok) {
-    throw new Error('Корзина не обнулилась. Ошибка.')
+    throw new Error('Корзина не обнулилась. Ошибка.');
   }
 
   return (await response.json()).data;
-}
+};
 
 export const mockedGetProductsApi = async (): Promise<IProduct[]> => {
-  const response = await fetch(`${API_URL}/products`,
-    {
-      credentials: 'include' 
-    }
-  )
+  const response = await fetch(`${API_URL}/products`, {
+    credentials: 'include',
+  });
 
   if (!response.ok) {
     const resFail = await response.json();
@@ -62,66 +52,55 @@ export const mockedGetProductsApi = async (): Promise<IProduct[]> => {
     if (message === 'Invalid or expired access token') {
       throw new Error('Invalid or expired access token');
     }
-    
   }
-  
+
   const products = (await response.json()).data;
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   return products;
-}
+};
 
 interface IGetProduct {
-  id: string
+  id: string;
 }
 
-
-
 export const GetProductApi = async (data: IGetProduct): Promise<IProduct> => {
-  
-    
-  
-  const response = await fetch(`${API_URL}/product`,
-    { method: "POST",
-      credentials: 'include',
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(data)
-    }
-  )
+  const response = await fetch(`${API_URL}/product`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify(data),
+  });
 
   if (!response.ok) {
     const resFail = await response.json();
     const message = resFail.message;
     throw new Error(`${message}`);
   }
-  
-  const product = (await response.json()).data;
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  return product;
-}
 
+  const product = (await response.json()).data;
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  return product;
+};
 
 export const getBasketApi = async (): Promise<{ item: IProduct; count: number }[]> => {
   try {
     const response = await fetch(`${API_URL}/getBasket`, {
-      credentials: 'include'
+      credentials: 'include',
     });
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    
+
     const basket: { item: IProduct; count: number }[] = (await response.json()).data;
     return basket;
   } catch (error) {
     console.error('Error loading basket:', error);
     throw new Error('Ошибка загрузки корзины из сервера');
   }
-}
-
-
-
+};
 
 const checkResponse = <T>(res: Response): Promise<T> =>
   res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
@@ -130,43 +109,36 @@ type TServerResponse<T> = {
   success: boolean;
 } & T;
 
-
-
-export const refreshToken =  (): Promise<{success: boolean}> =>
-  {
-    const refreshToken = localStorage.getItem("refreshToken");
-    return fetch(`${API_URL}/refresh-token`, {
-      method: "POST",
-      credentials: 'include' ,
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify({refreshToken}),
-      })
-    
-      .then((res) => {if (!res.ok) {
+export const refreshToken = (): Promise<{ success: boolean }> => {
+  const refreshToken = localStorage.getItem('refreshToken');
+  return fetch(`${API_URL}/refresh-token`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify({ refreshToken }),
+  })
+    .then((res) => {
+      if (!res.ok) {
         return res.json().then((err) => {
           throw new Error(err.message);
         });
       }
-      return res.json();})
-      .then((refreshData) => {
-        if (!refreshData.success) {
-          throw new Error('Need autentification')
-        }
-        
+      return res.json();
+    })
+    .then((refreshData) => {
+      if (!refreshData.success) {
+        throw new Error('Need autentification');
+      }
 
-        return {success: true}
-      
-  });
-}
-
-
+      return { success: true };
+    });
+};
 
 // Фиктивные токены
-const fakeAccessToken = "fake_access_token";
-const fakeRefreshToken = "fake_refresh_token";
-
+const fakeAccessToken = 'fake_access_token';
+const fakeRefreshToken = 'fake_refresh_token';
 
 // ServerFunction
 export function mockedRegisterUserApi(data: RegistrationData): Promise<{
@@ -174,10 +146,8 @@ export function mockedRegisterUserApi(data: RegistrationData): Promise<{
   refreshToken: string;
   user: RegistrationData;
   id: string;
-  userAlreadyReg: boolean
-  
+  userAlreadyReg: boolean;
 }> {
-  
   return fetch(`${API_URL}/registerUser`, {
     method: 'POST',
     credentials: 'include',
@@ -199,14 +169,12 @@ export function mockedRegisterUserApi(data: RegistrationData): Promise<{
         refreshToken: data.refreshToken,
         user: data.user,
         id: data.id,
-        userAlreadyReg: data.userAlreadyReg
-    }});
-    
-  
+        userAlreadyReg: data.userAlreadyReg,
+      };
+    });
 }
 
 interface IServerUser {
- 
   id: string;
   // Профиль
   profile: RegistrationData;
@@ -218,31 +186,28 @@ interface IServerUser {
   favoriteItems: string[]; // массив id продуктов
   orders: string[];
   notifications: { id: string; text: string }[];
-
 }
 
 // Server function
 export async function mockedGetUserApi(): Promise<{
   isAuthenticated: boolean;
-  user: IServerUser
+  user: IServerUser;
 }> {
   const response = await fetch(`${API_URL}/auth/me`, {
     credentials: 'include',
-  })
+  });
 
   if (!response.ok) {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    throw new Error('Ошибка сверки аксесс-токена')
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    throw new Error('Ошибка сверки аксесс-токена');
   }
 
-  const data = response.json()
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  const data = response.json();
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   return data;
 }
 
-export function changeDataInPersonalCabinetApi(
-  data: RegistrationData,
-): Promise<{
+export function changeDataInPersonalCabinetApi(data: RegistrationData): Promise<{
   success: boolean;
   refreshToken: string;
   accessToken: string;
@@ -278,26 +243,21 @@ type TAuthResponse = TServerResponse<{
   user: RegistrationData;
 }>;
 
-
-
-
 //Server function
 export function mockedLogoutApi(): Promise<{ success: boolean }> {
   return fetch(`${API_URL}/LogoutUser`, {
     credentials: 'include',
-  }).then(
-    (res) => {
+  })
+    .then((res) => {
       if (res.ok) {
-        return res.json()
+        return res.json();
       } else {
-        throw new Error('Проблемa с лог аутом')
+        throw new Error('Проблемa с лог аутом');
       }
-    }
-  ).then(
-    (data) => {
-      return {success: data.success}
-    }
-  )
+    })
+    .then((data) => {
+      return { success: data.success };
+    });
 }
 
 // Server function
@@ -309,80 +269,67 @@ export const mockedLoginUserApi = async (data: {
   refreshToken: string;
   user: RegistrationData;
   id: string;
-  
 }> => {
-
-
   return fetch(`${API_URL}/LoginUser`, {
     method: 'POST',
     credentials: 'include',
-    headers:  {
+    headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   })
-  .then(async (response) => {
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Ошибка регистрации');
-    }
-    return response.json();
-  })
-  .then((data) => ({
-    success: data.success,
-    refreshToken: data.refreshToken,
-    user: data.user,
-    id: data.id
-  }));
+    .then(async (response) => {
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Ошибка регистрации');
+      }
+      return response.json();
+    })
+    .then((data) => ({
+      success: data.success,
+      refreshToken: data.refreshToken,
+      user: data.user,
+      id: data.id,
+    }));
+};
 
-
-
-}
-
-
-export const mockedDoOrder = async (
-  formData: IFormOrderData,
-): Promise<string> => {
+export const mockedDoOrder = async (formData: IFormOrderData): Promise<string> => {
   try {
     const response = await fetch(`${API_URL}/DoOrder`, {
       method: 'POST',
-      credentials: 'include',  
+      credentials: 'include',
       headers: {
-        "Content-Type": "application/json;charset=utf-8",
+        'Content-Type': 'application/json;charset=utf-8',
       },
       body: JSON.stringify(formData),
     });
-    
+
     if (!response.ok) {
       const error = await response.json();
       throw new Error(error.message || 'Ошибка регистрации like');
     }
 
     const data = await response.json();
-    console.log(data)
+    console.log(data);
     return data.message;
-    
   } catch (error) {
-    
     throw error;
   }
-
 };
 
-
-
-
-export const toggleLikeApi = async (id: Record<'productId', string>): Promise<{success: boolean}> => {
+export const toggleLikeApi = async (
+  id: Record<'productId', string>
+): Promise<{ success: boolean }> => {
   try {
     const response = await fetch(`${API_URL}/toogleLikeCard`, {
       method: 'POST',
-      credentials: 'include',  
+      credentials: 'include',
       headers: {
-        "Content-Type": "application/json;charset=utf-8",
+        'Content-Type': 'application/json;charset=utf-8',
       },
       body: JSON.stringify(id),
     });
-    
+
     if (!response.ok) {
       const error = await response.json();
       throw new Error(error.message || 'Ошибка регистрации like');
@@ -390,37 +337,30 @@ export const toggleLikeApi = async (id: Record<'productId', string>): Promise<{s
 
     const data = await response.json();
     return data;
-    
   } catch (error) {
-    
     throw error;
   }
+};
 
-}
-
-export const updateUserData = async (data: RegistrationData) :Promise<RegistrationData> => {
-
+export const updateUserData = async (data: RegistrationData): Promise<RegistrationData> => {
   try {
-  const response = await fetch(`${API_URL}/updateUser`, {
+    const response = await fetch(`${API_URL}/updateUser`, {
       method: 'POST',
-      credentials: 'include',  
+      credentials: 'include',
       headers: {
-        "Content-Type": "application/json;charset=utf-8",
+        'Content-Type': 'application/json;charset=utf-8',
       },
       body: JSON.stringify(data),
-    })
+    });
 
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.message)
+      throw new Error(error.message);
     }
 
-    const dat = await response.json() as RegistrationData;
+    const dat = (await response.json()) as RegistrationData;
     return dat;
-  } catch(err) {
-    
+  } catch (err) {
     throw err;
-    
   }
-
-}
+};

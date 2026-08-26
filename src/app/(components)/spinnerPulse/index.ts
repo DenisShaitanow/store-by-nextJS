@@ -1,1 +1,1 @@
-export { SpinnerPulse } from "./SpinnerPulse";
+export { SpinnerPulse } from './SpinnerPulse';

@@ -12,7 +12,7 @@
   --alarm-color: #e0796e; /* цвет кружка нового уведомления */
   --error-color: #bf3920;
 
-  --calendar-font: "Roboto", "Jost", "Open Sans";
+  --calendar-font: 'Roboto', 'Jost', 'Open Sans';
   --calendar-bg: #ffffff;
   --calendar-border: #69735d;
   --calendar-accent: #abd27a;
@@ -39,9 +39,9 @@
 
   /* шрифты */
 
-  --font-family: "Roboto";
-  --second-family: "Jost";
-  --third-family: "Open Sans";
+  --font-family: 'Roboto';
+  --second-family: 'Jost';
+  --third-family: 'Open Sans';
 
   /* основные параметры текста */
 
@@ -81,7 +81,7 @@
   --line-height-body: 150%;
 
   /* logo */
-                      
+
   --font-size-logo: 24px;
   --font-weight-logo: 600;
   --line-height-logo: 133%;

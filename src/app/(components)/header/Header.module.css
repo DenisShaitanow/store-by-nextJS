@@ -6,12 +6,7 @@
   max-width: 1440px;
   min-width: 320px;
   width: 90%;
-  background-color: rgba(
-    var(--accent-color-r),
-    var(--accent-color-g),
-    var(--accent-color-b),
-    0.2
-  );
+  background-color: rgba(var(--accent-color-r), var(--accent-color-g), var(--accent-color-b), 0.2);
   padding-block: 21px 20px;
   padding-inline: 40px;
   border-bottom-left-radius: 15px;

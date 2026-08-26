@@ -1,7 +1,6 @@
-
 'use client';
 
-import styles from "./HomePage.module.css";
+import styles from './HomePage.module.css';
 import {
   useState,
   useEffect,
@@ -10,39 +9,38 @@ import {
   useRef,
   useLayoutEffect,
   useCallback,
-} from "react";
-import { useAppDispatch, useAppSelector } from "../../services/hooks";
-import { getProducts, getBasket } from "../../services/thunks/userUIData/userUIData-thunks";
-import { checkUserAuth } from "../../services/thunks/user/user-thunks";
+} from 'react';
+import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { getProducts, getBasket } from '../../services/thunks/userUIData/userUIData-thunks';
+import { checkUserAuth } from '../../services/thunks/user/user-thunks';
 
-// Вместо Helmet используем next/head (или просто удалите Helmet)
-import Head from "next/head";
+import Head from 'next/head';
 
 import {
   selectProducts,
   selectBasket,
   selectLoadingProducts,
-} from "../../services/selectors/userUIData-selectors/userUIData-selectors";
-import type { FC } from "react";
-import { ProductCard } from "../(components)/productCard";
-import type { IProduct } from "../(components)/productCard/type";
-import { CheckboxGroupUI } from "../(components)/checkbox";
-import { CheckboxDropdown } from "../(components)/checkboxDropdown";
-import { SpinnerPulse } from "../(components)/spinnerPulse";
+} from '../../services/selectors/userUIData-selectors/userUIData-selectors';
+import type { FC } from 'react';
+import { ProductCard } from '../(components)/productCard';
+import type { IProduct } from '../(components)/productCard/type';
+import { CheckboxGroupUI } from '../(components)/checkbox';
+import { CheckboxDropdown } from '../(components)/checkboxDropdown';
+import { SpinnerPulse } from '../(components)/spinnerPulse';
 
 const categoryMapping: string[] = [
-  "t-shirts",
-  "shoes",
-  "jackets",
-  "underwear",
-  "hats",
-  "trousers",
-  "accessories",
+  't-shirts',
+  'shoes',
+  'jackets',
+  'underwear',
+  'hats',
+  'trousers',
+  'accessories',
 ];
 
 const sexMapping: Record<string, string> = {
-  "Для мужчин": "man",
-  "Для женщин": "woman",
+  'Для мужчин': 'man',
+  'Для женщин': 'woman',
 };
 
 export default function HomePage() {
@@ -56,18 +54,12 @@ export default function HomePage() {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [selectedSex, setSelectedSex] = useState<string[]>([]);
   const [selectedSexData, setSelectedSexData] = useState<string[]>([]);
-  const [selectedCategories, setSelectedCategories] = useState<
-    (string | number)[]
-  >([]);
-  const [selectedCategoriesData, setSelectedCategoriesData] = useState<
-    string[]
-  >([]);
+  const [selectedCategories, setSelectedCategories] = useState<(string | number)[]>([]);
+  const [selectedCategoriesData, setSelectedCategoriesData] = useState<string[]>([]);
 
   const calculateVisibleProductsCount = (width: number) => {
     const productCardWidth = productCard.current?.clientWidth;
-    const cardsPerRow = Math.floor(
-      (width - 0.1 * width) / (productCardWidth || 160),
-    );
+    const cardsPerRow = Math.floor((width - 0.1 * width) / (productCardWidth || 160));
     return cardsPerRow * 6;
   };
 
@@ -76,16 +68,10 @@ export default function HomePage() {
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
-      if (
-        selectedCategoriesData.length > 0 &&
-        !selectedCategoriesData.includes(product.category)
-      ) {
+      if (selectedCategoriesData.length > 0 && !selectedCategoriesData.includes(product.category)) {
         return false;
       }
-      if (
-        selectedSexData.length > 0 &&
-        !selectedSexData.includes(product.sex)
-      ) {
+      if (selectedSexData.length > 0 && !selectedSexData.includes(product.sex)) {
         return false;
       }
       return true;
@@ -93,8 +79,10 @@ export default function HomePage() {
   }, [selectedCategoriesData, selectedSexData, products]);
 
   useLayoutEffect(() => {
-    if (basket.length === 0) {dispatch(getBasket())}
-  },[dispatch])
+    if (basket.length === 0) {
+      dispatch(getBasket());
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     if (productsContainer.current) {
@@ -113,8 +101,8 @@ export default function HomePage() {
       }
     }
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [filteredProducts]);
 
   useEffect(() => {
@@ -123,29 +111,20 @@ export default function HomePage() {
         document.documentElement.scrollTop + window.innerHeight >=
         document.documentElement.offsetHeight - 20;
 
-      if (
-        bottomReached &&
-        !isLoadingMore &&
-        productsToShow.length < filteredProducts.length
-      ) {
+      if (bottomReached && !isLoadingMore && productsToShow.length < filteredProducts.length) {
         setIsLoadingMore(true);
 
-        const nextBatchSize = calculateVisibleProductsCount(
-          productsContainerWidth!,
-        );
+        const nextBatchSize = calculateVisibleProductsCount(productsContainerWidth!);
         const startIndex = productsToShow.length;
         const endIndex = Math.min(startIndex + nextBatchSize, products.length);
         setTimeout(() => {
-          setProductsToShow((prev) => [
-            ...prev,
-            ...filteredProducts.slice(startIndex, endIndex),
-          ]);
+          setProductsToShow((prev) => [...prev, ...filteredProducts.slice(startIndex, endIndex)]);
           setIsLoadingMore(false);
         }, 1000);
       }
     }
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [products, isLoadingMore, productsToShow]);
 
   const handleSex = useCallback(
@@ -154,33 +133,25 @@ export default function HomePage() {
       const selectedItemData: string = sexMapping[selectedItem];
       if (selectedSex.includes(selectedItem)) {
         setSelectedSex((prevSelectedItems) =>
-          prevSelectedItems.filter((item) => item !== selectedItem),
+          prevSelectedItems.filter((item) => item !== selectedItem)
         );
         setSelectedSexData((prevSelectedSexData) =>
-          prevSelectedSexData.filter((item) => item !== selectedItemData),
+          prevSelectedSexData.filter((item) => item !== selectedItemData)
         );
       } else {
-        setSelectedSex((prevSelectedItems) => [
-          ...prevSelectedItems,
-          selectedItem,
-        ]);
-        setSelectedSexData((prevSelectedSexData) => [
-          ...prevSelectedSexData,
-          selectedItemData,
-        ]);
+        setSelectedSex((prevSelectedItems) => [...prevSelectedItems, selectedItem]);
+        setSelectedSexData((prevSelectedSexData) => [...prevSelectedSexData, selectedItemData]);
       }
     },
-    [setSelectedSex, setSelectedSexData, sexMapping, selectedSex],
+    [setSelectedSex, setSelectedSexData, sexMapping, selectedSex]
   );
 
   const handleCategories = useCallback(
     (selectedValues: (string | number)[]) => {
       setSelectedCategories(selectedValues);
-      setSelectedCategoriesData(
-        selectedValues.map((item) => categoryMapping[item as number]),
-      );
+      setSelectedCategoriesData(selectedValues.map((item) => categoryMapping[item as number]));
     },
-    [setSelectedCategories, setSelectedCategoriesData, categoryMapping],
+    [setSelectedCategories, setSelectedCategoriesData, categoryMapping]
   );
 
   return (
@@ -197,7 +168,7 @@ export default function HomePage() {
               <CheckboxGroupUI
                 title="Пол"
                 selectedItems={selectedSex}
-                fieldNames={["Для женщин", "Для мужчин"]}
+                fieldNames={['Для женщин', 'Для мужчин']}
                 onChange={handleSex}
               />
             </div>
@@ -208,13 +179,13 @@ export default function HomePage() {
                 title="Категория"
                 staticMode
                 options={[
-                  "Рубашки",
-                  "Обувь",
-                  "Верхняя одежда",
-                  "Нижнее белье",
-                  "Головные уборы",
-                  "Брюки",
-                  "Аксессуары",
+                  'Рубашки',
+                  'Обувь',
+                  'Верхняя одежда',
+                  'Нижнее белье',
+                  'Головные уборы',
+                  'Брюки',
+                  'Аксессуары',
                 ]}
               />
             </div>

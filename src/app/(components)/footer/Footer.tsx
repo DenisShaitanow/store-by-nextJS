@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import type { FC } from "react";
-import {LinkMy as Link}  from "../link";
-import styles from "./Footer.module.css";
-import { Logo } from "../logo";
+import type { FC } from 'react';
+import { LinkMy as Link } from '../link';
+import styles from './Footer.module.css';
+import { Logo } from '../logo';
 
 export const Footer: FC = () => (
   <footer className={styles.footer}>

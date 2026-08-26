@@ -1,8 +1,14 @@
-import { createSlice, type Action, type PayloadAction } from "@reduxjs/toolkit";
-import { type TAppDispatch, type TRootState } from "../store/index";
-import { type IProduct } from "../../types";
-import { getProducts, doOrder, changeBasket, getBasket, resetBasket } from "../thunks/userUIData/userUIData-thunks";
-import { act } from "react";
+import { createSlice, type Action, type PayloadAction } from '@reduxjs/toolkit';
+import { type TAppDispatch, type TRootState } from '../store/index';
+import { type IProduct } from '../../types';
+import {
+  getProducts,
+  doOrder,
+  changeBasket,
+  getBasket,
+  resetBasket,
+} from '../thunks/userUIData/userUIData-thunks';
+import { act } from 'react';
 
 interface IUserState {
   loadingProducts: boolean;
@@ -22,14 +28,14 @@ export const initialState: IUserState = {
   favoriteItems: [],
   notifications: [],
   basket: [],
-  error: "",
+  error: '',
   orders: [],
-  errorOrder: "",
+  errorOrder: '',
   loadingOrder: false,
 };
 
 const userUIDataSlice = createSlice({
-  name: "userUIData",
+  name: 'userUIData',
   initialState,
   reducers: {
     resetFavoriteItems: (state: TRootState) => {
@@ -43,71 +49,61 @@ const userUIDataSlice = createSlice({
     },
     addAndDeleteToFavoriteItems: (state: TRootState, action: PayloadAction<string>) => {
       const productId = action.payload;
-      const indexOfProduct = state.products.findIndex(
-        (product) => product.id === productId,
-      );
+      const indexOfProduct = state.products.findIndex((product) => product.id === productId);
 
       if (indexOfProduct >= 0) {
-        state.products[indexOfProduct].isLiked =
-          !state.products[indexOfProduct].isLiked;
+        state.products[indexOfProduct].isLiked = !state.products[indexOfProduct].isLiked;
 
         if (state.favoriteItems.includes(productId)) {
-          state.favoriteItems = state.favoriteItems.filter(
-            (id) => id !== productId,
-          );
+          state.favoriteItems = state.favoriteItems.filter((id) => id !== productId);
         } else {
           state.favoriteItems.push(productId);
         }
       }
     },
-    
 
     removeFromFavoriteItems: (state: TRootState, action: PayloadAction<string>) => {
-      state.favoriteItems = state.favoriteItems.filter(
-        (item) => item !== action.payload,
-      );
+      state.favoriteItems = state.favoriteItems.filter((item) => item !== action.payload);
       localStorage.setItem(
-        "products",
-        JSON.stringify(
-          state.favoriteItems.filter((item) => item !== action.payload),
-        ),
+        'products',
+        JSON.stringify(state.favoriteItems.filter((item) => item !== action.payload))
       );
     },
   },
   extraReducers: (builder) => {
     builder
-    .addCase(getBasket.fulfilled, 
-      (state, action: PayloadAction<{ item: IProduct; count: number }[]>) => {
-        state.basket = action.payload;
-      }
-    )
-    .addCase(getBasket.rejected, 
-      (state, action) => {
+      .addCase(
+        getBasket.fulfilled,
+        (state, action: PayloadAction<{ item: IProduct; count: number }[]>) => {
+          state.basket = action.payload;
+        }
+      )
+      .addCase(getBasket.rejected, (state, action) => {
         state.error = action.payload as string;
-      }
-    )
-    .addCase(resetBasket.fulfilled, 
-      (state, action: PayloadAction<Array<{ item: IProduct; count: number }>>) => {
-        state.basket = action.payload;
-        console.log(state.basket)
-      }
-    )
-      .addCase(changeBasket.fulfilled, (state, action: PayloadAction<Array<{ item: IProduct; count: number }>>) => {
-        state.basket = action.payload;
       })
+      .addCase(
+        resetBasket.fulfilled,
+        (state, action: PayloadAction<Array<{ item: IProduct; count: number }>>) => {
+          state.basket = action.payload;
+          console.log(state.basket);
+        }
+      )
+      .addCase(
+        changeBasket.fulfilled,
+        (state, action: PayloadAction<Array<{ item: IProduct; count: number }>>) => {
+          state.basket = action.payload;
+        }
+      )
       .addCase(changeBasket.rejected, (state: TRootState, action) => {
         state.error = action.payload as string;
       })
       .addCase(getProducts.pending, (state) => {
         state.loadingProducts = true;
       })
-      .addCase(
-        getProducts.fulfilled,
-        (state, action: PayloadAction<IProduct[]>) => {
-          state.products = action.payload;
-          state.loadingProducts = false;
-        },
-      )
+      .addCase(getProducts.fulfilled, (state, action: PayloadAction<IProduct[]>) => {
+        state.products = action.payload;
+        state.loadingProducts = false;
+      })
       .addCase(getProducts.rejected, (state: TRootState, action) => {
         state.error = action.payload as string;
       })

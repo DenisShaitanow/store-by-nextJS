@@ -52,7 +52,7 @@
   background-repeat: no-repeat;
   background-position: center;
   transform: translateY(-50%);
-  content: "";
+  content: '';
 }
 
 /* Styles when there is an error */
@@ -83,11 +83,11 @@
   right: 1rem;
   width: 24px;
   height: 24px;
-  background-image: url("../../assets/krestCloseInput.svg");
+  background-image: url('../../assets/krestCloseInput.svg');
   background-repeat: no-repeat;
   background-position: center;
   transform: translateY(-50%);
-  content: "";
+  content: '';
 }
 
 /* Placeholder selection */

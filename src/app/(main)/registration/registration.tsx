@@ -1,40 +1,40 @@
 // app/registration/RegistrationClient.tsx
-"use client";
+'use client';
 
-import { type FC, type ChangeEvent, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useAppDispatch } from "../../../services/hooks";
-import { registerUser } from "../../../services/thunks/user/user-thunks";
-import { type RegistrationData } from "../../../types";
-import { RegistrationHeaderUI } from "./(registrationHeader)/RegistrationHeaderUI";
-import Stepper from "./(stepper)/Stepper";
-import { ButtonUI } from "../../(components)/button/button";
-import { PasswordStep } from "./(step1)/PasswordStep";
-import { FormUserInformationStepTwo } from "./(step2)/step2/FormUserInformationStepTwo";
-import styles from "./registration.module.css";
+import { type FC, type ChangeEvent, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAppDispatch } from '../../../services/hooks';
+import { registerUser } from '../../../services/thunks/user/user-thunks';
+import { type RegistrationData } from '../../../types';
+import { RegistrationHeaderUI } from './(registrationHeader)/RegistrationHeaderUI';
+import Stepper from './(stepper)/Stepper';
+import { ButtonUI } from '../../(components)/button/button';
+import { PasswordStep } from './(step1)/PasswordStep';
+import { FormUserInformationStepTwo } from './(step2)/step2/FormUserInformationStepTwo';
+import styles from './registration.module.css';
 
 const RegistrationClient: FC = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
 
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const [surname, setSurname] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [surname, setSurname] = useState<string>('');
   const [avatar, setAvatar] = useState<File | null>(null);
-  const [gender, setGender] = useState<string>("");
-  const [location, setLocation] = useState<string>("");
-  const [birthdayDate, setBirthdayDate] = useState<string>("");
+  const [gender, setGender] = useState<string>('');
+  const [location, setLocation] = useState<string>('');
+  const [birthdayDate, setBirthdayDate] = useState<string>('');
   const [regData, setRegData] = useState<RegistrationData>({
-    email: "",
-    password: "",
-    name: "",
-    surname: "",
-    avatar: "",
-    gender: "",
-    location: "",
-    birthdayDate: "",
+    email: '',
+    password: '',
+    name: '',
+    surname: '',
+    avatar: '',
+    gender: '',
+    location: '',
+    birthdayDate: '',
   });
 
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -96,11 +96,11 @@ const RegistrationClient: FC = () => {
   };
 
   const handleClickRegistrationButton = () => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("regData", JSON.stringify(regData));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('regData', JSON.stringify(regData));
     }
     dispatch(registerUser(regData));
-    router.push("/");
+    router.push('/');
   };
 
   if (!isMounted) {
@@ -125,8 +125,8 @@ const RegistrationClient: FC = () => {
           <FormUserInformationStepTwo
             hiddenAvatarInput={false}
             genderOptions={[
-              { value: "man", label: "Мужской" },
-              { value: "woman", label: "Женский" },
+              { value: 'man', label: 'Мужской' },
+              { value: 'woman', label: 'Женский' },
             ]}
             nameValue={name}
             nameChange={handleChangeName}
@@ -140,11 +140,7 @@ const RegistrationClient: FC = () => {
             birthdayDateChange={handleBirthdayDateChange}
           />
           <div className={styles.buttonsContainer}>
-            <ButtonUI
-              onClick={handleClickBack}
-              label="Назад"
-              className={styles.buttonPadding}
-            />
+            <ButtonUI onClick={handleClickBack} label="Назад" className={styles.buttonPadding} />
             <ButtonUI
               dataCy="registrationButton"
               disabled={

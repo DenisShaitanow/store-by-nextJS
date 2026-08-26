@@ -1,1 +1,1 @@
-export { SpinnerDynamic } from "./SpinnerDinamic";
+export { SpinnerDynamic } from './SpinnerDinamic';

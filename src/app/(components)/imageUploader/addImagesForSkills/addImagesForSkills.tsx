@@ -1,13 +1,11 @@
-"use client";
+'use client';
 
-import { useRef, type FC, useState } from "react";
-import type { DragEvent } from "react";
-import type { AddImagesForSkillsProps } from "./type";
-import styles from "./addImagesForSkills.module.css"; // Подключаем стили
+import { useRef, type FC, useState } from 'react';
+import type { DragEvent } from 'react';
+import type { AddImagesForSkillsProps } from './type';
+import styles from './addImagesForSkills.module.css'; // Подключаем стили
 
-export const AddImagesForSkills: FC<AddImagesForSkillsProps> = ({
-  onImagesChange,
-}) => {
+export const AddImagesForSkills: FC<AddImagesForSkillsProps> = ({ onImagesChange }) => {
   const inputHidden = useRef<HTMLInputElement>(null);
   const [images, setImages] = useState<File[]>([]);
 
@@ -64,10 +62,7 @@ export const AddImagesForSkills: FC<AddImagesForSkillsProps> = ({
   };
 
   // Обработка удаления одной фотографии нажатием на крестик
-  const handleDelete = (
-    event: React.MouseEvent<HTMLSpanElement>,
-    key: number,
-  ) => {
+  const handleDelete = (event: React.MouseEvent<HTMLSpanElement>, key: number) => {
     event.stopPropagation();
     setImages(images.filter((_, index) => index !== key));
   };
@@ -111,9 +106,7 @@ export const AddImagesForSkills: FC<AddImagesForSkillsProps> = ({
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >
-      <h4 className={styles.title}>
-        Перетащите или выберите изображения навыка
-      </h4>
+      <h4 className={styles.title}>Перетащите или выберите изображения навыка</h4>
       <input
         className={styles.input}
         ref={inputHidden}

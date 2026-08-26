@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useState, useCallback } from "react";
-import classNames from "classnames";
-import type { ExpandableListProps } from "./types";
-import styles from "./ExpandableList.module.css";
+import { useState, useCallback } from 'react';
+import classNames from 'classnames';
+import type { ExpandableListProps } from './types';
+import styles from './ExpandableList.module.css';
 
 export const ExpandableList: React.FC<ExpandableListProps> = ({
   children,
   maxVisibleItems = 3,
-  showAllText = "Показать все",
-  collapseText = "Свернуть",
+  showAllText = 'Показать все',
+  collapseText = 'Свернуть',
   className,
   additionalItemsClassName,
   additionalItemsExpandedClassName,
@@ -27,9 +27,7 @@ export const ExpandableList: React.FC<ExpandableListProps> = ({
 
   // Если элементов меньше или равно максимальному количеству, не показываем кнопку
   if (children.length <= maxVisibleItems) {
-    return (
-      <div className={classNames(styles.container, className)}>{children}</div>
-    );
+    return <div className={classNames(styles.container, className)}>{children}</div>;
   }
 
   const visibleItems = children.slice(0, maxVisibleItems);
@@ -42,19 +40,15 @@ export const ExpandableList: React.FC<ExpandableListProps> = ({
 
       {/* Дополнительные элементы с анимацией */}
       <div
-        className={classNames(
-          additionalItemsClassName || styles.additionalItems,
-          {
-            // Используем переданный expanded класс или дефолтный
-            ...(additionalItemsExpandedClassName &&
-              isExpanded && {
-                [additionalItemsExpandedClassName]: true,
-              }),
-            [styles.additionalItems_expanded]:
-              isExpanded && !additionalItemsExpandedClassName,
-            [styles.additionalItems_noAnimation]: disableAnimation,
-          },
-        )}
+        className={classNames(additionalItemsClassName || styles.additionalItems, {
+          // Используем переданный expanded класс или дефолтный
+          ...(additionalItemsExpandedClassName &&
+            isExpanded && {
+              [additionalItemsExpandedClassName]: true,
+            }),
+          [styles.additionalItems_expanded]: isExpanded && !additionalItemsExpandedClassName,
+          [styles.additionalItems_noAnimation]: disableAnimation,
+        })}
       >
         {hiddenItems}
       </div>
@@ -69,13 +63,10 @@ export const ExpandableList: React.FC<ExpandableListProps> = ({
           {isExpanded ? collapseText : showAllText}
         </span>
         <svg
-          className={classNames(
-            buttonClassName ? styles.showAllIcon : styles.toggleIcon,
-            {
-              [styles.showAllIcon_expanded]: isExpanded && buttonClassName,
-              [styles.toggleIcon_expanded]: isExpanded && !buttonClassName,
-            },
-          )}
+          className={classNames(buttonClassName ? styles.showAllIcon : styles.toggleIcon, {
+            [styles.showAllIcon_expanded]: isExpanded && buttonClassName,
+            [styles.toggleIcon_expanded]: isExpanded && !buttonClassName,
+          })}
           width="16"
           height="16"
           viewBox="0 0 16 16"

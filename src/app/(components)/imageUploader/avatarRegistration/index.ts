@@ -1,2 +1,2 @@
-export { AvatarRegistration } from "./avatarRegistration";
-export type { AvatarRegistrationProps } from "./type";
+export { AvatarRegistration } from './avatarRegistration';
+export type { AvatarRegistrationProps } from './type';

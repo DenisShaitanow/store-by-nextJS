@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import type { FC, ChangeEvent } from "react";
-import { useState, useRef, useCallback, useEffect } from "react";
-import styles from "./inputDropDownCheckbox.module.css";
-import type { InputDropDownForCheckboxProps } from "./type";
-import { CheckboxGroupUI } from "../../checkbox/CheckboxGroup";
+import type { FC, ChangeEvent } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
+import styles from './inputDropDownCheckbox.module.css';
+import type { InputDropDownForCheckboxProps } from './type';
+import { CheckboxGroupUI } from '../../checkbox/CheckboxGroup';
 
 interface CategoryItem {
   value: string;
@@ -17,11 +17,8 @@ interface Category extends CategoryItem {
 
 type CategoriesTree = Array<Category>;
 
-const findValueByLabel = (
-  categories: CategoriesTree,
-  labelToFind: string,
-): string | undefined => {
-  for (let category of categories) {
+const findValueByLabel = (categories: CategoriesTree, labelToFind: string): string | undefined => {
+  for (const category of categories) {
     if (category.label === labelToFind) return category.value;
 
     // Проверяем наличие дочерних элементов
@@ -35,7 +32,7 @@ const findValueByLabel = (
 export const InputDropDownForCheckbox: FC<InputDropDownForCheckboxProps> = ({
   options,
   onChangeOption,
-  className = "",
+  className = '',
   id,
   title,
   value,
@@ -43,7 +40,7 @@ export const InputDropDownForCheckbox: FC<InputDropDownForCheckboxProps> = ({
   error,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [selectLabel, setSelectLabel] = useState<string>("");
+  const [selectLabel, setSelectLabel] = useState<string>('');
   const [selectedValue, setSelectedValue] = useState<string[]>([]);
 
   useEffect(() => {
@@ -58,17 +55,14 @@ export const InputDropDownForCheckbox: FC<InputDropDownForCheckboxProps> = ({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
-      ) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
 
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
   });
 
@@ -97,7 +91,7 @@ export const InputDropDownForCheckbox: FC<InputDropDownForCheckboxProps> = ({
     <>
       <div ref={containerRef} className={`${styles.container} ${className}`}>
         <label htmlFor={id}>{title}</label>
-        <div className={`${isOpen ? styles.borderDone : ""}`}>
+        <div className={`${isOpen ? styles.borderDone : ''}`}>
           <div
             onClick={() => {
               setIsOpen(!isOpen);

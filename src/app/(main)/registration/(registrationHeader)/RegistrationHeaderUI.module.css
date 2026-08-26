@@ -9,12 +9,7 @@
   padding-inline: 40px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  background-color: rgba(
-    var(--accent-color-r),
-    var(--accent-color-g),
-    var(--accent-color-b),
-    0.2
-  );
+  background-color: rgba(var(--accent-color-r), var(--accent-color-g), var(--accent-color-b), 0.2);
 }
 
 .closeButton {

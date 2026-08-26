@@ -1,71 +1,57 @@
 // app/order/FormOrderClient.tsx
-"use client";
+'use client';
 
-import { useEffect, useState, type ChangeEvent, type FC } from "react";
-import { useRouter } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "../../../services/hooks";
-import { doOrder } from "../../../services/thunks/userUIData/userUIData-thunks";
-import { selectBasket } from "../../../services/selectors/userUIData-selectors/userUIData-selectors";
-import { InputUI } from "../../(components)/input";
-import { InputDropDown } from "../../(components)/inputDropDown/imputDropDownSimple";
-import { ButtonUI } from "../../(components)/button/button";
-import { type IFormOrderData } from "../../../types";
-import styles from "./FormOder.module.css";
+import { useEffect, useState, type ChangeEvent, type FC } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAppDispatch, useAppSelector } from '../../../services/hooks';
+import { doOrder } from '../../../services/thunks/userUIData/userUIData-thunks';
+import { selectBasket } from '../../../services/selectors/userUIData-selectors/userUIData-selectors';
+import { InputUI } from '../../(components)/input';
+import { InputDropDown } from '../../(components)/inputDropDown/imputDropDownSimple';
+import { ButtonUI } from '../../(components)/button/button';
+import { type IFormOrderData } from '../../../types';
+import styles from './FormOder.module.css';
 
 // Валидаторы и форматтеры (можно вынести в отдельный файл utils)
 const formatCardNumber = (inputValue: string) => {
-  let cleanValue = inputValue.replace(/\s/g, "").substring(0, 16);
-  let formattedValue = "";
+  const cleanValue = inputValue.replace(/\s/g, '').substring(0, 16);
+  let formattedValue = '';
   for (let i = 0; i < cleanValue.length; i += 4) {
     if (i > 0) {
-      formattedValue += " ";
+      formattedValue += ' ';
     }
-    formattedValue += cleanValue.substring(
-      i,
-      Math.min(cleanValue.length, i + 4)
-    );
+    formattedValue += cleanValue.substring(i, Math.min(cleanValue.length, i + 4));
   }
   return formattedValue;
 };
 
-const validateNumberCard = (value: string) =>
-  /^\d+$/.test(value.replace(/\s/g, ""));
+const validateNumberCard = (value: string) => /^\d+$/.test(value.replace(/\s/g, ''));
 const validatePersonCard = (value: string) => /^[A-Za-z\s]+$/.test(value);
 const validateCVV = (value: string) => /^\d{3}$/.test(value);
-
-
-
-
 
 const FormOrderClient: FC = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const basket = useAppSelector(selectBasket);
- 
 
-  
   const getInitialFormData = (): IFormOrderData => {
-   
-
-    
-
     return {
       selectСourier: true,
-      adress: "",
-      adressPoint: "",
+      adress: '',
+      adressPoint: '',
       formPaySelf: true,
-      numberCard: "",
-      PersonCard: "",
-      CVV: "",
+      numberCard: '',
+      PersonCard: '',
+      CVV: '',
       basketList: basket,
     };
   };
 
   const [formData, setFormData] = useState<IFormOrderData>(getInitialFormData);
   const [errors, setErrors] = useState({
-    numberCardError: "",
-    personCardError: "",
-    cvvError: "",
+    numberCardError: '',
+    personCardError: '',
+    cvvError: '',
   });
   const [buttonBuyDisabled, setButtonBuyDisabled] = useState<boolean>(true);
   const [isMounted, setIsMounted] = useState(false);
@@ -75,11 +61,10 @@ const FormOrderClient: FC = () => {
     setIsMounted(true);
   }, []);
 
-
   // Сохраняем в localStorage
   useEffect(() => {
     if (isMounted) {
-      localStorage.setItem("orderForm", JSON.stringify(formData));
+      localStorage.setItem('orderForm', JSON.stringify(formData));
     }
   }, [formData, isMounted]);
 
@@ -91,11 +76,9 @@ const FormOrderClient: FC = () => {
       const cvvValid = validateCVV(formData.CVV);
 
       setErrors({
-        numberCardError: numberCardValid ? "" : "Некорректный номер карты",
-        personCardError: personCardValid
-          ? ""
-          : "Имя владельца должно содержать только латиницу",
-        cvvError: cvvValid ? "" : "Код CVV должен содержать три цифры",
+        numberCardError: numberCardValid ? '' : 'Некорректный номер карты',
+        personCardError: personCardValid ? '' : 'Имя владельца должно содержать только латиницу',
+        cvvError: cvvValid ? '' : 'Код CVV должен содержать три цифры',
       });
     }
   }, [isMounted]);
@@ -106,16 +89,14 @@ const FormOrderClient: FC = () => {
 
     const isValidAddressSelection =
       (formData.selectСourier && formData.adress.trim()) ||
-      (!formData.selectСourier &&
-        formData.adressPoint.trim() &&
-        formData.basketList);
+      (!formData.selectСourier && formData.adressPoint.trim() && formData.basketList);
 
     const isPaymentDataComplete =
       formData.formPaySelf ||
       (!formData.formPaySelf &&
-        formData.numberCard.trim() !== "" &&
-        formData.PersonCard.trim() !== "" &&
-        formData.CVV.trim() !== "" &&
+        formData.numberCard.trim() !== '' &&
+        formData.PersonCard.trim() !== '' &&
+        formData.CVV.trim() !== '' &&
         !errors.cvvError &&
         !errors.numberCardError &&
         !errors.personCardError);
@@ -129,7 +110,7 @@ const FormOrderClient: FC = () => {
     const valid = validateNumberCard(cleanedAndFormattedValue);
     setErrors((prev) => ({
       ...prev,
-      numberCardError: valid ? "" : "Некорректный номер карты",
+      numberCardError: valid ? '' : 'Некорректный номер карты',
     }));
     setFormData((prev) => ({ ...prev, numberCard: cleanedAndFormattedValue }));
   };
@@ -138,9 +119,7 @@ const FormOrderClient: FC = () => {
     const valid = validatePersonCard(e.target.value as string);
     setErrors((prev) => ({
       ...prev,
-      personCardError: valid
-        ? ""
-        : "Имя владельца должно содержать только латиницу",
+      personCardError: valid ? '' : 'Имя владельца должно содержать только латиницу',
     }));
     setFormData((prev) => ({ ...prev, PersonCard: e.target.value as string }));
   };
@@ -150,7 +129,7 @@ const FormOrderClient: FC = () => {
     const valid = validateCVV(CvvChecked);
     setErrors((prev) => ({
       ...prev,
-      cvvError: valid ? "" : "Код CVV должен содержать три цифры",
+      cvvError: valid ? '' : 'Код CVV должен содержать три цифры',
     }));
     setFormData((prev) => ({ ...prev, CVV: CvvChecked }));
   };
@@ -165,7 +144,7 @@ const FormOrderClient: FC = () => {
 
   const handleBuy = () => {
     dispatch(doOrder(formData));
-    router.push("/orderComplited");
+    router.push('/orderComplited');
   };
 
   // Пока не смонтирован - показываем скелетон или null
@@ -178,7 +157,7 @@ const FormOrderClient: FC = () => {
       <span className={styles.selectPay}>Выберете способ получения</span>
       <div className={styles.twoButtons}>
         <div
-          className={`${styles.selectPayButton} ${!formData.selectСourier ? styles.select : ""}`}
+          className={`${styles.selectPayButton} ${!formData.selectСourier ? styles.select : ''}`}
           onClick={() => {
             setFormData((prev) => ({ ...prev, selectСourier: false }));
           }}
@@ -186,7 +165,7 @@ const FormOrderClient: FC = () => {
           Самовывоз
         </div>
         <div
-          className={`${styles.selectPayButton} ${formData.selectСourier ? styles.select : ""}`}
+          className={`${styles.selectPayButton} ${formData.selectСourier ? styles.select : ''}`}
           onClick={() => {
             setFormData((prev) => ({ ...prev, selectСourier: true }));
           }}
@@ -215,11 +194,11 @@ const FormOrderClient: FC = () => {
           onChangeOption={handleChangePoint}
           placeholder="Выберите удобный пункт выдачи"
           options={[
-            { value: "ул.Мичурина, д.23", label: "ул.Мичурина, д.23" },
-            { value: "пр-т Королева, д.26", label: "пр-т Королева, д.26" },
-            { value: "пл. Ленина, д.17", label: "пл. Ленина, д.17" },
-            { value: "ул. Кирова, д.17", label: "ул. Кирова, д.17" },
-            { value: "ул. Сахарова, д.1", label: "ул. Сахарова, д.1" },
+            { value: 'ул.Мичурина, д.23', label: 'ул.Мичурина, д.23' },
+            { value: 'пр-т Королева, д.26', label: 'пр-т Королева, д.26' },
+            { value: 'пл. Ленина, д.17', label: 'пл. Ленина, д.17' },
+            { value: 'ул. Кирова, д.17', label: 'ул. Кирова, д.17' },
+            { value: 'ул. Сахарова, д.1', label: 'ул. Сахарова, д.1' },
           ]}
         />
       )}
@@ -227,7 +206,7 @@ const FormOrderClient: FC = () => {
       <span className={styles.selectPay}>Выберете способ оплаты</span>
       <div className={styles.twoButtons}>
         <div
-          className={`${styles.selectPayButton} ${formData.formPaySelf ? styles.select : ""}`}
+          className={`${styles.selectPayButton} ${formData.formPaySelf ? styles.select : ''}`}
           onClick={() => {
             setFormData((prev) => ({ ...prev, formPaySelf: true }));
           }}
@@ -235,7 +214,7 @@ const FormOrderClient: FC = () => {
           Оплата при получении
         </div>
         <div
-          className={`${styles.selectPayButton} ${!formData.formPaySelf ? styles.select : ""}`}
+          className={`${styles.selectPayButton} ${!formData.formPaySelf ? styles.select : ''}`}
           onClick={() => {
             setFormData((prev) => ({ ...prev, formPaySelf: false }));
           }}

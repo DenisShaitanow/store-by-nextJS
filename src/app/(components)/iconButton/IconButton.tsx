@@ -1,32 +1,32 @@
-"use client";
+'use client';
 
-import styles from "./IconButton.module.css";
-import type { IconButtonProps, ThemeMode } from "./types";
+import styles from './IconButton.module.css';
+import type { IconButtonProps, ThemeMode } from './types';
 
-import NotificationIcon from "../assets/notification.svg";
-import LikeIcon from "../assets/like.svg";
-import ShareIcon from "../assets/share.svg";
-import MoreSquareIcon from "../assets/more-square.svg";
-import MoonIcon from "../assets/moon.svg";
-import SunIcon from "../assets/sun.svg";
-import Basket from "../assets/basket_header.svg";
-import { useAppSelector } from "../../../services/hooks";
-import type { IProduct } from "../../../types";
-import { selectBasket } from "../../../services/selectors/userUIData-selectors/userUIData-selectors";
+import NotificationIcon from '../assets/notification.svg';
+import LikeIcon from '../assets/like.svg';
+import ShareIcon from '../assets/share.svg';
+import MoreSquareIcon from '../assets/more-square.svg';
+import MoonIcon from '../assets/moon.svg';
+import SunIcon from '../assets/sun.svg';
+import Basket from '../assets/basket_header.svg';
+import { useAppSelector } from '../../../services/hooks';
+import type { IProduct } from '../../../types';
+import { selectBasket } from '../../../services/selectors/userUIData-selectors/userUIData-selectors';
 
-function pickIcon(type: IconButtonProps["type"], themeMode?: ThemeMode) {
+function pickIcon(type: IconButtonProps['type'], themeMode?: ThemeMode) {
   switch (type) {
-    case "like":
+    case 'like':
       return LikeIcon;
-    case "notification":
+    case 'notification':
       return NotificationIcon;
-    case "share":
+    case 'share':
       return ShareIcon;
-    case "more":
+    case 'more':
       return MoreSquareIcon;
-    case "theme":
-      return themeMode === "light" ? SunIcon : MoonIcon;
-    case "basket":
+    case 'theme':
+      return themeMode === 'light' ? SunIcon : MoonIcon;
+    case 'basket':
       return Basket;
     default:
       return ShareIcon;
@@ -34,71 +34,57 @@ function pickIcon(type: IconButtonProps["type"], themeMode?: ThemeMode) {
 }
 
 export const IconButton = (props: IconButtonProps) => {
-  const {
-    type,
-    onClick,
-    ariaLabel,
-    pressed,
-    className,
-    disabled = false,
-    dataCy,
-  } = props;
+  const { type, onClick, ariaLabel, pressed, className, disabled = false, dataCy } = props;
 
   const productsInBasket: IProduct[] = useAppSelector(selectBasket);
   const hasItemsInBasket: boolean = productsInBasket.length > 0;
   const computedAriaLabel =
     ariaLabel ??
-    (type === "like"
-      ? "isLiked" in props && props.isLiked
-        ? "Убрать лайк"
-        : "Поставить лайк"
-      : type === "notification"
-        ? "hasNotification" in props && props.hasNotification
-          ? "Новые уведомления"
-          : "Уведомления"
-        : type === "share"
-          ? "Поделиться"
-          : type === "more"
-            ? "Ещё"
-            : type === "theme"
-              ? props.themeMode === "dark"
-                ? "Сменить тему на светлую"
-                : "Сменить тему на тёмную"
-              : type === "basket"
-                ? "Открыть корзину"
-                : "Кнопка");
+    (type === 'like'
+      ? 'isLiked' in props && props.isLiked
+        ? 'Убрать лайк'
+        : 'Поставить лайк'
+      : type === 'notification'
+        ? 'hasNotification' in props && props.hasNotification
+          ? 'Новые уведомления'
+          : 'Уведомления'
+        : type === 'share'
+          ? 'Поделиться'
+          : type === 'more'
+            ? 'Ещё'
+            : type === 'theme'
+              ? props.themeMode === 'dark'
+                ? 'Сменить тему на светлую'
+                : 'Сменить тему на тёмную'
+              : type === 'basket'
+                ? 'Открыть корзину'
+                : 'Кнопка');
 
   const isToggle =
-    type === "like" ||
-    type === "notification" ||
-    type === "theme" ||
-    type === "basket";
+    type === 'like' || type === 'notification' || type === 'theme' || type === 'basket';
 
   const ariaPressed =
-    typeof pressed === "boolean"
+    typeof pressed === 'boolean'
       ? pressed
-      : type === "like"
+      : type === 'like'
         ? !!props.isLiked
-        : type === "notification"
+        : type === 'notification'
           ? !!props.hasNotification
-          : type === "theme"
-            ? props.themeMode === "dark"
+          : type === 'theme'
+            ? props.themeMode === 'dark'
             : undefined;
 
-  const IconComponent = pickIcon(
-    type,
-    type === "theme" ? props.themeMode : undefined,
-  );
+  const IconComponent = pickIcon(type, type === 'theme' ? props.themeMode : undefined);
 
   const buttonClasses = [
     styles.button,
-    type === "like" ? styles.like : "",
-    isToggle && ariaPressed ? styles.pressed : "",
-    type === "like" && "isLiked" in props && props.isLiked ? styles.accent : "",
+    type === 'like' ? styles.like : '',
+    isToggle && ariaPressed ? styles.pressed : '',
+    type === 'like' && 'isLiked' in props && props.isLiked ? styles.accent : '',
     className,
   ]
     .filter(Boolean)
-    .join(" ");
+    .join(' ');
 
   return (
     <button
@@ -106,17 +92,15 @@ export const IconButton = (props: IconButtonProps) => {
       type="button"
       className={buttonClasses}
       aria-label={computedAriaLabel}
-      {...(isToggle ? { "aria-pressed": !!ariaPressed } : {})}
+      {...(isToggle ? { 'aria-pressed': !!ariaPressed } : {})}
       onClick={onClick}
       disabled={disabled}
     >
       <IconComponent className={styles.icon} />
-      {type === "notification" &&
-        "hasNotification" in props &&
-        props.hasNotification && (
-          <span className={styles.notificationDot} aria-hidden="true" />
-        )}
-      {type === "basket" && hasItemsInBasket && (
+      {type === 'notification' && 'hasNotification' in props && props.hasNotification && (
+        <span className={styles.notificationDot} aria-hidden="true" />
+      )}
+      {type === 'basket' && hasItemsInBasket && (
         <span className={styles.basketIndicator} aria-hidden="true" />
       )}
     </button>
