@@ -1,5 +1,4 @@
 import { createSlice, type Action, type PayloadAction } from '@reduxjs/toolkit';
-import { type TAppDispatch, type TRootState } from '../store/index';
 import { type IProduct } from '../../types';
 import {
   getProducts,
@@ -9,6 +8,7 @@ import {
   resetBasket,
 } from '../thunks/userUIData/userUIData-thunks';
 import { act } from 'react';
+import { type IServerUser } from '../../../my-server/server';
 
 interface IUserState {
   loadingProducts: boolean;
@@ -38,16 +38,26 @@ const userUIDataSlice = createSlice({
   name: 'userUIData',
   initialState,
   reducers: {
-    resetFavoriteItems: (state: TRootState) => {
+    resetFavoriteItems: (state: IUserState) => {
       state.favoriteItems = [];
     },
-    resetNotifications: (state: TRootState) => {
+    resetNotifications: (state: IUserState) => {
       state.notifications = [];
     },
-    resetBusket: (state: TRootState) => {
+    resetBusket: (state: IUserState) => {
       state.basket = [];
     },
-    addAndDeleteToFavoriteItems: (state: TRootState, action: PayloadAction<string>) => {
+    setUserSlice2: (state: IUserState, action: PayloadAction<IServerUser | null>) => {
+      if (action.payload) {
+        state.favoriteItems = action.payload.favoriteItems;
+        state.notifications = action.payload.notifications;
+        state.basket = action.payload.basket;
+      } else {
+        return 
+      }
+      
+    },
+    addAndDeleteToFavoriteItems: (state: IUserState, action: PayloadAction<string>) => {
       const productId = action.payload;
       const indexOfProduct = state.products.findIndex((product) => product.id === productId);
 
@@ -62,7 +72,7 @@ const userUIDataSlice = createSlice({
       }
     },
 
-    removeFromFavoriteItems: (state: TRootState, action: PayloadAction<string>) => {
+    removeFromFavoriteItems: (state: IUserState, action: PayloadAction<string>) => {
       state.favoriteItems = state.favoriteItems.filter((item) => item !== action.payload);
       localStorage.setItem(
         'products',
@@ -94,28 +104,28 @@ const userUIDataSlice = createSlice({
           state.basket = action.payload;
         }
       )
-      .addCase(changeBasket.rejected, (state: TRootState, action) => {
+      .addCase(changeBasket.rejected, (state: IUserState, action) => {
         state.error = action.payload as string;
       })
-      .addCase(getProducts.pending, (state) => {
+      /*.addCase(getProducts.pending, (state) => {
         state.loadingProducts = true;
       })
       .addCase(getProducts.fulfilled, (state, action: PayloadAction<IProduct[]>) => {
         state.products = action.payload;
         state.loadingProducts = false;
       })
-      .addCase(getProducts.rejected, (state: TRootState, action) => {
+      .addCase(getProducts.rejected, (state: IUserState, action) => {
         state.error = action.payload as string;
-      })
-      .addCase(doOrder.pending, (state: TRootState) => {
+      })*/
+      .addCase(doOrder.pending, (state: IUserState) => {
         state.loadingOrder = true;
       })
-      .addCase(doOrder.fulfilled, (state: TRootState, action: PayloadAction<string>) => {
+      .addCase(doOrder.fulfilled, (state: IUserState, action: PayloadAction<string>) => {
         state.orders = [...state.orders, action.payload];
         state.loadingProducts = false;
         state.basket = [];
       })
-      .addCase(doOrder.rejected, (state: TRootState, action) => {
+      .addCase(doOrder.rejected, (state: IUserState, action) => {
         state.errorOrder = action.payload as string;
       });
   },
@@ -125,10 +135,9 @@ export const {
   resetFavoriteItems,
   resetNotifications,
   resetBusket,
-  addToBusket,
-  removeFromBusket,
   removeFromFavoriteItems,
   addAndDeleteToFavoriteItems,
+  setUserSlice2
 } = userUIDataSlice.actions;
 
 export const userUIDataReducer = userUIDataSlice.reducer;

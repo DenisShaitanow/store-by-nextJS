@@ -1,5 +1,5 @@
 import { setCookie, getCookie } from './cookie';
-
+import { IServerUser } from '../../my-server/server';
 import { type IFormOrderData, type IProduct, type RegistrationData } from '../types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -41,7 +41,7 @@ export const resetBasketApi = async (): Promise<Array<{ item: IProduct; count: n
   return (await response.json()).data;
 };
 
-export const mockedGetProductsApi = async (): Promise<IProduct[]> => {
+export const getProductsApi = async (): Promise<IProduct[]> => {
   const response = await fetch(`${API_URL}/products`, {
     credentials: 'include',
   });
@@ -174,19 +174,7 @@ export function mockedRegisterUserApi(data: RegistrationData): Promise<{
     });
 }
 
-interface IServerUser {
-  id: string;
-  // Профиль
-  profile: RegistrationData;
-  refreshToken: string;
-  dateCreateRefreshToken: number;
-  successToken: string;
-  // Пользовательские данные (аналог клиентского IUserState)
-  basket: Array<{ item: IProduct; count: number }>;
-  favoriteItems: string[]; // массив id продуктов
-  orders: string[];
-  notifications: { id: string; text: string }[];
-}
+
 
 // Server function
 export async function mockedGetUserApi(): Promise<{
@@ -203,7 +191,6 @@ export async function mockedGetUserApi(): Promise<{
   }
 
   const data = response.json();
-  await new Promise((resolve) => setTimeout(resolve, 1000));
   return data;
 }
 

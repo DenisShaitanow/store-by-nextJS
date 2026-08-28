@@ -1589,7 +1589,7 @@ import {
 } from "../src/types";
 import { error } from 'console';
 
-interface IServerUser {
+export interface IServerUser {
  
   id: string;
   // Профиль
@@ -1687,7 +1687,7 @@ app.get('/api/auth/me', (req, res: Response<{auth: boolean, user: IServerUser}>)
   } else {
     res.status(401).json({
       isAuthenticated: false,
-      user: null
+      user: {}
     });
   }
 });

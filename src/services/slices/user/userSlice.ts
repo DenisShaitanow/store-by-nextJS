@@ -1,5 +1,6 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { Action, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { type RegistrationData } from '../../../types';
+import { type IServerUser } from '../../../../my-server/server';
 
 import { registerUser, logoutUser, checkUserAuth, loginUser, updateUser } from '../../thunks/user';
 
@@ -31,6 +32,16 @@ const userSlice = createSlice({
     resetError: (state) => {
       state.error = null;
     },
+    setUserSlice1: (state: IUserState, action: PayloadAction<IServerUser | null>) => {
+      if (action.payload) {
+        state.user = action.payload.profile;
+        state.isAuth = true;
+      } else {
+        return
+      }
+      
+    },
+    
   },
   extraReducers: (builder) => {
     builder
@@ -128,5 +139,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { resetError } = userSlice.actions;
+export const { resetError, setUserSlice1 } = userSlice.actions;
 export const userReducer = userSlice.reducer;
