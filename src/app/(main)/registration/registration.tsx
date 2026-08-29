@@ -95,12 +95,12 @@ const RegistrationClient: FC = () => {
     setCurrentStep((prev) => prev - 1);
   };
 
-  const handleClickRegistrationButton = () => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('regData', JSON.stringify(regData));
-    }
-    dispatch(registerUser(regData));
+  const handleClickRegistrationButton = async () => {
+    
+    await dispatch(registerUser(regData));
+    
     router.push('/');
+    router.refresh();
   };
 
   if (!isMounted) {

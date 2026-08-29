@@ -6,12 +6,10 @@ import HomePageClient from './HomePageClient';
 
 export default async function HomePage() {
 
-  const [products, basket] = await Promise.all([
-    getProductsApi(), 
-    getBasketApi(),   
-  ]);
+  const products = await getProductsApi();
+  console.log(products)
 
-  return <HomePageClient products={products} basket={basket} />;
+  return <HomePageClient products={products}/>;
 }
 
 

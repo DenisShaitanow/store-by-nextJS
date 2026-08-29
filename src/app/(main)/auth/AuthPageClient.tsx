@@ -53,6 +53,7 @@ export default function AuthPage() {
     if (email === regDataObject?.email && password === regDataObject?.password) {
       dispatch(loginUser({ email, password }));
       router.push('/');
+      router.refresh();
     } else {
       setAuthError(true);
     }

@@ -177,20 +177,25 @@ export function mockedRegisterUserApi(data: RegistrationData): Promise<{
 
 
 // Server function
-export async function mockedGetUserApi(): Promise<{
+export async function mockedGetUserApi(successToken: string): Promise<{
   isAuthenticated: boolean;
   user: IServerUser;
 }> {
   const response = await fetch(`${API_URL}/auth/me`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
     credentials: 'include',
+    body: JSON.stringify({successToken: successToken})
   });
-
   if (!response.ok) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     throw new Error('Ошибка сверки аксесс-токена');
   }
 
   const data = response.json();
+ 
   return data;
 }
 

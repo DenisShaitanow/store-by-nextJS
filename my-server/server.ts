@@ -1615,15 +1615,16 @@ const app = express();
 
 app.use(cors({
   origin: 'http://localhost:3000',
-  credentials: true // РАЗРЕШАЕМ cookie
+  credentials: true 
 }));
-app.use(express.json()); // Для обработки JSON-запросов
+app.use(express.json()); 
 app.use(cookieParser());
 
 app.use((req, res, next) => {
   console.log(`\n🔵 ${req.method} ${req.url}`);
   console.log('📦 Headers:', req.headers['content-type']);
   console.log('📦 Body:', req.body);
+  console.log('Cookies:', req.cookies)
   next();
 });
 
@@ -1667,8 +1668,9 @@ const authMiddleware = (req, res, next) => {
   next();
 };
 
-app.get('/api/auth/me', (req, res: Response<{auth: boolean, user: IServerUser}>) => {
-  const successToken = req.cookies.successToken;
+app.post('/api/auth/me', (req, res: Response<{auth: boolean, user: IServerUser}>) => {
+  const successToken = req.body.successToken;
+  console.log(successToken)
   
   if (!successToken) {
     return res.status(401).json({ 
@@ -1713,8 +1715,9 @@ app.get('/api/products', (req, res) => {
             count: userProducts.length,
             data: userProducts
           });
+          console.log(user, userProducts[0])
     } else {
-      console.log('userNo')
+      console.log(user, '000')
       res.status(200).json({
         count: products.length,
         data: products
@@ -1932,6 +1935,7 @@ app.post('/api/toogleLikeCard', authMiddleware, ( req: Request<{}, {}, {productI
     // Добавляем
     user.favoriteItems.push(productId);
   }
+  console.log(user)
   res.status(200).json({ success: true });
   
 

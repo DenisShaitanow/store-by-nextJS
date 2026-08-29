@@ -1,5 +1,6 @@
 import { mockedGetUserApi } from '../../services/api';
 import  MainLayoutClient  from './MainLayoutClient';
+import { cookies } from 'next/headers';
 
 
 export default async function MainLayout({
@@ -7,18 +8,31 @@ export default async function MainLayout({
 }: {
   children: React.ReactNode;
 }) {
-  let user = null;
-  let isAuth = false;
   
-  try {
-    const userData = await mockedGetUserApi(); 
-    if (userData) {
-      user = userData.user;
-      isAuth = userData.isAuthenticated;
+
+  const cookieStore = await cookies();
+  const successToken = cookieStore.get('successToken')?.value || '';
+  
+  
+  let isAuth = false; 
+  
+  
+  let user;
+  
+ 
+    try {
+      const userData = await mockedGetUserApi(successToken); 
+      if (userData) {
+        user = userData.user;
+        isAuth = userData.isAuthenticated;
+      }
+    } catch (error) {
+      console.error('Нет пользователя.')
     }
-  } catch (error) {
-    
-  }
+  
+
+
+  
 
   
   return (

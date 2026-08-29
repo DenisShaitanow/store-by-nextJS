@@ -1,6 +1,6 @@
 // type.ts
-import type { TUser } from '../../../entities/user/types';
-import { type RegistrationData } from 'src/types';
+
+import { type RegistrationData } from '../../../types';
 
 export type THeaderUIProps = {
   isModal: boolean;

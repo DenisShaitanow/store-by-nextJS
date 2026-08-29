@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { IProduct, IFormOrderData } from '../../../types';
 import {
-  mockedGetProductsApi,
+  getProductsApi,
   mockedDoOrder,
   toggleLikeApi,
   changeBasketApi,
@@ -27,7 +27,7 @@ export const getProducts = createAsyncThunk<IProduct[], void>(
   'getProducts',
   async (_, { rejectWithValue }) => {
     try {
-      const products = await mockedGetProductsApi();
+      const products = await getProductsApi();
       return products;
     } catch (err) {
       return rejectWithValue('Token expired, please try again');

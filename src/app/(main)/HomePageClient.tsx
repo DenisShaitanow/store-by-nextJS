@@ -7,21 +7,12 @@ import {
   type ChangeEvent,
   useMemo,
   useRef,
-  useLayoutEffect,
   useCallback,
 } from 'react';
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
-import { getProducts, getBasket } from '../../services/thunks/userUIData/userUIData-thunks';
-import { checkUserAuth } from '../../services/thunks/user/user-thunks';
 
 import Head from 'next/head';
 
-import {
-  selectProducts,
-  selectBasket,
-  selectLoadingProducts,
-} from '../../services/selectors/userUIData-selectors/userUIData-selectors';
-import type { FC } from 'react';
+
 import { ProductCard } from '../(components)/productCard';
 import type { IProduct } from '../(components)/productCard/type';
 import { CheckboxGroupUI } from '../(components)/checkbox';
@@ -46,15 +37,10 @@ const sexMapping: Record<string, string> = {
 
 interface HomePageClientProps {
     products: IProduct[],
-    basket: {
-        item: IProduct;
-        count: number;
-    }[]
 }
 
 export default function HomePageClient(props: HomePageClientProps) {
-  const dispatch = useAppDispatch();
-  const isLoading = useAppSelector(selectLoadingProducts);
+
 
   const productsContainer = useRef<HTMLDivElement>(null);
   const productCard = useRef<HTMLDivElement>(null);
@@ -72,7 +58,7 @@ export default function HomePageClient(props: HomePageClientProps) {
     return cardsPerRow * 6;
   };
 
-  const { products, basket } = props;
+  const { products } = props;
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
@@ -86,11 +72,6 @@ export default function HomePageClient(props: HomePageClientProps) {
     });
   }, [selectedCategoriesData, selectedSexData, products]);
 
-  useLayoutEffect(() => {
-    if (basket.length === 0) {
-      dispatch(getBasket());
-    }
-  }, [dispatch]);
 
   useEffect(() => {
     if (productsContainer.current) {

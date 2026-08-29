@@ -2,10 +2,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // ✅ Для Turbopack - ТОЛЬКО ПРОСТЫЕ ПРАВИЛА!
+  // ✅ Для Turbopack
   turbopack: {
     rules: {
-      // ✅ Только так!
       '*.svg': {
         loaders: ['@svgr/webpack'],
         as: '*.js',
@@ -13,9 +12,8 @@ const nextConfig: NextConfig = {
     },
   },
   
-  // ✅ Для webpack - можно сложные правила
+  // ✅ Для webpack
   webpack: (config) => {
-    // ✅ Убираем стандартную обработку SVG
     const fileLoaderRule = config.module.rules.find((rule) =>
       rule.test?.test?.('.svg')
     );
@@ -23,14 +21,12 @@ const nextConfig: NextConfig = {
       fileLoaderRule.exclude = /\.svg$/;
     }
     
-    // ✅ Для импорта как React-компонент
     config.module.rules.push({
       test: /\.svg$/,
       issuer: /\.[jt]sx?$/,
       use: ['@svgr/webpack'],
     });
     
-    // ✅ Для использования в CSS как URL
     config.module.rules.push({
       test: /\.svg$/,
       issuer: { not: /\.[jt]sx?$/ },
@@ -42,6 +38,8 @@ const nextConfig: NextConfig = {
     
     return config;
   },
+
+  
 };
 
 export default nextConfig;
