@@ -43,7 +43,7 @@ export const changeDataInPersonalCabinet = createAsyncThunk<
       ? response.accessToken.slice(7)
       : response.accessToken;
     setCookie('accessToken', accessToken);
-    localStorage.setItem('refreshToken', response.refreshToken);
+    /*localStorage.setItem('refreshToken', response.refreshToken);*/
     return { user: response.user };
   } catch (err) {
     return rejectWithValue('Ошибка при регистрации');
@@ -57,12 +57,11 @@ export const loginUser = createAsyncThunk<
     id: string;
   },
   { email: string; password: string }
->('user/login', async (data: { email: string; password: string }, { rejectWithValue }) => {
+>('user/login', async (data, { rejectWithValue }) => {
   try {
     const user = await mockedLoginUserApi(data);
 
-    if (user.success) {
-      localStorage.setItem('refreshToken', user.refreshToken);
+    if (user.success)  {
       return { user: user.user, id: user.id };
     } else {
       return rejectWithValue('Неверный email или пароль');

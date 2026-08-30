@@ -41,9 +41,15 @@ export const resetBasketApi = async (): Promise<Array<{ item: IProduct; count: n
   return (await response.json()).data;
 };
 
-export const getProductsApi = async (): Promise<IProduct[]> => {
+
+export const getProductsApi = async (successToken: string): Promise<IProduct[]> => {
   const response = await fetch(`${API_URL}/products`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
     credentials: 'include',
+    body: JSON.stringify({successToken: successToken})
   });
 
   if (!response.ok) {
@@ -310,8 +316,8 @@ export const mockedDoOrder = async (formData: IFormOrderData): Promise<string> =
 };
 
 export const toggleLikeApi = async (
-  id: Record<'productId', string>
-): Promise<{ success: boolean }> => {
+  id: string
+): Promise<{ favoritItems: IProduct[] }> => {
   try {
     const response = await fetch(`${API_URL}/toogleLikeCard`, {
       method: 'POST',
@@ -319,7 +325,7 @@ export const toggleLikeApi = async (
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
-      body: JSON.stringify(id),
+      body: JSON.stringify({productId: id}),
     });
 
     if (!response.ok) {

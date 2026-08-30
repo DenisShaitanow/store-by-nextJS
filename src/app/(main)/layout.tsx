@@ -27,7 +27,7 @@ export default async function MainLayout({
         isAuth = userData.isAuthenticated;
       }
     } catch (error) {
-      console.error('Нет пользователя.')
+      console.log('Нет пользователя.')
     }
   
 

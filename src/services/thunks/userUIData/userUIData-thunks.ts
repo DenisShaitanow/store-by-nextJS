@@ -23,7 +23,7 @@ export const getBasket = createAsyncThunk<{ item: IProduct; count: number }[], v
   }
 );
 
-export const getProducts = createAsyncThunk<IProduct[], void>(
+/*export const getProducts = createAsyncThunk<IProduct[], void>(
   'getProducts',
   async (_, { rejectWithValue }) => {
     try {
@@ -33,7 +33,7 @@ export const getProducts = createAsyncThunk<IProduct[], void>(
       return rejectWithValue('Token expired, please try again');
     }
   }
-);
+);*/
 
 export const changeBasket = createAsyncThunk<
   Array<{ item: IProduct; count: number }>,
@@ -78,11 +78,11 @@ export const toggleLike = createAsyncThunk<void, string>(
   'toggleLike',
   async (productId, { dispatch }) => {
     try {
-      const data = await toggleLikeApi({ productId: productId });
-      const success = data.success;
-      if (success) {
-        dispatch(addAndDeleteToFavoriteItems(productId));
-      }
+      const data = await toggleLikeApi(productId);
+      const favoritItems = data.favoritItems;
+      
+        dispatch(addAndDeleteToFavoriteItems(favoritItems));
+      
     } catch (err) {
       console.error(err);
     }

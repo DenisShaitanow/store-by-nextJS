@@ -31,11 +31,14 @@ export const ProductCard = forwardRef<HTMLDivElement, IProduct>((props, refCont)
 
   function handleLike(e: React.MouseEvent<HTMLElement>) {
     e.stopPropagation();
+    e.preventDefault();    
     dispatch(toggleLike(props.id));
     setLike(!like);
+    
   }
 
   return (
+    <Link href={`/card/${props.id}`}>
     <div
       ref={refCont}
       onClick={handleClick}
@@ -53,5 +56,6 @@ export const ProductCard = forwardRef<HTMLDivElement, IProduct>((props, refCont)
         <RedLike ref={heartlike} onClick={handleLike} className={styles.like}></RedLike>
       )}
     </div>
+    </Link>
   );
 });

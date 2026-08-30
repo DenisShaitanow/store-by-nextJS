@@ -14,15 +14,11 @@ import { useAppDispatch } from '../../../services/hooks';
 export default function AuthPage() {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const [isMounted, setIsMounted] = useState(false);
   const [authError, setAuthError] = useState<boolean>(false);
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -39,18 +35,10 @@ export default function AuthPage() {
   };
 
   const onClickButton = () => {
-    let regDataObject;
-    const regDataString = localStorage.getItem('regData');
-    if (regDataString) {
-      try {
-        regDataObject = JSON.parse(regDataString);
-      } catch {
-        setAuthError(true);
-        return;
-      }
-    }
+   
 
-    if (email === regDataObject?.email && password === regDataObject?.password) {
+    if (email  && password ) {
+
       dispatch(loginUser({ email, password }));
       router.push('/');
       router.refresh();
@@ -59,9 +47,7 @@ export default function AuthPage() {
     }
   };
 
-  if (!isMounted) {
-    return null;
-  }
+
 
   return (
     <div className={styles.container}>

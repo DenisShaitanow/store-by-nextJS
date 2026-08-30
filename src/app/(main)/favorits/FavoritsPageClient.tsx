@@ -2,10 +2,8 @@
 'use client';
 
 import { useState, useEffect, type ChangeEvent, useMemo, useRef, useCallback } from 'react';
-import Link from 'next/link';
 import styles from './FavoritsPage.module.css';
 import { useAppDispatch, useAppSelector } from '../../../services/hooks';
-import { getProducts } from '../../../services/thunks/userUIData/userUIData-thunks';
 import {
   selectLoadingProducts,
   selectFavorirsProducts,
@@ -53,7 +51,6 @@ export default function FavoritesPageClient() {
 
   useEffect(() => {
     setIsMounted(true);
-    dispatch(getProducts());
   }, [dispatch]);
 
   const products: IProduct[] = useAppSelector(selectFavorirsProducts);
@@ -184,8 +181,9 @@ export default function FavoritesPageClient() {
           {isLoading && <SpinnerPulse className={styles.spinner} />}
           {!isLoading &&
             productsToShow.map((product) => (
-              <Link href={`/card/id=${product.id}`} key={product.id} className={styles.productLink}>
+              
                 <ProductCard
+                  key={product.id}
                   ref={productCard}
                   className={styles.product}
                   title={product.title}
@@ -198,7 +196,7 @@ export default function FavoritesPageClient() {
                   sex={product.sex}
                   isLiked={product.isLiked}
                 />
-              </Link>
+              
             ))}
         </div>
       ) : (

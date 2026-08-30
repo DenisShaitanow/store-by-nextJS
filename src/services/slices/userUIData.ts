@@ -1,7 +1,7 @@
 import { createSlice, type Action, type PayloadAction } from '@reduxjs/toolkit';
 import { type IProduct } from '../../types';
 import {
-  getProducts,
+  
   doOrder,
   changeBasket,
   getBasket,
@@ -12,8 +12,7 @@ import { type IServerUser } from '../../../my-server/server';
 
 interface IUserState {
   loadingProducts: boolean;
-  products: IProduct[];
-  favoriteItems: string[];
+  favoriteItems: IProduct[];
   notifications: { id: string; text: string }[];
   basket: Array<{ item: IProduct; count: number }>;
   error: string;
@@ -24,7 +23,6 @@ interface IUserState {
 
 export const initialState: IUserState = {
   loadingProducts: false,
-  products: [],
   favoriteItems: [],
   notifications: [],
   basket: [],
@@ -57,28 +55,11 @@ const userUIDataSlice = createSlice({
       }
       
     },
-    addAndDeleteToFavoriteItems: (state: IUserState, action: PayloadAction<string>) => {
-      const productId = action.payload;
-      const indexOfProduct = state.products.findIndex((product) => product.id === productId);
-
-      if (indexOfProduct >= 0) {
-        state.products[indexOfProduct].isLiked = !state.products[indexOfProduct].isLiked;
-
-        if (state.favoriteItems.includes(productId)) {
-          state.favoriteItems = state.favoriteItems.filter((id) => id !== productId);
-        } else {
-          state.favoriteItems.push(productId);
-        }
-      }
+    addAndDeleteToFavoriteItems: (state: IUserState, action: PayloadAction<IProduct[]>) => {
+      state.favoriteItems = action.payload
     },
 
-    removeFromFavoriteItems: (state: IUserState, action: PayloadAction<string>) => {
-      state.favoriteItems = state.favoriteItems.filter((item) => item !== action.payload);
-      localStorage.setItem(
-        'products',
-        JSON.stringify(state.favoriteItems.filter((item) => item !== action.payload))
-      );
-    },
+   
   },
   extraReducers: (builder) => {
     builder
@@ -135,7 +116,6 @@ export const {
   resetFavoriteItems,
   resetNotifications,
   resetBusket,
-  removeFromFavoriteItems,
   addAndDeleteToFavoriteItems,
   setUserSlice2
 } = userUIDataSlice.actions;
