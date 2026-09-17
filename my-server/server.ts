@@ -1441,9 +1441,9 @@ app.post('/api/LoginUser', (req, res  ) => {
   const dateCreateRefreshToken = Date.now();
   
 
-  
+    const { email, password} = req.body;
 
-    const user = BASE.find(item => item.profile.email === req.body.email && item.profile.password === req.body.password)
+    const user = BASE.find(item => item.profile.email === email && item.profile.password === password)
 
 
   if (user) {
@@ -1584,7 +1584,7 @@ app.post('/api/DoOrder', (req, res) => {
   }
   
 
-  const formData = req.body.formData;
+  const formData = req.body;
   const random = Math.random()
   const orderNumber = Math.floor((random*10000000)).toString();
 

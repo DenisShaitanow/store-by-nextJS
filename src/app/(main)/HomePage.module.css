@@ -7,6 +7,10 @@
   gap: 25px;
 }
 
+.hide {
+  visibility: hidden;
+}
+
 .containerFixed {
   height: fit-content;
   padding-inline: 8px;

@@ -308,7 +308,6 @@ export const mockedDoOrder = async (formData: IFormOrderData): Promise<string> =
     }
 
     const data = await response.json();
-    console.log(data);
     return data.message;
   } catch (error) {
     throw error;

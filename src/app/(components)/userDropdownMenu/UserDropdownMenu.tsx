@@ -4,6 +4,7 @@ import { useCallback, useState, useEffect } from 'react';
 import { BaseDropdown } from '../baseDropdown';
 import type { UserDropdownMenuProps } from './types';
 import styles from './UserDropdownMenu.module.css';
+import { useRouter } from 'next/navigation';
 
 export const UserDropdownMenu: React.FC<UserDropdownMenuProps> = ({
   user,
@@ -16,6 +17,8 @@ export const UserDropdownMenu: React.FC<UserDropdownMenuProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const router = useRouter();
+
   const handlePersonalCabinetClick = useCallback(() => {
     onPersonalCabinetClick();
     setIsOpen(false);
@@ -24,6 +27,7 @@ export const UserDropdownMenu: React.FC<UserDropdownMenuProps> = ({
   const handleLogoutClick = useCallback(() => {
     onLogoutClick();
     setIsOpen(false);
+    router.refresh();
   }, [onLogoutClick]);
 
   const [avatarError, setAvatarError] = useState(false);

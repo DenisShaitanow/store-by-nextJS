@@ -15,7 +15,6 @@ import { selectUserLoading } from '../../services/selectors/user-selectors/user-
 import { selectUser } from '../../services/selectors/user-selectors/user-selectors';
 import { checkUserAuth } from '../../services/thunks/user';
 import { ThemeContext } from '../(themeContext)/ThemeContext';
-import { getProducts } from '../../services/thunks/userUIData/userUIData-thunks';
 import { IServerUser } from '../../services/api';
 import { setUserSlice2 } from '../../services/slices/userUIData';
 import { setUserSlice1 } from '../../services/slices/user/userSlice';
@@ -35,7 +34,6 @@ export default function MainLayoutClient({ children, user, isAuth }: MainLayoutC
 
   // Проверяем, страница ли это регистрации/логина
   const isRegistrationPage = pathname === '/registration' || pathname === '/auth';   
-  const isLoading: boolean = useAppSelector(selectUserLoading) || false;
  
 
   const handleLogin = () => {
@@ -50,6 +48,7 @@ export default function MainLayoutClient({ children, user, isAuth }: MainLayoutC
     dispatch(logoutUser());
   };
 
+
   useEffect(() => {
     dispatch(setUserSlice1(user));
     dispatch(setUserSlice2(user));
@@ -57,9 +56,8 @@ export default function MainLayoutClient({ children, user, isAuth }: MainLayoutC
 
   return (
     <>
-      {isLoading ? (
-        <SpinnerPulse className={styles.spinner} />
-      ) : (
+      
+      
         <div className={styles.layout}>
           {!isRegistrationPage && (
             <HeaderUI
@@ -75,7 +73,7 @@ export default function MainLayoutClient({ children, user, isAuth }: MainLayoutC
           )}
           {children}
         </div>
-      )}
+      
     </>
   );
 }

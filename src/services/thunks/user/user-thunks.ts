@@ -23,7 +23,7 @@ export const registerUser = createAsyncThunk<
 >('user/register', async (data, { rejectWithValue }) => {
   try {
     const response = await mockedRegisterUserApi(data);
-    localStorage.setItem('refreshToken', response.refreshToken);
+    
     return { user: response.user, id: response.id, userAlreadyReg: response.userAlreadyReg };
   } catch (err) {
     return rejectWithValue('Ошибка при регистрации');

@@ -19,6 +19,7 @@ import { CheckboxGroupUI } from '../(components)/checkbox';
 import { CheckboxDropdown } from '../(components)/checkboxDropdown';
 import { SpinnerPulse } from '../(components)/spinnerPulse';
 
+
 const categoryMapping: string[] = [
   't-shirts',
   'shoes',
@@ -41,7 +42,7 @@ interface HomePageClientProps {
 
 export default function HomePageClient(props: HomePageClientProps) {
 
-
+  const [SpinnerDone, setSpinnerDone] = useState<Boolean>(true);
   const productsContainer = useRef<HTMLDivElement>(null);
   const productCard = useRef<HTMLDivElement>(null);
   const productsContainerWidth = productsContainer.current?.clientWidth;
@@ -78,6 +79,7 @@ export default function HomePageClient(props: HomePageClientProps) {
       const containerWidth = productsContainer.current.clientWidth;
       const visibleCardsCount = calculateVisibleProductsCount(containerWidth);
       setProductsToShow(filteredProducts.slice(0, visibleCardsCount));
+      setSpinnerDone(false)
     }
   }, [filteredProducts, productsContainer]);
 
@@ -150,6 +152,8 @@ export default function HomePageClient(props: HomePageClientProps) {
         <meta name="description" content="Store Things" />
         <meta name="robots" content="noindex, follow" />
       </Head>
+
+      
       <div className={styles.rowContainer}>
         <div className={styles.containerFixed}>
           <div className={styles.filters}>
@@ -181,7 +185,8 @@ export default function HomePageClient(props: HomePageClientProps) {
           </div>
         </div>
         <span className={styles.greyLine}></span>
-        <div className={styles.products} ref={productsContainer}>
+        <SpinnerPulse className={`${SpinnerDone ? '' : styles.hide}`}/> 
+        <div className={`${styles.products} ${SpinnerDone ? styles.hide : ''}`} ref={productsContainer}>
           <>
             {/* Первая карточка с установленным рефом */}
             <ProductCard
@@ -217,12 +222,13 @@ export default function HomePageClient(props: HomePageClientProps) {
             ))}
           </>
         </div>
-      </div>
+      </div> 
       {isLoadingMore && (
         <div className={styles.spinnerContainer}>
           <SpinnerPulse className={styles.spinnerLoadCards} />
         </div>
       )}
+      
     </>
   );
 }

@@ -99,9 +99,16 @@ const RegistrationClient: FC = () => {
     
     await dispatch(registerUser(regData));
     
-    router.push('/');
-    router.refresh();
+    /*router.push('/');*/
+    window.location.href = '/';
+    
   };
+
+  useEffect(() => {
+    console.log('🔵 MOUNTED');
+    return () => console.log('🔴 UNMOUNTED');
+  }, []);
+
 
   if (!isMounted) {
     return null;

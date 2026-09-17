@@ -61,12 +61,7 @@ const FormOrderClient: FC = () => {
     setIsMounted(true);
   }, []);
 
-  // Сохраняем в localStorage
-  useEffect(() => {
-    if (isMounted) {
-      localStorage.setItem('orderForm', JSON.stringify(formData));
-    }
-  }, [formData, isMounted]);
+
 
   // Валидация при монтировании
   useEffect(() => {
@@ -144,6 +139,7 @@ const FormOrderClient: FC = () => {
 
   const handleBuy = () => {
     dispatch(doOrder(formData));
+    console.log(formData)
     router.push('/orderComplited');
   };
 
