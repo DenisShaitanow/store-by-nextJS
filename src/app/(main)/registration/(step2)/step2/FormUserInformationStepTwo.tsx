@@ -39,7 +39,6 @@ export const FormUserInformationStepTwo: FC<FormUserInformationStepTwoProps> = (
     if (files && files.length > 0) {
       const selectedFile = files[0]; // Берём первый файл
       changeAvatarUrl(selectedFile);
-      console.log(URL.createObjectURL(selectedFile));
     }
   };
 

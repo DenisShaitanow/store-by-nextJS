@@ -47,7 +47,7 @@ const userUIDataSlice = createSlice({
     },
     setUserSlice2: (state: IUserState, action: PayloadAction<IServerUser | null>) => {
       if (action.payload) {
-        state.favoriteItems = action.payload.favoriteItems;
+        state.favoriteItems = action.payload.favoriteItems.map(item => ({ ...item, isLiked: true }));
         state.notifications = action.payload.notifications;
         state.basket = action.payload.basket;
       } else {
@@ -56,7 +56,7 @@ const userUIDataSlice = createSlice({
       
     },
     addAndDeleteToFavoriteItems: (state: IUserState, action: PayloadAction<IProduct[]>) => {
-      state.favoriteItems = action.payload
+      state.favoriteItems = action.payload.map(item => ({ ...item, isLiked: true }));
     },
 
    

@@ -15,11 +15,11 @@ import { type RegistrationData } from '../../../types';
 // Регистрация пользователя
 export const registerUser = createAsyncThunk<
   {
-    user: RegistrationData | null;
+    user: RegistrationData;
     id: string;
     userAlreadyReg: boolean;
   },
-  RegistrationData
+  {regData: RegistrationData, avatarFile: File | null}
 >('user/register', async (data, { rejectWithValue }) => {
   try {
     const response = await mockedRegisterUserApi(data);
@@ -31,6 +31,7 @@ export const registerUser = createAsyncThunk<
 });
 
 // изменение данных пользователя в личном кабинете
+/*
 export const changeDataInPersonalCabinet = createAsyncThunk<
   {
     user: RegistrationData | null;
@@ -43,12 +44,12 @@ export const changeDataInPersonalCabinet = createAsyncThunk<
       ? response.accessToken.slice(7)
       : response.accessToken;
     setCookie('accessToken', accessToken);
-    /*localStorage.setItem('refreshToken', response.refreshToken);*/
+    /*localStorage.setItem('refreshToken', response.refreshToken);
     return { user: response.user };
   } catch (err) {
     return rejectWithValue('Ошибка при регистрации');
   }
-});
+});*/
 
 // Логин пользователя
 export const loginUser = createAsyncThunk<
@@ -93,11 +94,14 @@ export const checkUserAuth = createAsyncThunk(
 );
 
 // Обновление данных пользователя
-export const updateUser = createAsyncThunk<RegistrationData, RegistrationData>(
+export const updateUser = createAsyncThunk<
+  RegistrationData,
+  { userData: RegistrationData; avatarFile: File | null }
+>(
   'user/update',
-  async (data, { rejectWithValue }) => {
+  async ({ userData, avatarFile }, { rejectWithValue }) => {
     try {
-      const response = await updateUserData(data);
+      const response = await updateUserData({ userData, avatarFile });
       return response;
     } catch (err) {
       return rejectWithValue(err);

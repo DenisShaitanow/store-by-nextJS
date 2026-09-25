@@ -1,8 +1,11 @@
-
+import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import path from 'path';   
+import fs from 'fs';      
+
 
 import { Request, Response } from 'express';
 
@@ -1203,6 +1206,7 @@ app.use(cors({
 }));
 app.use(express.json()); 
 app.use(cookieParser());
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
 app.use((req, res, next) => {
   console.log(`\n🔵 ${req.method} ${req.url}`);
@@ -1210,6 +1214,31 @@ app.use((req, res, next) => {
   console.log('📦 Body:', req.body);
   console.log('Cookies:', req.cookies)
   next();
+});
+
+// Папка для аватарок
+const uploadDir = path.join(process.cwd(), 'uploads', 'avatars');
+fs.mkdirSync(uploadDir, { recursive: true }); // создаём, если нет
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase(); // .jpg, .png
+    cb(null, `${uuidv4()}${ext}`);
+  },
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5 МБ
+  fileFilter: (req, file, cb) => {
+    if (!file.mimetype.startsWith('image/')) {
+      return cb(new Error('Только изображения'));
+    }
+    cb(null, true);
+  },
 });
 
 
@@ -1254,7 +1283,7 @@ const authMiddleware = (req, res, next) => {
 
 app.post('/api/auth/me', (req, res: Response<{auth: boolean, user: IServerUser}>) => {
   const successToken = req.body.successToken;
-  console.log(successToken)
+ 
   
   if (!successToken) {
     return res.status(401).json({ 
@@ -1289,9 +1318,8 @@ app.post('/api/products', (req, res) => {
   const userAccessTokenBase = user?.successToken;
   
     
-    if (user && successToken === userAccessTokenBase) {
+    if (user && successToken === userAccessTokenBase && userAccessTokenBase) {
             const favoriteIds = new Set(user.favoriteItems.map(item => item.id));
-            const userFavoriteProducts = user.favoriteItems || [];
             const userProducts = products.map(product => ({
             ...product,
             isLiked: favoriteIds.has(product.id) 
@@ -1372,20 +1400,21 @@ app.get('/api/getBasket', authMiddleware, (req, res) => {
 }
 )
 
-app.post('/api/registerUser', (req: Request<{}, {}, RegistrationData>, res) => {
+
+
+app.post('/api/registerUser',upload.single('avatar'), (req, res) => {
   
   const fakeSuccessToken = uuidv4();
   const fakeRefreshToken = uuidv4();
   const dateCreateRefreshToken = Date.now();
   const userId = uuidv4();
+ 
+  
+  let newInfo: RegistrationData;
+  newInfo = JSON.parse(req.body.data);
 
-  res.cookie('successToken', fakeSuccessToken, {
-    maxAge: 18000000, 
-    httpOnly: true
-  });
-
-  if (req.body) {
-    const user = BASE.find(item => item.profile.email === req.body.email)
+  if (newInfo) {
+    const user = BASE.find(item => item.profile.email === newInfo.email)
     if (user) {
       res.status(200).json({
         success: false,
@@ -1396,19 +1425,41 @@ app.post('/api/registerUser', (req: Request<{}, {}, RegistrationData>, res) => {
         userAlreadyReg: true
       })
     }
-    const newUser: IServerUser = {
-      id: userId,
-      profile: req.body,
-      refreshToken: fakeRefreshToken,
-      dateCreateRefreshToken: dateCreateRefreshToken,
-      successToken: fakeSuccessToken,
-      basket: [],
-      favoriteItems: [],
-      orders: [],
-      notifications: []
-    };
+   
+
+    
+  
+  if (req.file) {
+
+    newInfo.avatar = `/uploads/avatars/${req.file.filename}`;
+  } 
+
+  const newUser: IServerUser = {
+    id: userId,
+    profile: req.body,
+    refreshToken: fakeRefreshToken,
+    dateCreateRefreshToken: dateCreateRefreshToken,
+    successToken: fakeSuccessToken,
+    basket: [],
+    favoriteItems: [],
+    orders: [],
+    notifications: []
+  };
+
+
+  newUser.profile = newInfo;
+
+
+  console.log(newInfo.avatar)
+
+  
 
       BASE = [...BASE, newUser]
+
+      res.cookie('successToken', fakeSuccessToken, {
+        maxAge: 18000000, 
+        httpOnly: true
+      });
 
     res.status(200).json({
       success: true,
@@ -1522,7 +1573,6 @@ app.post('/api/toogleLikeCard', authMiddleware, ( req: Request<{}, {}, {productI
     user.favoriteItems = user.favoriteItems.filter(item => item.id !== productId);
   } else {
     // Добавляем
-    productLiked.isLiked = true;
     user.favoriteItems.push(productLiked!);
   }
   res.status(200).json({ favoritItems: user.favoriteItems });
@@ -1598,21 +1648,45 @@ app.post('/api/DoOrder', (req, res) => {
 
 })
 
-app.post('/api/updateUser', (req, res) => {
+app.post('/api/updateUser', upload.single('avatar'), (req, res) => {
   const successToken = req.cookies.successToken;
-  
   const user = BASE.find(u => u.successToken === successToken);
 
+ 
+
   if (!user) {
-    res.status(401).json({message: 'Пользователь не найден'})
+    return res.status(401).json({ message: 'Пользователь не найден' });
   }
+
+  // 1. Парсим данные — они пришли строкой JSON в поле 'data'
+  let newInfo: RegistrationData;
   
-  const newInfo = req.body as RegistrationData;
+  try {
+    newInfo = JSON.parse(req.body.data);
+  } catch {
+    return res.status(400).json({ message: 'Некорректные данные' });
+  }
 
-  user!.profile = newInfo;
+  // 2. Если пришёл файл — обновляем avatar
+  if (req.file) {
+    // Удаляем старый файл, если он был локальным (не внешний URL)
+    const oldAvatar = user.profile.avatar;
+    if (oldAvatar && oldAvatar.startsWith('/uploads/')) {
+      const oldPath = path.join(process.cwd(), oldAvatar);
+      fs.unlink(oldPath, () => {}); // удаляем асинхронно, ошибку игнорируем
+    }
 
-  res.status(200).json(user?.profile)
-})
+    newInfo.avatar = `/uploads/avatars/${req.file.filename}`;
+  } else {
+    // Файл не пришёл — оставляем старый avatar
+    newInfo.avatar = user.profile.avatar;
+  }
+
+  // 3. Обновляем профиль
+  user.profile = newInfo;
+
+  res.status(200).json(user.profile);
+});
 
 
 

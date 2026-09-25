@@ -23,32 +23,19 @@ const PersonalCabinetPage: FC = () => {
     setIsMounted(true);
   }, []);
 
-  // Безопасное получение данных из localStorage
-  const getLocalStorageUser = (): RegistrationData | undefined => {
-    if (typeof window === 'undefined') return undefined;
 
-    const localStorageUser = localStorage.getItem('regData');
-    if (localStorageUser) {
-      try {
-        return JSON.parse(localStorageUser);
-      } catch {
-        return undefined;
-      }
-    }
-    return undefined;
-  };
 
-  const parsedLocalStorageUser = getLocalStorageUser();
 
+  const [avatarFile, setAvatarFile] = useState<File | null>(null)
   const [personalCabinetData, setPersonalCabinetData] = useState<RegistrationData>({
     email: user?.email ?? '',
-    password: user?.password || parsedLocalStorageUser?.password || '',
-    name: user?.name || parsedLocalStorageUser?.name || '',
-    surname: user?.surname || parsedLocalStorageUser?.surname || '',
-    avatar: user?.avatar || parsedLocalStorageUser?.avatar || '',
-    gender: user?.gender || parsedLocalStorageUser?.gender || '',
-    location: user?.location || parsedLocalStorageUser?.location || '',
-    birthdayDate: user?.birthdayDate || parsedLocalStorageUser?.birthdayDate || '',
+    password: user?.password  || '',
+    name: user?.name || '',
+    surname: user?.surname  || '',
+    avatar: user?.avatar || '',
+    gender: user?.gender || '',
+    location: user?.location || '',
+    birthdayDate: user?.birthdayDate || '',
   });
 
   const handleChangeName = (val: string) => {
@@ -79,6 +66,7 @@ const PersonalCabinetPage: FC = () => {
   };
 
   const handleAvatar = (newImage: File) => {
+    setAvatarFile(newImage);
     setPersonalCabinetData((prev) => ({
       ...prev,
       avatar: URL.createObjectURL(newImage),
@@ -90,10 +78,8 @@ const PersonalCabinetPage: FC = () => {
   };
 
   const handleUpdatePersonalInformation = () => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('regData', JSON.stringify(personalCabinetData));
-    }
-    dispatch(updateUser(personalCabinetData));
+    
+    dispatch(updateUser({userData: personalCabinetData, avatarFile: avatarFile}));
     router.back();
   };
 

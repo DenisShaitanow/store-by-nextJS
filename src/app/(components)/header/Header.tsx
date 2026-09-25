@@ -16,6 +16,7 @@ import { UserDropdownMenu } from '../userDropdownMenu';
 import type { RegistrationData } from '../../../types';
 import { useEffect, useContext } from 'react';
 import { ThemeContext } from '../../(themeContext)/ThemeContext';
+import { selectUserAvatar, selectUser } from '../../../services/selectors/user-selectors/user-selectors';
 
 import { useAppSelector } from '../../../services/hooks';
 
@@ -54,10 +55,19 @@ export const HeaderUI = ({
     birthdayDate: '',
   };
 
-  const avatarUrl =
+  /*const avatarUrl =
     user && user.avatar ? user.avatar : regData && regData.avatar ? regData.avatar : '';
+*/
+let avatarUrl = '';
+const userState = useAppSelector(selectUser);
+
+if (userState) {
+  avatarUrl = userState.avatar;
+}
+
 
   const handleFavorits = () => {
+    router.refresh();
     router.push('/favorits');
   };
 

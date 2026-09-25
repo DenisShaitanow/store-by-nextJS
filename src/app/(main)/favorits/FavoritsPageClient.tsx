@@ -53,9 +53,10 @@ export default function FavoritesPageClient() {
     setIsMounted(true);
   }, [dispatch]);
 
-  const products: IProduct[] = useAppSelector(selectFavorirsProducts);
+  let products: IProduct[] = useAppSelector(selectFavorirsProducts);
   const noProducts: boolean = products.length > 0;
 
+  
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
       if (selectedCategoriesData.length > 0 && !selectedCategoriesData.includes(product.category)) {

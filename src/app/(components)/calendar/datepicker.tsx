@@ -62,9 +62,6 @@ export const SimpleDatePicker = ({
     initialSelectedRef.current = selected ?? null;
   }, [selected]);
 
-  useEffect(() => {
-    console.log(value);
-  }, [value]);
 
   // Обновляем только локальное состояние .
   const handleChange = (d: Date | null) => {

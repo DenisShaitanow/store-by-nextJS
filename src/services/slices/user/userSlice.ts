@@ -36,6 +36,9 @@ const userSlice = createSlice({
       if (action.payload) {
         state.user = action.payload.profile;
         state.isAuth = true;
+        if (action.payload.profile.avatar) {
+          state.user= {...action.payload!.profile, avatar: 'http://localhost:5000' + action.payload.profile.avatar}
+        }
       } else {
         return
       }
@@ -55,6 +58,10 @@ const userSlice = createSlice({
         state.user = action.payload!.user.profile;
         state.isAuth = true;
         state.isAuthChecked = true;
+        if (state.user.avatar) {
+          const avatar =state.user.avatar;
+          state.user = {...action.payload!.user.profile, avatar: 'http://localhost:5000' + avatar}
+        }
       })
       .addCase(checkUserAuth.rejected, (state, action) => {
         state.loading = false;
@@ -68,14 +75,14 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        console.log('est auth');
+   
         state.loading = false;
         state.user = action.payload.user;
         state.id = action.payload.id;
         state.isAuth = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
-        console.log('net auth');
+   
         state.loading = false;
         state.isAuth = false;
         state.error = action.payload as string;
@@ -88,15 +95,21 @@ const userSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         if (action.payload.userAlreadyReg) {
-          /*dodelat pozge*/
+         
           console.error('Пользователь с такой почтой уже существует');
+          alert('Пользователь с такой почтой уже существует')
           state.loading = false;
           state.isAuth = false;
         } else {
           state.loading = false;
           state.user = action.payload.user;
+      
           state.id = action.payload.id;
           state.isAuth = true;
+          if (state.user.avatar) {
+            const avatar = state.user.avatar;
+            state.user = {...action.payload!.user, avatar: 'http://localhost:5000' + avatar}
+          }
         }
       })
       .addCase(registerUser.rejected, (state, action) => {
@@ -130,7 +143,10 @@ const userSlice = createSlice({
       .addCase(updateUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
-        console.log(action.payload);
+        const avatar = action.payload.avatar;
+        if (state.user.avatar) {
+          state.user = {...action.payload, avatar: 'http://localhost:5000' + avatar}
+        }
       })
       .addCase(updateUser.rejected, (state, action) => {
         state.loading = false;

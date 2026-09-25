@@ -146,21 +146,29 @@ export const refreshToken = (): Promise<{ success: boolean }> => {
 const fakeAccessToken = 'fake_access_token';
 const fakeRefreshToken = 'fake_refresh_token';
 
+
+
 // ServerFunction
-export function mockedRegisterUserApi(data: RegistrationData): Promise<{
+export function mockedRegisterUserApi(data:  {regData: RegistrationData, avatarFile: File | null}): Promise<{
   success: boolean;
   refreshToken: string;
   user: RegistrationData;
   id: string;
   userAlreadyReg: boolean;
 }> {
+  const formData = new FormData();
+
+  formData.append('data', JSON.stringify(data.regData));
+  if (data.avatarFile) {
+    formData.append('avatar', data.avatarFile);
+  }
+
+  
+
   return fetch(`${API_URL}/registerUser`, {
     method: 'POST',
     credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
+    body: formData,
   })
     .then(async (response) => {
       if (!response.ok) {
@@ -339,25 +347,27 @@ export const toggleLikeApi = async (
   }
 };
 
-export const updateUserData = async (data: RegistrationData): Promise<RegistrationData> => {
-  try {
-    const response = await fetch(`${API_URL}/updateUser`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-      body: JSON.stringify(data),
-    });
+export const updateUserData = async (payload: {
+  userData: RegistrationData;
+  avatarFile: File | null;
+}): Promise<RegistrationData> => {
+  const formData = new FormData();
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message);
-    }
-
-    const dat = (await response.json()) as RegistrationData;
-    return dat;
-  } catch (err) {
-    throw err;
+  formData.append('data', JSON.stringify(payload.userData));
+  if (payload.avatarFile) {
+    formData.append('avatar', payload.avatarFile);
   }
+
+  const response = await fetch(`${API_URL}/updateUser`, {
+    method: 'POST',
+    credentials: 'include',
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
+
+  return (await response.json()) as RegistrationData;
 };

@@ -6,3 +6,4 @@ export const selectIsAuthChecked = (state: TRootState) => state.user.isAuthCheck
 export const selectIsAuth = (state: TRootState) => state.user.isAuth;
 export const selectUserLoading = (state: TRootState) => state.user.loading;
 export const selectUserError = (state: TRootState) => state.user.error;
+export const selectUserAvatar = (state: TRootState) => state.user.user.avatar;

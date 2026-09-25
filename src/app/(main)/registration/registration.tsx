@@ -97,17 +97,12 @@ const RegistrationClient: FC = () => {
 
   const handleClickRegistrationButton = async () => {
     
-    await dispatch(registerUser(regData));
-    
+    await dispatch(registerUser({regData: regData, avatarFile: avatar}));
+  
     /*router.push('/');*/
     window.location.href = '/';
     
   };
-
-  useEffect(() => {
-    console.log('🔵 MOUNTED');
-    return () => console.log('🔴 UNMOUNTED');
-  }, []);
 
 
   if (!isMounted) {
