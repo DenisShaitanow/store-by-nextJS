@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import CardPageClient from './CardPageClient';
 import { GetProductApi } from '../../../../services/api';
 
@@ -36,24 +36,21 @@ export async function generateMetadata({
 }
 
 interface Props {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 export default async function CardPage({ params }: Props) {
   const { id } = await params;
-
+  
   try {
     const product = await GetProductApi({ id });
-
-    // Если продукта нет — редирект
-    if (!product) {
-      redirect('/404');
-    }
+    
+    
 
     return <CardPageClient initialProduct={product} />;
   } catch (error) {
-    redirect('/404');
-  }
+    console.log('dddddddddd')
+    notFound();
+    
+}
 }

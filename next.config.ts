@@ -2,6 +2,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  
   // ✅ Для Turbopack
   turbopack: {
     rules: {
@@ -10,6 +11,9 @@ const nextConfig: NextConfig = {
         as: '*.js',
       },
     },
+  },
+  experimental: {
+    globalNotFound: true,
   },
   
   // ✅ Для webpack
