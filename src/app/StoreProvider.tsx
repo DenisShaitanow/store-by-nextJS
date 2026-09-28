@@ -9,6 +9,6 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   if (!storeRef.current) {
     storeRef.current = makeStore();
   }
-  const store = makeStore();
+ 
   return <Provider store={storeRef.current}>{children}</Provider>;
 }
