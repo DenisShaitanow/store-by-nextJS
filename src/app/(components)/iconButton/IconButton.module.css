@@ -17,6 +17,10 @@
     transform 0.1s ease-in-out;
 }
 
+.button svg {
+  fill: var(--text-color);
+}
+
 .button:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;

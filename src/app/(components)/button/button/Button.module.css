@@ -12,7 +12,7 @@
   border: none;
   border-radius: 16px;
   cursor: pointer;
-  transition: color 0.3s ease-in-out;
+  transition: color 0.1s ease-in-out;
 }
 
 .button:hover {
@@ -44,7 +44,7 @@
   border-color: var(--accent-color);
   border-radius: 16px;
   cursor: pointer;
-  transition: color 0.3s ease-in-out;
+  transition: color 0.1s ease-in-out;
 }
 
 .button.secondary:hover {
